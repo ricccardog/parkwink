@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { CarsComponent } from './cars/cars.component';
+import { Car } from './cars';
+import { CARS } from './mock-cars';
 
 @Component({
   selector: 'app-root',
@@ -9,3 +10,6 @@ import { CarsComponent } from './cars/cars.component';
 export class AppComponent {
   title = 'ParkWiNK';
 }
+
+
+
