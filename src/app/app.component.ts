@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Car } from './cars';
-import { CARS } from './mock-cars';
 
 @Component({
   selector: 'app-root',

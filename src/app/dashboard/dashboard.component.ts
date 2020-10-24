@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CARS } from '../mock-cars';
 
 @Component({
   selector: 'app-dashboard',

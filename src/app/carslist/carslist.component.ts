@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CARS } from '../mock-cars';
-import { Car, extraCar } from '../cars';
+import { Car } from '../cars';
 
 
 
@@ -13,18 +13,25 @@ import { Car, extraCar } from '../cars';
 
 export class CarslistComponent implements OnInit {
 
-  cars = CARS; 
-  extraCar= new extraCar();
+  car = {} as Car;
+  
+  
+  get cars() {
+    return CARS;
+  }
 
-
-  constructor() {}
+  constructor() {
+    
+  }
 
   ngOnInit(): void {
   }
 
   addCar(): void{
-    this.extraCar.id=CARS.length;
-    CARS.push(this.extraCar);
+    this.car.id = CARS.length +1;
+    CARS.push(this.car);
+    this.car = {} as Car;
+
   }
 
 }

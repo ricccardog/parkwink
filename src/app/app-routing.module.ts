@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CarslistComponent } from './carslist/carslist.component';
 import { RentalsComponent } from './rentals/rentals.component';
 import { CustomersComponent } from './customers/customers.component';
+import { FormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component'
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+  FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
