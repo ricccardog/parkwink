@@ -13,8 +13,7 @@ import { CarService } from '../car.service';
 
 export class CarslistComponent implements OnInit {
 
-  cars: Car[];
-  car = {} as Car;
+  cars: Car[]; //per far funzionare l'observable
   hiddenMenu= true;
   
  
@@ -28,7 +27,7 @@ export class CarslistComponent implements OnInit {
 
   getCars() : void {
     this.carService.getCars()
-        .subscribe(cars => this.cars = cars) ;
+        .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable
   }
 
  expandMenu(){

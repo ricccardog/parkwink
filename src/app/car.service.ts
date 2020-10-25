@@ -11,7 +11,7 @@ export class CarService {
   constructor() { }
 
 
-getCars() : Observable<Car[]> {
+getCars() : Observable<Car[]> { //il metodo ritorna un observable di array cars
 
   return of(CARS);
 }
