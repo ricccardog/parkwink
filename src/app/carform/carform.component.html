@@ -1,0 +1,31 @@
+
+<input id="name" type="text" name="name" class="form-control" required 
+[(ngModel)]="car.name" #name="ngModel" placeholder="Name">
+
+<input id="model" type="text" name="model" class="form-control" required
+[(ngModel)]="car.model" #model="ngModel" placeholder="Model">
+
+<input id="creationDate" type="Date" name="creationDate" class="form-control" required
+[(ngModel)]="car.creationDate" #creationDate="ngModel" placeholder="Date">
+
+<input id="price" type="number" name="price" class="form-control" required
+[(ngModel)]="car.price" #price="ngModel" placeholder="0">
+
+<!-- CODICE INUTILE DAL MOMENTO CHE IL BOTTONE VIENE DISABILITATO SE NON VENGONO RIEMPITI I CAMPI
+<div *ngIf="name.invalid && (name.dirty || name.touched)"
+class="alert alert-danger">
+<div *ngIf="name.errors.required"> Name is required. </div>
+</div>
+
+<div *ngIf="model.invalid && (model.dirty || model.touched)"
+class="alert alert-danger">
+<div *ngIf="model.errors.required"> Model is required. </div>
+</div>
+
+<div *ngIf="price.invalid && (price.dirty || price.touched)"
+class="alert alert-danger">
+<div *ngIf="price.errors.required"> Price is required. </div>
+</div>
+-->
+
+<button (click)="addCar()" [disabled]="!name.valid || !model.valid || !creationDate.valid || !price.valid"> Add Car </button>

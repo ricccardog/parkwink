@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { CarslistComponent } from './carslist/carslist.component';
 import { RentalsComponent } from './rentals/rentals.component';
 import { CustomersComponent } from './customers/customers.component';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CarformComponent } from './carform/carform.component';
+import { CarslistComponent } from './carslist/carslist.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +21,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CarslistComponent,
     RentalsComponent,
     CustomersComponent,
-    DashboardComponent
+    DashboardComponent,
+    CarformComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
