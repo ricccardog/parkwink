@@ -1,14 +1,36 @@
-<form #newCar="ngForm">
+<ng-template #content let-activeModal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="car-modal-title"> Add Car </h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">X</span>
+        </button>
+    </div>
 
-<input type="text" id="carName" name="carName" placeholder="Name" required 
-    #carName="ngModel" [(ngModel)]="car.name">
-<input type="text" id="carModel" name="carModel" placeholder="Model" required 
-    #car;odel="ngModel" [(ngModel)]="car.model">
-<input type="date" id="carDate" name="carDate" placeholder="1987, 23, 2" required 
-    #carDate="ngModel" [(ngModel)]="car.creationDate">
-<input type="number" id="carérice" name="carPrice" placeholder="100" required 
-    #carPrice="ngModel" [(ngModel)]="car.price">
+    <div class="modal-body">
+        
+    
+    <form #newCar="ngForm">
 
-</form>
+    <input type="text" id="carName" name="carName" placeholder="Name" required 
+        #carName="ngModel" [(ngModel)]="car.name">
+    
+    <input type="text" id="carModel" name="carModel" placeholder="Model" required 
+        #car;odel="ngModel" [(ngModel)]="car.model">
 
-<button (click)="addCar()" [disabled]="!newCar.valid">Add</button>
+    <input type="date" id="carDate" name="carDate" required 
+        #carDate="ngModel" [(ngModel)]="car.creationDate">
+
+    <input type="number" id="carérice" name="carPrice" placeholder="000" required 
+        #carPrice="ngModel" [(ngModel)]="car.price">
+
+    </form>
+
+    </div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addCar()" [disabled]="!newCar.valid" >Add</button>
+</div>
+
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)"> <b>+</b> Add car</button>

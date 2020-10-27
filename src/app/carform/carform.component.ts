@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CARS } from '../mock-cars';
-import { FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-carform',
@@ -10,23 +10,31 @@ import { FormsModule } from '@angular/forms';
 })
 export class CarformComponent implements OnInit {
 
+
+  closeResult = '';
+  
   car = {} as Car;
   
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
+  
 
+
+  
   ngOnInit(): void {
   }
-
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'car-modal-title'})
+    
+  }
+  
   
   addCar(): void{
     this.car.id = CARS.length +1;
     CARS.push(this.car);
-    this.car = {} as Car;
+    this.car = {} as Car; 
+    this.modalService.dismissAll(); //chiude il modale
   }
-
-  checker(){
-    console.log(this.car);
-  }
+  
 
 }
 

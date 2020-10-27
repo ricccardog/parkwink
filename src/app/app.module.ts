@@ -23,7 +23,7 @@ import { CarslistComponent } from './carslist/carslist.component';
     CustomersComponent,
     DashboardComponent,
     CarformComponent
-  ],
+    ],
   
   imports: [
     BrowserModule,

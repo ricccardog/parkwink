@@ -13,6 +13,6 @@ export class CarService {
 
 getCars() : Observable<Car[]> { //il metodo ritorna un observable di array cars
 
-  return of(CARS);
+  return of(CARS); //prende dal mock CARS usando "of"
 }
 }
