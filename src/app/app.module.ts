@@ -29,7 +29,8 @@ import { CarslistComponent } from './carslist/carslist.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

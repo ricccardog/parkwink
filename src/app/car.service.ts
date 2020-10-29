@@ -10,9 +10,9 @@ export class CarService {
 
   constructor() { }
 
+  getCars(searchTerm: string = '') : Observable<Car[]> { //il metodo ritorna un observable di array cars
+    const term = searchTerm.toLowerCase();
+    return of(CARS.filter(c => c.name.toLowerCase().includes(searchTerm) || searchTerm === '')); //prende dal mock CARS usando "of"
+  }
 
-getCars() : Observable<Car[]> { //il metodo ritorna un observable di array cars
-
-  return of(CARS); //prende dal mock CARS usando "of"
-}
 }

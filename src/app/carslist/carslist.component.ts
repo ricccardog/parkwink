@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Car } from '../cars';
 import { CarService } from '../car.service';
+import { Observable } from 'rxjs';
+
+
 
 
 
@@ -14,7 +17,7 @@ import { CarService } from '../car.service';
 export class CarslistComponent implements OnInit {
 
   cars: Car[]; //cars è un array di oggetti car (per observable)
-  
+  searchTerm= '';
   constructor(private carService : CarService) {
     
   }
@@ -25,10 +28,9 @@ export class CarslistComponent implements OnInit {
 
 
   getCars() : void {
-    this.carService.getCars()
+    this.carService.getCars(this.searchTerm)
         .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable
   }
-
  
 
 }

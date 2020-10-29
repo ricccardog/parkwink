@@ -12,7 +12,7 @@ export class CarformComponent implements OnInit {
 
 
   closeResult = '';
-  
+    
   car = {} as Car;
   
   constructor(private modalService: NgbModal) { }
