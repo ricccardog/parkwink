@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Car } from '../cars';
 import { CARS } from '../mock-cars';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,15 +10,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CarformComponent implements OnInit {
 
+  @Output() close = new EventEmitter<void>(); //permette al child di richiamare un metodo del parent
 
   closeResult = '';
     
   car = {} as Car;
   
   constructor(private modalService: NgbModal) { }
-  
-
-
   
   ngOnInit(): void {
   }
@@ -27,12 +25,12 @@ export class CarformComponent implements OnInit {
     
   }
   
-  
-  addCar(): void{
+  addCar(): void {
     this.car.id = CARS.length +1;
     CARS.push(this.car);
     this.car = {} as Car; 
     this.modalService.dismissAll(); //chiude il modale
+    this.close.emit(); //con emit si crea l'evento che poi viene usato per richiamare il metodo del parent
   }
   
 

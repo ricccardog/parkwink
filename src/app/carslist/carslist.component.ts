@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Car } from '../cars';
 import { CarService } from '../car.service';
-import { Observable } from 'rxjs';
-
 
 
 
@@ -17,7 +15,8 @@ import { Observable } from 'rxjs';
 export class CarslistComponent implements OnInit {
 
   cars: Car[]; //cars è un array di oggetti car (per observable)
-  searchTerm= '';
+  searchText= '';
+
   constructor(private carService : CarService) {
     
   }
@@ -26,10 +25,17 @@ export class CarslistComponent implements OnInit {
     this.getCars();
   }
 
+  onSearch() {
+    this.getCars();
+  }
 
-  getCars() : void {
-    this.carService.getCars(this.searchTerm)
+  getCars(searchText?: string) : void {
+    this.carService.getCars(searchText)
         .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable
+  }
+
+  onModalClose() { //questo metodo viene richiamato da carform come @Output
+    this.getCars();
   }
  
 

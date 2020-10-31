@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import { CUSTOMERS } from '../mock-customers';
+import { Customer } from '../customers';
+import { CustomerService } from '../customer.service';
 
 
 @Component({
@@ -8,13 +10,20 @@ import { CUSTOMERS } from '../mock-customers';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
-export class CustomersComponent implements OnInit {
+export class CustomersComponent  implements OnInit{
 
-  customers= CUSTOMERS;
+  customers: Customer[];
+  customerControl = new FormControl('');
   
-  constructor() { }
+
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
+    this.getCustomers();
   }
- 
+
+  getCustomers() : void {
+    this.customerService.getCustomers()
+        .subscribe(customers => this.customers = customers) ;
+  }
 }

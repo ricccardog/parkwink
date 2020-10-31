@@ -8,11 +8,13 @@ import { Observable,of } from 'rxjs';
 })
 export class CarService {
 
+
+
   constructor() { }
 
-  getCars(searchTerm: string = '') : Observable<Car[]> { //il metodo ritorna un observable di array cars
-    const term = searchTerm.toLowerCase();
-    return of(CARS.filter(c => c.name.toLowerCase().includes(searchTerm) || searchTerm === '')); //prende dal mock CARS usando "of"
-  }
+  getCars(text?: string) : Observable<Car[]> { //il metodo ritorna un observable di array cars
+    const term = (text || '').toLowerCase(); //se text è definito usa quello sennò usa una stringa vuota
+    return of(CARS.filter(car => car.name.toLowerCase().includes(term) || term === '')); 
+  } //filtra CARS cercando term o in alternativa setta term come stringa vuota restituendo il tutto
 
 }
