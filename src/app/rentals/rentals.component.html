@@ -1,3 +1,10 @@
 <h1> Rentals: WORK IN PROGRESS </h1>
 
-<div> Qui devo collegare la lista d'auto a quella di utenti in qualche modo che scoprirò man mano </div>
+<div *ngFor="let rental of rentals">
+     {{rental.id}}
+     {{rental.car}}
+     {{rental.user}}
+    <b>from</b> {{rental.fromDate | date :'dd / MM / yyyy'}}
+    <b>to</b>  {{rental.toDate | date :'dd / MM / yyyy'}}
+     {{rental.price}}
+</div>

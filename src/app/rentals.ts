@@ -4,5 +4,6 @@ export interface Rentals {
     user: string;
     fromDate: Date;
     toDate: Date;
-    price: number
+    price: number;
 }
+
