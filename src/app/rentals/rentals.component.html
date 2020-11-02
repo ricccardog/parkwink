@@ -1,5 +1,7 @@
 <h1> Rentals: WORK IN PROGRESS </h1>
 
+<app-rental-modal></app-rental-modal>
+
 <div *ngFor="let rental of rentals">
      {{rental.id}}
      {{rental.car}}
@@ -8,3 +10,4 @@
     <b>to</b>  {{rental.toDate | date :'dd / MM / yyyy'}}
      {{rental.price}}
 </div>
+
