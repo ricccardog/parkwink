@@ -1,0 +1,43 @@
+<ng-template #content let-activeModal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="customer-modal-title"> Add Customer </h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">X</span>
+        </button>
+    </div>
+
+<div class="modal-body">
+
+<form #newCustomer="ngForm">
+
+<input type="text" id="customerName" name="customerName" placeholder="Name" required
+        #customerName="ngModel" [(ngModel)]="customer.name">
+
+<input type="text" id="customerSurname" name="customerSurname" placeholder="Surname" required
+#customerName="ngModel" [(ngModel)]="customer.surname">
+
+
+<input type="text" id="customerEmail" name="customerEmail" placeholder="E -mail" required
+#customerName="ngModel" [(ngModel)]="customer.email">
+
+
+<input type="number" id="customerDL" name="customerDL" placeholder="Licence (EG '1234')" required
+minlength="4" maxlength="4" 
+#customerName="ngModel" [(ngModel)]="customer.drivingLicense">
+
+<input type="date" id="customerBirth" name="customerBirth"  required
+#customerName="ngModel" [(ngModel)]="customer.birthDate">
+
+
+
+</form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addCustomer()" [disabled]="!newCustomer.valid">Add</button>
+</div>
+
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)"> <b>+</b> Add Customer </button>

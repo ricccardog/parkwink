@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CarformComponent } from './carform/carform.component';
 import { CarslistComponent } from './carslist/carslist.component';
+import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CarslistComponent } from './carslist/carslist.component';
     RentalsComponent,
     CustomersComponent,
     DashboardComponent,
-    CarformComponent
+    CarformComponent,
+    CustomerModalComponent
     ],
   
   imports: [

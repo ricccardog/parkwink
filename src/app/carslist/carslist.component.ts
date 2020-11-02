@@ -26,10 +26,6 @@ export class CarslistComponent implements OnInit {
     this.getCars();
   }
 
-  onSearch() {
-    this.getCars();
-  }
-
   getCars(searchText?: string) : void {
     this.carService.getCars(searchText)
         .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable

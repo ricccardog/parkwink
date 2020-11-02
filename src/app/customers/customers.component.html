@@ -1,11 +1,9 @@
 <h1> CUSTOMERS </h1>
 
-<label>
-    Search:
-    <input type="text" [formControl]="customerControl">
-</label>
+<app-customer-modal (close)='onModalClose()'></app-customer-modal>
 
-<!-- 
+<input name="customerSearch" id="customerSearch" type="text" [(ngModel)]="customerText" placeholder="Search" (keyup.enter)="getCustomers(customerText)">
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -28,4 +26,4 @@
             <td> {{customer.birthDate | date :'dd / MM / yyyy'}} </td>
         </tr>
     </tbody>
-</table> -->
+</table>

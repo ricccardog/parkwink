@@ -10,7 +10,15 @@ export class CustomerService {
 
   constructor() { }
 
-  getCustomers(): Observable <Customer[]> {
-    return of(CUSTOMERS);
+  getCustomers(customerText?: string): Observable <Customer[]> {
+    const term = (customerText || '').toLowerCase();
+    return of(CUSTOMERS.filter(
+          customer => customer.name.toLowerCase().includes(term)
+      ||  customer.surname.toLowerCase().includes(term)
+      ||  customer.email.toLowerCase().includes(term)
+      ||  customer.drivingLicense.toString().includes(term)
+      )
+    )
   }
+  
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
@@ -13,7 +12,7 @@ import { CustomerService } from '../customer.service';
 export class CustomersComponent  implements OnInit{
 
   customers: Customer[];
-  customerControl = new FormControl('');
+  customerText = '';
   
 
   constructor(private customerService: CustomerService) { }
@@ -22,8 +21,13 @@ export class CustomersComponent  implements OnInit{
     this.getCustomers();
   }
 
-  getCustomers() : void {
-    this.customerService.getCustomers()
+  getCustomers(customerText?: string) : void {
+    this.customerService.getCustomers(customerText)
         .subscribe(customers => this.customers = customers) ;
+        this.customerText= '';
+  }
+
+  onModalClose() {
+    this.getCustomers();
   }
 }

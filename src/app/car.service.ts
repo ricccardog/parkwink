@@ -19,9 +19,6 @@ export class CarService {
        car => car.name.toLowerCase().includes(term) 
     || car.model.toLowerCase().includes(term)
     || car.price.toString().includes(term)
-    || car.creationDate.getDay().toString().includes(term)
-    || car.creationDate.getMonth().toString().includes(term)
-    || car.creationDate.getFullYear().toString().includes(term)
       )
     )
   }
