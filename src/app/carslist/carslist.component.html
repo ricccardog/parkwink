@@ -2,7 +2,7 @@
 
 
 <app-carform (close)='onModalClose()'></app-carform>
-<input name="carSearch" type="text" [(ngModel)]="searchText" placeholder="Search" (keyup.enter)="getCars(searchText)">
+<input name="carSearch" id="carSearch" type="text" [(ngModel)]="searchText" placeholder="Search" (keyup.enter)="getCars(searchText)">
 <table class="table table-striped table-hover">
     <thead>
     <tr>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Car } from '../cars';
 import { CarService } from '../car.service';
@@ -11,6 +11,7 @@ import { CarService } from '../car.service';
   templateUrl: './carslist.component.html',
   styleUrls: ['./carslist.component.css']
 })
+
 
 export class CarslistComponent implements OnInit {
 
@@ -32,6 +33,7 @@ export class CarslistComponent implements OnInit {
   getCars(searchText?: string) : void {
     this.carService.getCars(searchText)
         .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable
+        this.searchText= '';
   }
 
   onModalClose() { //questo metodo viene richiamato da carform come @Output
