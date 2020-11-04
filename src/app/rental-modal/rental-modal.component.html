@@ -9,30 +9,8 @@
 
 <div class="modal-body">
 
-    <form #newRental="ngForm">
+    <app-rental-form></app-rental-form>
 
-        <label>Start Date</label>
-        <input type="date" id="rentalDate" name="rentalStart"
-                #rentalStart="ngModel" [(ngModel)]="rental.fromDate" required>
-
-        <label>End Date</label>
-        <input type="date" id="rentalEnd" name="rentalEnd" 
-                #rentalEnd="ngModel" [(ngModel)]="rental.toDate" required>
-        <select type="text" id="rentalUser" name="rentalUser"
-                #rentalUser [(ngModel)]="rental.user" required>
-        <option *ngFor="let customer of customers">{{customer.name}} {{customer.surname}}</option>
-        </select>
-        <select type="text" id="rentalCar" name="rentalCar"
-                #rentalCar [(ngModel)]="rental.car" required>
-        <option *ngFor="let car of cars">{{car.name}} {{car.model}}</option>
-        </select>
-
-   
-    </form>
-</div>
-
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="addRental()" [disabled]="!newRental.valid">Add</button>
 </div>
 </ng-template>
 

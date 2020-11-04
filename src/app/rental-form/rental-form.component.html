@@ -1,0 +1,37 @@
+
+
+<div class="container">
+
+<form #rentalForm="ngForm">
+
+    <div class="form-group">
+
+
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" class="form-control"
+        name="startDate" [(ngModel)]="newRental.fromDate"
+        #startDate="ngModel"> 
+
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" class="form-control"
+        name="endDate" [(ngModel)]="newRental.toDate"
+        #endDate="ngModel">
+
+    <label for="car">Car</label>
+    <select type="text" id="selectCar" class="form-control"
+            name="selectCar" [(ngModel)]="newRental.car"
+            #car="ngModel">
+        <option *ngFor="let c of cars" [ngValue]="c">{{c.name}} {{c.model}}</option>
+    </select>
+
+    <label for="user">User</label>
+    <select type="text" id="selectUser" class="form-control"
+            name="selectUser" [(ngModel)]="newRental.user"
+            #user="ngModel">
+        <option *ngFor="let customer of customers" [ngValue] ="customer">{{customer.name}} {{customer.surname}}</option>
+    </select>
+
+    <button type="button" class="btn btn-primary" (click)="addRental(); rentalForm.reset()">ADD RENTAL</button>
+    </div>
+</form>
+</div>

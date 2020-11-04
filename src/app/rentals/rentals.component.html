@@ -1,13 +1,27 @@
-<h1> Rentals: WORK IN PROGRESS </h1>
+<h2> RENTALS </h2>
 
 <app-rental-modal></app-rental-modal>
 
-<div *ngFor="let rental of rentals">
-     {{rental.id}}
-     {{rental.car}}
-     {{rental.user}}
-    <b>from</b> {{rental.fromDate | date :'dd / MM / yyyy'}}
-    <b>to</b>  {{rental.toDate | date :'dd / MM / yyyy'}}
-     {{rental.price}}
-</div>
+<table class="table table-striped table-hover">
+     <thead>
+     <tr>
+          <th scope="col">#</th>
+          <th scope="col">Car</th>
+          <th scope="col">User</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Price</th>
+     </tr>
+     </thead>
 
+     <tbody>
+     <tr *ngFor="let rental of rentals">
+      <th scope="row">{{rental.id}}</th>
+      <td> {{rental.car.name}} {{rental.car.model}} </td>
+      <td> {{rental.user.name}} {{rental.user.surname}} </td>
+      <td> {{rental.fromDate | date :'dd / MM / yyyy'}} </td>
+      <td> {{rental.toDate | date :'dd / MM / yyyy'}}</td>
+      <td> {{rental.price}}</td>
+     </tr>
+     </tbody>
+</table>
