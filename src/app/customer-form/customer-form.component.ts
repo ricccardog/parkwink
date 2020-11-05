@@ -8,11 +8,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomersComponent } from '../customers/customers.component';
 
 @Component({
-  selector: 'app-custumer-form',
-  templateUrl: './custumer-form.component.html',
-  styleUrls: ['./custumer-form.component.css']
+  selector: 'app-customer-form',
+  templateUrl: './customer-form.component.html',
+  styleUrls: ['./customer-form.component.css']
 })
-export class CustumerFormComponent implements OnInit {
+export class CustomerFormComponent implements OnInit {
 
 @Output() close = new EventEmitter<void>();
 
