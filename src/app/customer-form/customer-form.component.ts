@@ -5,7 +5,6 @@ import { Customer } from '../customers';
 import { CUSTOMERS } from '../mock-customers';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CustomersComponent } from '../customers/customers.component';
 
 @Component({
   selector: 'app-customer-form',

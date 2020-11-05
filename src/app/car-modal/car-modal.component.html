@@ -1,7 +1,7 @@
 <ng-template #content let-activeModal>
 
     <div class="modal-header">
-        <h4 class="modal-title" id="car-modal-title"> Add Customer </h4>
+        <h4 class="modal-title" id="car-modal-title"> Add Car </h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
             <span aria-hidden="true">X</span>
         </button>
@@ -9,9 +9,9 @@
 
 <div class="modal-body">
 
-    <app-customer-form (close)="onClose()"></app-customer-form>
+    <app-carform (close)="onClose()"></app-carform>    
 
 </div>
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)"> Add Customer </button>
+<button class="btn btn-primary" (click)="open(content)"> Add Car </button>

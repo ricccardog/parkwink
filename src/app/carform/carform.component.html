@@ -1,37 +1,32 @@
-<ng-template #content let-activeModal>
+<div class="container">        
     
-    <div class="modal-header">
-        <h4 class="modal-title" id="car-modal-title"> Add Car </h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">X</span>
-        </button>
-    </div>
+    <form #carForm="ngForm">
 
-    <div class="modal-body">
-        
-    
-    <form #newCar="ngForm">
+        <div class="form-group">
 
-    <input type="text" id="carName" name="carName" placeholder="Name" required 
-        #carName="ngModel" [(ngModel)]="car.name">
-    
-    <input type="text" id="carModel" name="carModel" placeholder="Model" required 
-        #carmodel="ngModel" [(ngModel)]="car.model">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control"
+                    name="name" [(ngModel)]="newCar.name"
+                    #name="ngModel" required>
+           
+            <label for="model">Model</label>
+            <input type="text" id="surname" class="form-control"
+                    name="model" [(ngModel)]="newCar.model" 
+                    #surname="ngModel" required>
+            
+            <label for="date">Creation Date</label>
+            <input type="date" id="creationDate" class="form-control"
+                    name="creationDate" [(ngModel)]="newCar.creationDate"
+                    #date="ngModel" required>
 
-    <input type="date" id="carDate" name="carDate" required 
-        #carDate="ngModel" [(ngModel)]="car.creationDate">
+            <label for="price">Price</label>
+            <input type="number" id="price" class="form-control"
+                    name="price" [(ngModel)]="newCar.price"
+                    #price="ngModel" required>
+           
 
-    <input type="number" id="carPrice" name="carPrice" placeholder="000" required 
-        #carPrice="ngModel" [(ngModel)]="car.price">
+    <button type="button" class="btn btn-primary" (click)="addCar()" [disabled]="!carForm.valid">ADD CAR</button>
 
+        </div>
     </form>
-
-    </div>
-
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="addCar()" [disabled]="!newCar.valid" >Add</button>
 </div>
-
-</ng-template>
-
-<button class="btn btn-primary" (click)="open(content)"> <b>+</b> Add car</button>
