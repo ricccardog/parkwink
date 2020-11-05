@@ -17,6 +17,7 @@ import { CarslistComponent } from './carslist/carslist.component';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { RentalModalComponent } from './rental-modal/rental-modal.component';
 import { RentalFormComponent } from './rental-form/rental-form.component';
+import { CustumerFormComponent } from './custumer-form/custumer-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RentalFormComponent } from './rental-form/rental-form.component';
     CarformComponent,
     CustomerModalComponent,
     RentalModalComponent,
-    RentalFormComponent
+    RentalFormComponent,
+    CustumerFormComponent
     ],
   
   imports: [

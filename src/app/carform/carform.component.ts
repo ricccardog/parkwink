@@ -20,6 +20,7 @@ export class CarformComponent implements OnInit {
   
   ngOnInit(): void {
   }
+  
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'car-modal-title'})
     

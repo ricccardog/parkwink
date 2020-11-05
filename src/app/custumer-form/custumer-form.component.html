@@ -1,0 +1,37 @@
+<div class="container">
+
+    <form #customerForm="ngForm">
+
+        <div class="form-group">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control"
+                    name="name" [(ngModel)]="newCustomer.name"
+                    #name="ngModel">
+
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" class="form-control"
+                    name="surname" [(ngModel)]="newCustomer.surname"
+                    #surname="ngModel">
+
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" class="form-control"
+                    name="email" [(ngModel)]="newCustomer.email"
+                    #email="ngModel">
+
+            <label for="license">Driving License</label>
+            <input type="number" id="license" class="form-control"
+                    name="license" [(ngModel)]="newCustomer.drivingLicense"
+                    #license="ngModel">
+
+            <label for="date">Birth Date</label>
+            <input type="date" id="date" class="form-control"
+                    name="date" [(ngModel)]="newCustomer.birthDate"
+                    #date="ngModel">
+        
+                    
+    <button type="button" class="btn btn-primary" (click)="addCustomer(); customerForm.reset()">ADD CUSTOMER</button>
+    
+        </div>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
@@ -11,23 +11,24 @@ import { CustomerService } from '../customer.service';
 })
 export class CustomersComponent  implements OnInit{
 
-  customers: Customer[];
-  customerText = '';
+
+  customers$: Customer[];
+  text= '';
+
+  constructor(private customerService: CustomerService) { 
+
+  }
+
+  ngOnInit(): void { 
+    this.getCustomers('');     
+  }
+  getCustomers(text: string) : void {
+    this.customerService.getCustomers(text)
+        .subscribe(customers => this.customers$ = customers);
+  }
+
+  //metodo per event emitter
   
 
-  constructor(private customerService: CustomerService) { }
-
-  ngOnInit(): void {
-    this.getCustomers();
-  }
-
-  getCustomers(customerText?: string) : void {
-    this.customerService.getCustomers(customerText)
-        .subscribe(customers => this.customers = customers) ;
-        this.customerText= '';
-  }
-
-  onModalClose() {
-    this.getCustomers();
-  }
+  
 }

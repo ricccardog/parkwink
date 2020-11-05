@@ -1,6 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Customer } from '../customers';
-import { CUSTOMERS } from '../mock-customers';
+import { Component, EventEmitter, OnInit , Output} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,9 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CustomerModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
-
-  customer = {} as Customer;
+@Output() close = new EventEmitter<void>();
 
   constructor(private modalService: NgbModal) { }
 
@@ -21,12 +17,11 @@ export class CustomerModalComponent implements OnInit {
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'customer-modal-title'})
   }
-
-  addCustomer(): void {
-    this.customer.id = CUSTOMERS.length +1;
-    CUSTOMERS.push(this.customer);
-    this.customer= {} as Customer;
-    this.modalService.dismissAll();
+  
+  onClose() {
+    console.log("called modal")
     this.close.emit();
   }
+
+  
 }
