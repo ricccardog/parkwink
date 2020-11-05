@@ -13,14 +13,10 @@ export class CarService {
 
   constructor() { }
 
-  getCars(text?: string) : Observable<Car[]> { //il metodo ritorna un observable di array cars
-    const term = (text || '').toLowerCase();
+  getCars(text: string) : Observable<Car[]> { //il metodo ritorna un observable di array cars
     return of(CARS.filter(
-       car => car.name.toLowerCase().includes(term) 
-    || car.model.toLowerCase().includes(term)
-    || car.price.toString().includes(term)
-      )
-    )
+       car => car.name.toLowerCase().includes(text) 
+    || car.model.toLowerCase().includes(text)))
   }
 
  

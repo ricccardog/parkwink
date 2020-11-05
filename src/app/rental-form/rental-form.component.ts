@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl,FormGroup } from '@angular/forms';
 
 import { Rentals } from '../rentals';
@@ -19,6 +19,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RentalFormComponent implements OnInit {
 
+  @Output() close = new EventEmitter<void>();
+
   newRental = {} as Rentals;
   rentalForm : FormGroup;
   cars = CARS;
@@ -35,6 +37,7 @@ export class RentalFormComponent implements OnInit {
     this.newRental.price = this.newRental.car.price;
     RENTALS.push(this.newRental)
     this.newRental = {} as Rentals;
+    this.close.emit();
     this.modalService.dismissAll();
   }
 }

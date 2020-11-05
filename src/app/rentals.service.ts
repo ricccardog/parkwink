@@ -10,8 +10,13 @@ export class RentalsService {
 
   constructor() { }
 
-    getRentals() : Observable<Rentals[]> {
-      return of(RENTALS)
+    getRentals(text: string) : Observable<Rentals[]> {
+      return of(RENTALS.filter(
+        rentals => rentals.car.name.toLowerCase().includes(text)
+        ||  rentals.car.model.toLowerCase().includes(text)
+        ||  rentals.user.name.toLowerCase().includes(text)
+        ||  rentals.user.surname.toLowerCase().includes(text)))
    }
+
 
   }

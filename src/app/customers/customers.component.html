@@ -1,8 +1,8 @@
-<h1> CUSTOMERS </h1>
+<h2> CUSTOMERS </h2>
 
 <app-customer-modal (close)="getCustomers('')"></app-customer-modal>
 
-<input type="text" name="search" [(ngModel)]="text" (keyup.enter)="getCustomers(text)"/>
+<input type="text" name="search" #search [(ngModel)]="text" (keyup.enter)="getCustomers(text)"/>
 
 <table class="table table-striped table-hover">
     <thead>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RentalModalComponent implements OnInit {
 
+  @Output() close = new EventEmitter<void>();
+
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -16,6 +18,10 @@ export class RentalModalComponent implements OnInit {
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy:'rental-modal-title'})
+  }
+
+  onClose() {
+    this.close.emit();
   }
 
 }

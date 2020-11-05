@@ -19,7 +19,6 @@ export class CustomerModalComponent implements OnInit {
   }
   
   onClose() {
-    console.log("called modal")
     this.close.emit();
   }
 

@@ -15,25 +15,25 @@ import { CarService } from '../car.service';
 
 export class CarslistComponent implements OnInit {
 
-  cars: Car[]; //cars è un array di oggetti car (per observable)
-  searchText= '';
+  cars$: Car[]; //cars è un array di oggetti car (per observable)
+  text = '';
 
   constructor(private carService : CarService) {
     
   }
 
   ngOnInit(): void {
-    this.getCars();
+    this.getCars('');
   }
 
-  getCars(searchText?: string) : void {
-    this.carService.getCars(searchText)
-        .subscribe(cars => this.cars = cars) ; //senza ritorno, subscribe perché è un observable
-        this.searchText= '';
+  getCars(text: string) : void {
+    this.carService.getCars(text)
+        .subscribe(cars => this.cars$ = cars) ; //senza ritorno, subscribe perché è un observable
+        this.text = '';
   }
 
   onModalClose() { //questo metodo viene richiamato da carform come @Output
-    this.getCars();
+    this.getCars(this.text);
   }
  
 

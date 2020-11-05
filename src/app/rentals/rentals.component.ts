@@ -11,16 +11,18 @@ import { RentalsService } from '../rentals.service'
 export class RentalsComponent implements OnInit {
 
   rentals: Rentals[];
+  text = '';
 
   constructor(private rentalsService: RentalsService) { }
 
   ngOnInit(): void {
-    this.getRentals();
+    this.getRentals('');
   }
 
-  getRentals(): void{
-    this.rentalsService.getRentals()
+  getRentals(text: string): void{
+    this.rentalsService.getRentals(text)
         .subscribe(rentals => this.rentals = rentals);
+        this.text = '';
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
@@ -13,7 +13,7 @@ export class CustomersComponent  implements OnInit{
 
 
   customers$: Customer[];
-  text= '';
+  text = '';
 
   constructor(private customerService: CustomerService) { 
 
@@ -25,6 +25,7 @@ export class CustomersComponent  implements OnInit{
   getCustomers(text: string) : void {
     this.customerService.getCustomers(text)
         .subscribe(customers => this.customers$ = customers);
+        this.text = '';
   }
 
   //metodo per event emitter
