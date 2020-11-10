@@ -31,6 +31,7 @@ export class CarformComponent implements OnInit {
     this.modalService.dismissAll(); //chiude il modale
   }
   
+  
 
 }
 
