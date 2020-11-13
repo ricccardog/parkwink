@@ -19,7 +19,7 @@
      <tbody>
      <tr *ngFor="let rental of rentals">
       <th scope="row">{{rental.id}}</th>
-      <td> {{rental.car.name}} {{rental.car.model}} </td>
+      <td> {{rental.car.model}} {{rental.car.maker}} </td>
       <td> {{rental.user.name}} {{rental.user.surname}} </td>
       <td> {{rental.fromDate | date :'dd / MM / yyyy'}} </td>
       <td> {{rental.toDate | date :'dd / MM / yyyy'}}</td>

@@ -3,7 +3,6 @@ import { FormControl,FormGroup } from '@angular/forms';
 
 import { Rentals } from '../rentals';
 import { CUSTOMERS } from '../mock-customers';
-import { CARS } from '../mock-cars';
 import { RENTALS } from '../mock-rentals';
 
 
@@ -23,7 +22,6 @@ export class RentalFormComponent implements OnInit {
 
   newRental = {} as Rentals;
   rentalForm : FormGroup;
-  cars = CARS;
   customers = CUSTOMERS;
   
     constructor(private customerService: CustomerService, private carService: CarService, private modalService: NgbModal) { }

@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CarService {
 
-  carsUrl = 'https://texty-89895.firebaseio.com/cars.json'
+  carsUrl = 'http://localhost:3000/cars'
 
   constructor(private http: HttpClient) { }
 

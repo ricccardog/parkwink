@@ -1,7 +1,7 @@
 export interface Car {
-    id: number;
-    name: string;
+    _id: string;
     model: string;
+    maker: string;
     creationDate: Date ;
     price: number;
 }
@@ -9,9 +9,9 @@ export interface Car {
 export class Car {
 
     constructor(
-        id: number,
-        name: string,
+        _id: string,
         model: string,
+        maker: string,
         creationDate: Date ,
         price: number
     ) {}

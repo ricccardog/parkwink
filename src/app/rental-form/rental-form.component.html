@@ -15,12 +15,12 @@
         name="endDate" [(ngModel)]="newRental.toDate"
         #endDate="ngModel" required>
 
-    <label for="car">Car</label>
+  <!--   <label for="car">Car</label>
     <select type="text" id="selectCar" class="form-control"
             name="selectCar" [(ngModel)]="newRental.car"
             #car="ngModel" required>
         <option *ngFor="let c of cars" [ngValue]="c">{{c.name}} {{c.model}}</option>
-    </select>
+    </select> -->
 
     <label for="user">User</label>
     <select type="text" id="selectUser" class="form-control"
