@@ -1,8 +1,8 @@
 <h2> CUSTOMERS </h2>
 
-<app-customer-modal (close)="getCustomers('')"></app-customer-modal>
+<!-- <app-customer-modal (close)="getCustomers()"></app-customer-modal> -->
 
-<input type="text" name="search" #search [(ngModel)]="text" placeholder="Search" (keyup.enter)="getCustomers(text)"/>
+<!-- <input type="text" name="search" #search [(ngModel)]="text" placeholder="Search" (keyup.enter)="getCustomers(text)"/> -->
 
 <table class="table table-striped table-hover">
     <thead>
@@ -17,8 +17,8 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let customer of customers$">
-            <th scope="row"> {{customer.id}}</th>
+        <tr *ngFor="let customer of customers">
+            <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
             <td> {{customer.name}} </td> 
             <td> {{customer.surname}} </td>
             <td> {{customer.email}} </td>

@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl,FormGroup } from '@angular/forms';
 
 import { Rentals } from '../rentals';
-import { CUSTOMERS } from '../mock-customers';
-import { RENTALS } from '../mock-rentals';
+//import { RENTALS } from '../mock-rentals';
 
 
 import { CustomerService } from '../customer.service';
@@ -22,14 +21,13 @@ export class RentalFormComponent implements OnInit {
 
   newRental = {} as Rentals;
   rentalForm : FormGroup;
-  customers = CUSTOMERS;
   
     constructor(private customerService: CustomerService, private carService: CarService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
- 
+ /* 
   addRental(){
     this.newRental.id = RENTALS.length +1;
     this.newRental.price = this.newRental.car.price;
@@ -37,5 +35,5 @@ export class RentalFormComponent implements OnInit {
     this.newRental = {} as Rentals;
     this.close.emit();
     this.modalService.dismissAll();
-  }
-}
+   */}
+

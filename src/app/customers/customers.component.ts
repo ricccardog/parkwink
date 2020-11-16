@@ -3,7 +3,6 @@ import { Component, OnInit} from '@angular/core';
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 
-
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
@@ -12,24 +11,41 @@ import { CustomerService } from '../customer.service';
 export class CustomersComponent  implements OnInit{
 
 
-  customers$: Customer[];
-  text = '';
+  customers: Customer[] = [];
+
+  customerId = '';
+
+  selectCustomer : Customer;
 
   constructor(private customerService: CustomerService) { 
 
   }
 
-  ngOnInit(): void { 
-    this.getCustomers('');     
-  }
-  getCustomers(text: string) : void {
-    this.customerService.getCustomers(text)
-        .subscribe(customers => this.customers$ = customers);
-        this.text = '';
+  ngOnInit() : void { 
+    this.getCustomers();     
   }
 
-  //metodo per event emitter
-  
+  getCustomers(): void {
+    this.customerService
+      .getCustomers()
+      .subscribe(customers => { this.customers = customers })
+  }
 
-  
+  deleteCustomer(): void {
+    this.customerService
+      .deleteCustomer(this.customerId)
+      .subscribe(customer => { this.getCustomers() })
+  }
+
+  updateCustomer(): void {
+    this.customerService
+      .updateCustomer(this.selectCustomer)
+      .subscribe(customer => { this.getCustomers })
+  }
+
+  addCustomer(): void {
+    this.customerService
+      .addCustomer(this.selectCustomer)
+      .subscribe(customer => { this.getCustomers() })
+  }
 }

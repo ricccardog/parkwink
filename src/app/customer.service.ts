@@ -1,21 +1,40 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Customer } from './customers';
-import { CUSTOMERS } from './mock-customers';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CustomerService {
 
-  constructor() { }
+  customerUrl = 'http://localhost:3000/customers';
 
+  constructor(private http: HttpClient) { }
+
+  //GET
+  getCustomers(): Observable <Customer[]> {
+    return this.http.get<Customer[]>(this.customerUrl)
+  }
+
+  addCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(this.customerUrl, customer)
+  }
+
+  deleteCustomer(_id: string): Observable<{}> {
+    const url = `${this.customerUrl}/${_id}` ;
+    return this.http.delete(url)
+  }
+
+  updateCustomer(customer: Customer): Observable<Customer> {
+    const url = this.customerUrl + '/' + customer._id;
+    return this.http.put<Customer>(url, customer)
+  }
  
-
-  getCustomers(text: string): Observable <Customer[]> {
-    return of(CUSTOMERS.filter(
-      customer => customer.name.toLowerCase().includes(text)
-      || customer.surname.toLowerCase().includes(text)))
+  readCustomer(customer: Customer): Observable<Customer> {
+    const url = this.customerUrl +'/' + customer._id;
+    return this.http.get<Customer>(url)
   }
   
 }

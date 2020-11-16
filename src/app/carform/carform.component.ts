@@ -4,6 +4,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Car } from '../cars';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CarService } from '../car.service';
+import { CarslistComponent } from '../carslist/carslist.component';
+import { DomElementSchemaRegistry } from '@angular/compiler';
 
 @Component({
   selector: 'app-carform',
@@ -16,16 +19,21 @@ export class CarformComponent implements OnInit {
 
   newCar = {} as Car;
   carForm : FormGroup;
+  selectCar: Car;
   
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private carService: CarService) { }
   
   ngOnInit(): void {
   }
   
   addCar(): void {
-    this.close.emit(); //con emit si crea l'evento che poi viene usato per richiamare il metodo del parent
-    this.modalService.dismissAll(); //chiude il modale
+    this.carService.addCar(this.newCar)
+        .subscribe(data => {
+          this.close.emit(); //segnala al parent chiusura per fare nuovo get cars
+          this.modalService.dismissAll(); //chiude il modale 
+        })
   }
+  
   
   
 

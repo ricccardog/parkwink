@@ -1,5 +1,5 @@
 export interface Car {
-    _id: string;
+   _id?: string;
     model: string;
     maker: string;
     creationDate: Date ;

@@ -16,13 +16,13 @@ export class RentalsComponent implements OnInit {
   constructor(private rentalsService: RentalsService) { }
 
   ngOnInit(): void {
-    this.getRentals('');
+   // this.getRentals('');
   }
-
+/* 
   getRentals(text: string): void{
     this.rentalsService.getRentals(text)
         .subscribe(rentals => this.rentals = rentals);
         this.text = '';
   }
-
+ */
 }
