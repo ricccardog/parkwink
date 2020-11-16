@@ -11,10 +11,9 @@ import { CarService } from '../car.service';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
-
   carId = '';
-
   selectCar : Car;
+  text = '';
 
   constructor(private carService : CarService) {
     
@@ -49,8 +48,12 @@ export class CarslistComponent implements OnInit {
       .subscribe(car => { this.getCars() })
   }
 
-  onModalClose() { //questo metodo viene richiamato da carform come @Output
-    this.getCars();
+  searchCar(): void {
+    this.carService
+        .searchCar(this.text)
+        .subscribe(data => { this.cars = data});
+    this.text = '';
+   
   }
 
 }

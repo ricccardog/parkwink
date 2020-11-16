@@ -1,7 +1,10 @@
 <h2> CARS </h2>
 
+<button type="button" class="btn btn-primary">
+  <app-car-modal (close)="getCars()">Add Car</app-car-modal>
+</button>
 
-<!-- <app-car-modal (close)="getCars()"></app-car-modal> -->
+<input type="text" name="search" [(ngModel)]="text" (keyup.enter)="searchCar()"/>
 
 <table class="table table-striped table-hover">
     <thead>

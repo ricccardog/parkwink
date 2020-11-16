@@ -13,12 +13,10 @@ import { CustomersComponent } from './customers/customers.component';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CarformComponent } from './carform/carform.component';
 import { CarslistComponent } from './carslist/carslist.component';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { RentalModalComponent } from './rental-modal/rental-modal.component';
 import { RentalFormComponent } from './rental-form/rental-form.component';
-import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CarModalComponent } from './car-modal/car-modal.component';
 
 @NgModule({
@@ -28,11 +26,9 @@ import { CarModalComponent } from './car-modal/car-modal.component';
     RentalsComponent,
     CustomersComponent,
     DashboardComponent,
-    CarformComponent,
     CustomerModalComponent,
     RentalModalComponent,
     RentalFormComponent,
-    CustomerFormComponent,
     CarModalComponent
     ],
   

@@ -12,10 +12,9 @@ export class CustomersComponent  implements OnInit{
 
 
   customers: Customer[] = [];
-
   customerId = '';
-
   selectCustomer : Customer;
+  text = '';
 
   constructor(private customerService: CustomerService) { 
 
@@ -47,5 +46,12 @@ export class CustomersComponent  implements OnInit{
     this.customerService
       .addCustomer(this.selectCustomer)
       .subscribe(customer => { this.getCustomers() })
+  }
+
+  searchCustomer(): void{
+    this.customerService
+        .searchCustomer(this.text)
+        .subscribe(data => { this.customers = data})
+    this.text = '';
   }
 }

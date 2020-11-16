@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, mapTo } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 import { Car } from './cars';
 
@@ -14,7 +15,7 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   //GET
-  getCars() : Observable<Car[]> { //il metodo ritorna un observable di array cars
+  getCars() : Observable<Car[]> { 
     return this.http.get<Car[]>(this.carsUrl)
   }
 
@@ -35,10 +36,20 @@ export class CarService {
     return this.http.put<Car>(url, car)
   }
 
-  //READ
+  //READ | Inutilizzato al momento
   readCar(car: Car): Observable<Car> {
     const url = this.carsUrl + '/' +  car._id;
     return this.http.get<Car>(url)
+  }
+  //SEARCH
+  searchCar(text: string): Observable<Car[]> {
+    return this.http.get<Car[]>(this.carsUrl)
+      .pipe(map(data =>
+        data = data.filter(x => x.model.toLowerCase().includes(text)
+          || x.maker.toLowerCase().includes(text)
+          || x.price.toString().includes(text)
+          || x.creationDate.toString().includes(text))
+      ))
   }
 
 }

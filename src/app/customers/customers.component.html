@@ -1,8 +1,10 @@
 <h2> CUSTOMERS </h2>
 
-<!-- <app-customer-modal (close)="getCustomers()"></app-customer-modal> -->
+<button type="button" class="btn btn-primary">
+    <app-customer-modal (close)="getCustomers()">Add Customer</app-customer-modal>
+</button>
 
-<!-- <input type="text" name="search" #search [(ngModel)]="text" placeholder="Search" (keyup.enter)="getCustomers(text)"/> -->
+<input type="text" name="search" [(ngModel)]="text" (keyup.enter)="searchCustomer()"/>
 
 <table class="table table-striped table-hover">
     <thead>

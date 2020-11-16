@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Customer } from './customers';
 
@@ -35,6 +36,16 @@ export class CustomerService {
   readCustomer(customer: Customer): Observable<Customer> {
     const url = this.customerUrl +'/' + customer._id;
     return this.http.get<Customer>(url)
+  }
+
+  searchCustomer(text: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.customerUrl)
+      .pipe(map(data =>
+        data = data.filter(x => x.name.toLowerCase().includes(text)
+          || x.surname.toLowerCase().includes(text)
+          || x.birthDate.toString().includes(text)
+          || x.drivingLicense.toString().includes(text))
+      ))
   }
   
 }

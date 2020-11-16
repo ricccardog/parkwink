@@ -1,5 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Car } from '../cars';
+import { CarService } from '../car.service';
 
 @Component({
   selector: 'app-car-modal',
@@ -8,19 +13,28 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CarModalComponent implements OnInit {
 
-@Output() close = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+  newCar = {} as Car;
+  carForm: FormGroup;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private carService: CarService) { }
 
   ngOnInit(): void {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'car-modal-title'})
+    this.modalService
+        .open(content)
   }
 
-  onClose() {
+  addCar(): void {
+    this.carService
+        .addCar(this.newCar)
+        .subscribe(data => {this.carService.getCars()});
     this.close.emit();
+    this.modalService.dismissAll();
   }
+
+  
 
 }
