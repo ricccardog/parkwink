@@ -8,13 +8,16 @@ import { CustomerService } from '../customer.service';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
+
+
 export class CustomersComponent  implements OnInit{
 
 
   customers: Customer[] = [];
-  customerId = '';
-  selectCustomer : Customer;
-  text = '';
+  nameSearch = '';
+  surnameSearch = '';
+  //customerId = '';
+  //selectCustomer : Customer;
  /*  surnameSearch = '';
   nameSearch= '';
  */
@@ -32,6 +35,21 @@ export class CustomersComponent  implements OnInit{
       .subscribe(customers => { this.customers = customers })
   }
 
+  searchCustomer($event) {
+    const options = $event;
+    this.nameSearch=options.name;
+    this.surnameSearch=options.surname;
+    this.customerService 
+        .searchCustomer(this.nameSearch, this.surnameSearch)
+        .subscribe(data => {this.customers = data}) 
+  }
+
+  resetSearch() {
+    this.nameSearch='';
+    this.surnameSearch='';
+    this.getCustomers()
+  }
+/* 
   deleteCustomer(): void {
     this.customerService
       .deleteCustomer(this.customerId)
@@ -43,17 +61,17 @@ export class CustomersComponent  implements OnInit{
       .updateCustomer(this.selectCustomer)
       .subscribe(customer => { this.getCustomers })
   }
-
-  addCustomer(): void {
+ */
+ /*  addCustomer(): void {
     this.customerService
       .addCustomer(this.selectCustomer)
       .subscribe(customer => { this.getCustomers() })
-  }
+  } */
 
   /* searchCustomer(): void{
     this.customerService
         .searchCustomer(this.surnameSearch, this.nameSearch)
-        .subscribe(customer => {this.customers = customer})
+        .subscribe(data => {this.customers = data})
   } */
 
 }

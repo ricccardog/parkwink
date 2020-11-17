@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Customer } from './customers';
-import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -20,32 +19,29 @@ export class CustomerService {
   getCustomers(): Observable <Customer[]> {   
     return this.http.get<Customer[]>(this.customerUrl)
   }
-
+  //POST
   addCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(this.customerUrl, customer)
   }
-
+  //DELETE
   deleteCustomer(_id: string): Observable<{}> {
     const url = `${this.customerUrl}/${_id}` ;
     return this.http.delete(url)
   }
-
+  //PUT
   updateCustomer(customer: Customer): Observable<Customer> {
     const url = this.customerUrl + '/' + customer._id;
     return this.http.put<Customer>(url, customer)
   }
- 
+  //READ
   readCustomer(customer: Customer): Observable<Customer> {
     const url = this.customerUrl +'/' + customer._id;
     return this.http.get<Customer>(url)
   }
-
+  //SEARCH
   searchCustomer(nameTerm?: string, surnameTerm?: string, emailTerm?: string) : Observable<Customer[]> {
     
-    nameTerm = nameTerm.trim();
-    surnameTerm = surnameTerm.trim();
-    emailTerm = emailTerm.trim();
-
+    
     let options = new HttpParams();
     
       if(nameTerm) {

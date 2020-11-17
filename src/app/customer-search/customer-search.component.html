@@ -1,0 +1,23 @@
+<ng-template #content let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Search Customer</h4>
+        <button type="button" class="close" (click)="modal.dismiss()"> X </button>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="nameSearch">Search by Name</label>
+                <input type="text" name="nameSearch" [(ngModel)]="nameSearch" placeholder="Name" (keyup.enter)="searchCustomers(nameSearch)">
+                
+                <label for="surnameSearch">Search by Surname</label>
+                <input type="text" name="surnameSearch" [(ngModel)]="surnameSearch" placeholder="Surname" (keyup.enter)="searchCustomers(surnameSearch)">
+            </div>
+        </form>
+    </div>
+
+ 
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)">Search</button>

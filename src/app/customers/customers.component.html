@@ -1,11 +1,10 @@
 <h2> CUSTOMERS </h2>
 
-<button type="button" class="btn btn-primary">
-    <app-customer-modal (close)="getCustomers()">Add Customer</app-customer-modal>
-</button>
 
-<!-- <input type="text" name="surnameSearch" [(ngModel)]="surnameSearch" (keyup.enter)="searchCustomer()" placeholder =" search surname" />
- -->
+<app-customer-modal (close)="getCustomers()">Add Customer</app-customer-modal>
+
+<app-customer-search (forName)="searchCustomer($event)"></app-customer-search>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -29,3 +28,7 @@
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="nameSearch!='' || surnameSearch!=''">
+    <button type="button" class="btn btn-dark" (click)="resetSearch()">Reload</button>
+</div>

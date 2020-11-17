@@ -11,9 +11,8 @@ import { CarService } from '../car.service';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
-  carId = '';
-  selectCar : Car;
-  text = '';
+  //carId = '';
+  //selectCar : Car;
 
   constructor(private carService : CarService) {
     
@@ -30,7 +29,7 @@ export class CarslistComponent implements OnInit {
       .subscribe(data => { this.cars = data })
   }
 
-  deleteCar(): void {
+/*   deleteCar(): void {
     this.carService
       .deleteCar(this.carId)
       .subscribe(car => { this.getCars() })
@@ -48,12 +47,11 @@ export class CarslistComponent implements OnInit {
       .subscribe(car => { this.getCars() })
   }
 
-  searchCar(): void {
+  searchCar(): void{
     this.carService
-        .searchCar(this.text)
-        .subscribe(data => { this.cars = data});
-    this.text = '';
-   
-  }
+      .searchCar(this.modelSearch, this.makerSearch)
+      .subscribe(data => {this.cars = data})
+  } */
 
 }
+
