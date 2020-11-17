@@ -15,13 +15,15 @@ export class CustomersComponent  implements OnInit{
   customerId = '';
   selectCustomer : Customer;
   text = '';
-
+ /*  surnameSearch = '';
+  nameSearch= '';
+ */
   constructor(private customerService: CustomerService) { 
 
   }
 
   ngOnInit() : void { 
-    this.getCustomers();     
+    this.getCustomers(); 
   }
 
   getCustomers(): void {
@@ -48,10 +50,10 @@ export class CustomersComponent  implements OnInit{
       .subscribe(customer => { this.getCustomers() })
   }
 
-  searchCustomer(): void{
+  /* searchCustomer(): void{
     this.customerService
-        .searchCustomer(this.text)
-        .subscribe(data => { this.customers = data})
-    this.text = '';
-  }
+        .searchCustomer(this.surnameSearch, this.nameSearch)
+        .subscribe(customer => {this.customers = customer})
+  } */
+
 }

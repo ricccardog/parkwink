@@ -1,49 +1,46 @@
 <ng-template #content let-activeModal>
 
 <div class="modal-header">
-    <h4 class="modal-title" id="car-modal-title"> Add Customer </h4>
-    <button type="button" class="close" (click)="activeModal.dismiss()">
-    X
-    </button>
+        <h4 class="modal-title" id="car-modal-title"> Add Customer </h4>
+        <button type="button" class="close" (click)="activeModal.dismiss()">
+                X
+        </button>
 </div>
 
 <div class="modal-body">
 
-    <form #customerForm="ngForm">
+        <form #customerForm="ngForm">
 
-        <div class="form-group">
+                <div class="form-group">
 
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control"
-                    name="name" [(ngModel)]="newCustomer.name"
-                    #name="ngModel" required>
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" name="name"
+                                [(ngModel)]="newCustomer.name" required>
 
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" class="form-control"
-                    name="surname" [(ngModel)]="newCustomer.surname"
-                    #surname="ngModel" required>
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" class="form-control" name="surname"
+                                [(ngModel)]="newCustomer.surname" required>
 
-            <label for="email">E-Mail</label>
-            <input type="email" id="email" class="form-control"
-                    name="email" [(ngModel)]="newCustomer.email"
-                    #email="ngModel" required>
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" class="form-control" name="email"
+                                [(ngModel)]="newCustomer.email" required>
 
-            <label for="license">Driving License</label>
-            <input type="number" id="license" class="form-control"
-                    name="license" [(ngModel)]="newCustomer.drivingLicense"
-                    #license="ngModel" required>
+                        <label for="date">Birth Date</label>
+                        <input type="date" id="date" class="form-control" name="date"
+                                [(ngModel)]="newCustomer.birthDate" required>
 
-            <label for="date">Birth Date</label>
-            <input type="date" id="date" class="form-control"
-                    name="date" [(ngModel)]="newCustomer.birthDate"
-                    #date="ngModel" required>
-        
-                    
-    <button type="button" class="btn btn-primary" (click)="addCustomer()" [disabled]="!customerForm.valid">ADD CUSTOMER</button>
-    
-        </div>
-    </form>
+                        <label for="license">Driving License</label>
+                        <input type="number" id="license" class="form-control" name="license"
+                                [(ngModel)]="newCustomer.drivingLicense" required>
+
+
+                </div>
+        </form>
 </div>
+
+        <button type="button" class="btn btn-primary" (click)="addCustomer()" [disabled]="!customerForm.valid">ADD
+                CUSTOMER</button>
+
 </ng-template>
 
 <button class="btn btn-primary" (click)="open(content)"> Add Customer </button>

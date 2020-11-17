@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Customer } from './customers';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,13 @@ import { Customer } from './customers';
 export class CustomerService {
 
   customerUrl = 'http://localhost:3000/customers';
+  
+        
 
   constructor(private http: HttpClient) { }
 
   //GET
-  getCustomers(): Observable <Customer[]> {
+  getCustomers(): Observable <Customer[]> {   
     return this.http.get<Customer[]>(this.customerUrl)
   }
 
@@ -38,14 +40,27 @@ export class CustomerService {
     return this.http.get<Customer>(url)
   }
 
-  searchCustomer(text: string): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.customerUrl)
-      .pipe(map(data =>
-        data = data.filter(x => x.name.toLowerCase().includes(text)
-          || x.surname.toLowerCase().includes(text)
-          || x.birthDate.toString().includes(text)
-          || x.drivingLicense.toString().includes(text))
-      ))
+  searchCustomer(nameTerm?: string, surnameTerm?: string, emailTerm?: string) : Observable<Customer[]> {
+    
+    nameTerm = nameTerm.trim();
+    surnameTerm = surnameTerm.trim();
+    emailTerm = emailTerm.trim();
+
+    let options = new HttpParams();
+    
+      if(nameTerm) {
+        options = options.append('name', nameTerm)
+      }
+      if(surnameTerm) {
+        options = options.append('surname', surnameTerm)
+      }
+      if(emailTerm) {
+        options = options.append('email', emailTerm)
+      }
+    
+    return this.http.get<Customer[]>(this.customerUrl, {params: options})
   }
+
+  
   
 }
