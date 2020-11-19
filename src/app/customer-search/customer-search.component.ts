@@ -9,10 +9,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./customer-search.component.css']
 })
 export class CustomerSearchComponent implements OnInit {
+  
+  @Output() searchOutput = new EventEmitter <{}> ()
 
-  @Output() forName = new EventEmitter <any> ()
-  nameSearch = '';
-  surnameSearch = '';
+  options = {
+    'name': '',
+    'surname': '',
+    'email': ''
+  }
 
   constructor(private modalService: NgbModal) { }
 
@@ -23,12 +27,14 @@ export class CustomerSearchComponent implements OnInit {
     this.modalService.open(content)
   }
 
-  searchCustomers(nameSearch: string){
-    this.forName.emit({'name': this.nameSearch, 'surname': this.surnameSearch})
-    this.nameSearch = '';
-    this.surnameSearch = '';
-    this.modalService.dismissAll();
+  searchCustomers(){ 
+  this.searchOutput.emit(this.options)  
+  this.resetOptions();
+  this.modalService.dismissAll();
   }
 
+  resetOptions(){
+    for(let k in this.options)this.options[k]='';
+  }
 
 }

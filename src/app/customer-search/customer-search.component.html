@@ -1,7 +1,7 @@
 <ng-template #content let-modal>
 
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-title">Search Customer</h4>
+        <h4 class="modal-title">Search Customer</h4>
         <button type="button" class="close" (click)="modal.dismiss()"> X </button>
     </div>
 
@@ -9,13 +9,19 @@
         <form>
             <div class="form-group">
                 <label for="nameSearch">Search by Name</label>
-                <input type="text" name="nameSearch" [(ngModel)]="nameSearch" placeholder="Name" (keyup.enter)="searchCustomers(nameSearch)">
+                <input type="text" id="nameSearch" name="nameSearch" [(ngModel)]="options.name" placeholder="Name">
                 
                 <label for="surnameSearch">Search by Surname</label>
-                <input type="text" name="surnameSearch" [(ngModel)]="surnameSearch" placeholder="Surname" (keyup.enter)="searchCustomers(surnameSearch)">
+                <input type="text" id="surnameSearch" name="surnameSearch" [(ngModel)]="options.surname" placeholder="Surname">
+
+                <label for="emailSearch">Search by Email</label>
+                <input type="text" id="emailSearch" name="emailSearch" [(ngModel)]="options.email" placeholder="Email">
+
             </div>
         </form>
     </div>
+   
+    <button type="button" class="btn btn-primary" name="search" (click)="searchCustomers()">Search Customers</button>
 
  
 </ng-template>

@@ -14,13 +14,6 @@ export class CustomersComponent  implements OnInit{
 
 
   customers: Customer[] = [];
-  nameSearch = '';
-  surnameSearch = '';
-  //customerId = '';
-  //selectCustomer : Customer;
- /*  surnameSearch = '';
-  nameSearch= '';
- */
   constructor(private customerService: CustomerService) { 
 
   }
@@ -37,18 +30,20 @@ export class CustomersComponent  implements OnInit{
 
   searchCustomer($event) {
     const options = $event;
-    this.nameSearch=options.name;
-    this.surnameSearch=options.surname;
+    const opt = {};
+
+    for(let k in options) {
+      if(options[k]!='') {
+        opt[k]=options[k].toLowerCase();
+      }
+    }
+
     this.customerService 
-        .searchCustomer(this.nameSearch, this.surnameSearch)
+        .searchCustomer(opt)
         .subscribe(data => {this.customers = data}) 
   }
 
-  resetSearch() {
-    this.nameSearch='';
-    this.surnameSearch='';
-    this.getCustomers()
-  }
+ 
 /* 
   deleteCustomer(): void {
     this.customerService

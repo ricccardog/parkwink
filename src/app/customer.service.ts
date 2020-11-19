@@ -39,22 +39,9 @@ export class CustomerService {
     return this.http.get<Customer>(url)
   }
   //SEARCH
-  searchCustomer(nameTerm?: string, surnameTerm?: string, emailTerm?: string) : Observable<Customer[]> {
-    
-    
-    let options = new HttpParams();
-    
-      if(nameTerm) {
-        options = options.append('name', nameTerm)
-      }
-      if(surnameTerm) {
-        options = options.append('surname', surnameTerm)
-      }
-      if(emailTerm) {
-        options = options.append('email', emailTerm)
-      }
-    
-    return this.http.get<Customer[]>(this.customerUrl, {params: options})
+  searchCustomer(values: {}) : Observable<Customer[]> {
+  let options = new HttpParams( {fromObject: values}); 
+  return this.http.get<Customer[]>(this.customerUrl, {params: options})
   }
 
   
