@@ -38,10 +38,25 @@ export class CustomerService {
     const url = this.customerUrl +'/' + customer._id;
     return this.http.get<Customer>(url)
   }
+
   //SEARCH
-  searchCustomer(values: {}) : Observable<Customer[]> {
-  let options = new HttpParams( {fromObject: values}); 
-  return this.http.get<Customer[]>(this.customerUrl, {params: options})
+  searchCustomer(options) : Observable<Customer[]> { 
+  const par =  this.toParams(options)
+  console.log('final call')
+  return this.http.get<Customer[]>(this.customerUrl, {params: par})
+  }
+
+  //trsforma oggetto in parametri
+  toParams(options) : HttpParams {
+    console.log('data in service')
+    const opt = {};
+    for(let k in options) {
+      if(options[k]!='') {
+        opt[k]=options[k].toLowerCase();
+      }
+    }
+    console.log('data to search params')
+    return new HttpParams( {fromObject: opt})
   }
 
   

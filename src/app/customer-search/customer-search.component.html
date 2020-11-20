@@ -8,15 +8,11 @@
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="nameSearch">Search by Name</label>
-                <input type="text" id="nameSearch" name="nameSearch" [(ngModel)]="options.name" placeholder="Name">
-                
-                <label for="surnameSearch">Search by Surname</label>
-                <input type="text" id="surnameSearch" name="surnameSearch" [(ngModel)]="options.surname" placeholder="Surname">
 
-                <label for="emailSearch">Search by Email</label>
-                <input type="text" id="emailSearch" name="emailSearch" [(ngModel)]="options.email" placeholder="Email">
-
+                <label *ngFor="let f of searchFields">{{f}} search
+                    <input type="text" name="[f]" [(ngModel)]="searchOptions[f]">
+                </label>
+                    
             </div>
         </form>
     </div>

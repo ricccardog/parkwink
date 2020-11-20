@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
+import { CustomerFilter } from '../customerFilter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -10,17 +10,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CustomerSearchComponent implements OnInit {
   
-  @Output() searchOutput = new EventEmitter <{}> ()
+  @Output() searchOutput = new EventEmitter <CustomerFilter> ()
 
-  options = {
-    'name': '',
-    'surname': '',
-    'email': ''
-  }
-
+  searchOptions = {} as CustomerFilter;
+  searchFields = ['name' , 'surname' , 'email'];
+  
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.resetOptions()
   }
 
   open(content) {
@@ -28,13 +26,14 @@ export class CustomerSearchComponent implements OnInit {
   }
 
   searchCustomers(){ 
-  this.searchOutput.emit(this.options)  
-  this.resetOptions();
-  this.modalService.dismissAll();
+    this.searchOutput.emit(this.searchOptions);
+    this.resetOptions();
+    this.modalService.dismissAll();
   }
-
+  
   resetOptions(){
-    for(let k in this.options)this.options[k]='';
+    for(let k in this.searchOptions) this.searchOptions[k]='';
   }
 
+   
 }

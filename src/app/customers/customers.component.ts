@@ -28,19 +28,11 @@ export class CustomersComponent  implements OnInit{
       .subscribe(customers => { this.customers = customers })
   }
 
-  searchCustomer($event) {
-    const options = $event;
-    const opt = {};
-
-    for(let k in options) {
-      if(options[k]!='') {
-        opt[k]=options[k].toLowerCase();
-      }
-    }
-
-    this.customerService 
-        .searchCustomer(opt)
-        .subscribe(data => {this.customers = data}) 
+  searchCustomer(event): void{
+    this.customerService
+        .searchCustomer(event)
+        .subscribe( data => {this.customers = data})
+    //manca l'aggiornamento
   }
 
  
