@@ -1,0 +1,31 @@
+<ng-template #content let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Search Rental</h4>
+        <button type="button" class="close" (click)="modal.dismiss()"> X </button>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <div claass="form-group">
+
+                <label for="car">Car Search</label>
+                <select name="car" [(ngModel)]="searchOptions.car">
+                    <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker}} {{entry.model}}</option>
+                </select>
+
+                <label for="customer">Customer Search</label>
+                <select name="customer" [(ngModel)]="searchOptions.customer">
+                    <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name}} {{entry.surname}}
+                    </option>
+                </select>
+
+            </div>
+        </form>
+    </div>
+
+    <button type="button" class="btn btn-primary" name="search" (click)="searchRentals()">Search Rentals</button>
+
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)">Search</button>

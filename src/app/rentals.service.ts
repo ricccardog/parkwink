@@ -1,21 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Rentals } from './rentals';
-import { Observable, of} from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Rental } from './rentals';
+import { Car } from './cars';
+import { Customer } from './customers';
+import { RentalFilter } from './rentalFilter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentalsService {
 
-  constructor() { }
+  rentalUrl = 'http://localhost:3000/rentals';
 
-   /*  getRentals(text: string) : Observable<Rentals[]> {
-      return of(RENTALS.filter(
-        rentals => rentals.car.model.toLowerCase().includes(text)
-        ||  rentals.car.maker.toLowerCase().includes(text)
-        ||  rentals.user.name.toLowerCase().includes(text)
-        ||  rentals.user.surname.toLowerCase().includes(text)))
-   } */
+  constructor(private http: HttpClient) { }
 
-
+  //GET
+  getRentals(): Observable <Rental[]> {
+    return this.http.get<Rental[]>(this.rentalUrl)
   }
+  //POST
+  addRental(rental: Rental): Observable<Rental>{
+    return this.http.post<Rental>(this.rentalUrl, rental)
+  }
+  //DELETE
+  deleteRental(_id: string): Observable<{}> {
+    const url = `${this.rentalUrl}/${_id}` ;
+    return this.http.delete(url)
+  }
+  //READ
+  readRental(rental: Rental): Observable<Rental> {
+    const url = this.rentalUrl +'/' + rental._id;
+    return this.http.get<Rental>(url)
+  }
+  //SEARCH
+  searchRental(options): Observable<Rental[]> {
+    const par = this.toParams(options)
+    return this.http.get<Rental[]>(this.rentalUrl, {params:par})
+  }
+  //ONJ -> PARAMS
+  toParams(options): HttpParams {
+    const opt = options;
+    for(let k in options){
+      if(options[k]!=''){
+        opt[k]=options[k]
+      }
+    }
+    return new HttpParams ( { fromObject: opt} )
+  }
+
+}

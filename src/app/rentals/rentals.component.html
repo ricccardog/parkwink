@@ -1,9 +1,7 @@
 <h2> RENTALS </h2>
 
-<!-- <app-rental-modal (close)="getRentals('')"></app-rental-modal> -->
-
-<!-- <input type="text" name="search" #search [(ngModel)]="text" (keyup.enter)="getRentals(text)"/> -->
-
+<app-rental-modal (close)="getRentals()">Add Rental</app-rental-modal>
+<app-rental-search (searchOutput)="searchRental($event)"></app-rental-search>
 <table class="table table-striped table-hover">
      <thead>
      <tr>
@@ -18,11 +16,11 @@
 
      <tbody>
      <tr *ngFor="let rental of rentals">
-      <th scope="row">{{rental.id}}</th>
+      <th scope="row">{{rentals.indexOf(rental) +1 }}</th>
       <td> {{rental.car.model}} {{rental.car.maker}} </td>
-      <td> {{rental.user.name}} {{rental.user.surname}} </td>
-      <td> {{rental.fromDate | date :'dd / MM / yyyy'}} </td>
-      <td> {{rental.toDate | date :'dd / MM / yyyy'}}</td>
+      <td> {{rental.customer.name}} {{rental.customer.surname}} </td>
+      <td> {{rental.startDate | date :'dd / MM / yyyy'}} </td>
+      <td> {{rental.endDate | date :'dd / MM / yyyy'}}</td>
       <td> {{rental.price}}</td>
      </tr>
      </tbody>

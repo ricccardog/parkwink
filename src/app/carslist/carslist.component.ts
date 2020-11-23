@@ -11,8 +11,6 @@ import { CarService } from '../car.service';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
-  //carId = '';
-  //selectCar : Car;
 
   constructor(private carService : CarService) {
     
@@ -21,12 +19,17 @@ export class CarslistComponent implements OnInit {
   ngOnInit() : void {
     this.getCars();
   }
-
-
+  //GET
   getCars(): void {
     this.carService
       .getCars()
       .subscribe(data => { this.cars = data })
+  }
+  //SEARCH
+  searchCar(event): void {
+    this.carService
+        .searchCar(event)
+        .subscribe(data => {this.cars = data})
   }
 
 /*   deleteCar(): void {

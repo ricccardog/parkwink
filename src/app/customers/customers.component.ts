@@ -9,11 +9,10 @@ import { CustomerService } from '../customer.service';
   styleUrls: ['./customers.component.css']
 })
 
-
 export class CustomersComponent  implements OnInit{
 
-
   customers: Customer[] = [];
+
   constructor(private customerService: CustomerService) { 
 
   }
@@ -21,18 +20,17 @@ export class CustomersComponent  implements OnInit{
   ngOnInit() : void { 
     this.getCustomers(); 
   }
-
+  //GET
   getCustomers(): void {
     this.customerService
       .getCustomers()
       .subscribe(customers => { this.customers = customers })
   }
-
-  searchCustomer(event): void{
+  //SEARCH
+  searchCustomer(event): void {
     this.customerService
         .searchCustomer(event)
         .subscribe( data => {this.customers = data})
-    //manca l'aggiornamento
   }
 
  

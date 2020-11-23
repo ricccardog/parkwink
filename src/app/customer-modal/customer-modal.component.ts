@@ -21,7 +21,7 @@ customerForm: FormGroup;
 
   ngOnInit(): void {
   }
-
+  
   open(content) {
     this.modalService.open(content)
   }

@@ -1,6 +1,5 @@
 <h2> CUSTOMERS </h2>
 
-
 <app-customer-modal (close)="getCustomers()">Add Customer</app-customer-modal>
 <app-customer-search (searchOutput)="searchCustomer($event)"></app-customer-search>
 
@@ -19,7 +18,7 @@
     <tbody>
         <tr *ngFor="let customer of customers">
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
-            <td> {{customer.name}} </td> 
+            <td> {{customer.name}} </td>
             <td> {{customer.surname}} </td>
             <td> {{customer.email}} </td>
             <td> {{customer.drivingLicense}} </td>
@@ -27,4 +26,3 @@
         </tr>
     </tbody>
 </table>
-

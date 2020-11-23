@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CustomerFilter } from '../customerFilter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 @Component({
   selector: 'app-customer-search',
   templateUrl: './customer-search.component.html',
@@ -20,11 +19,11 @@ export class CustomerSearchComponent implements OnInit {
   ngOnInit(): void {
     this.resetOptions()
   }
-
+  //OPEN MODAL
   open(content) {
     this.modalService.open(content)
   }
-
+  //SEARCH
   searchCustomers(){ 
     this.searchOutput.emit(this.searchOptions);
     this.resetOptions();

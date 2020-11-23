@@ -16,9 +16,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CarslistComponent } from './carslist/carslist.component';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { RentalModalComponent } from './rental-modal/rental-modal.component';
-import { RentalFormComponent } from './rental-form/rental-form.component';
 import { CarModalComponent } from './car-modal/car-modal.component';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
+import { CarSearchComponent } from './car-search/car-search.component';
+import { RentalSearchComponent } from './rental-search/rental-search.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
     DashboardComponent,
     CustomerModalComponent,
     RentalModalComponent,
-    RentalFormComponent,
     CarModalComponent,
-    CustomerSearchComponent
+    CustomerSearchComponent,
+    CarSearchComponent,
+    RentalSearchComponent
     ],
   
   imports: [

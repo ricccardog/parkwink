@@ -1,17 +1,44 @@
 <ng-template #content let-activeModal>
 
-    <div class="modal-header">
-        <h4 class="modal-title" id="rental-modal-title">Add Rental</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">X</span>
-        </button>
-    </div>
-
+<div class="modal-header">
+    <h4 class="modal-title" id="rental-modal-title"> Add Rental </h4>
+    <button type="button" class="close" (click)="activeModal.dismiss()">
+        x
+    </button>
+</div>
+<div class="container">
 <div class="modal-body">
 
-    <app-rental-form (close)="onClose()"></app-rental-form>
+    <form #rentalForm="ngForm">
+        
+        <div class="form-group">
 
+            <label for="car">Car</label>
+            <select name="car" [(ngModel)]="newRental.car">
+                <option *ngFor="let car of cars" [value]="car._id">{{car.model}} {{car.maker}}</option>
+            </select>
+
+            <label for="customer">Customer</label>
+            <select name="customer" [(ngModel)]="newRental.customer">
+                <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name}} {{customer.surname}}</option>
+            </select>
+
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" [(ngModel)]="newRental.startDate">
+
+            <label for="endDate">End Date</label>
+            <input type="date" name="endDate" [(ngModel)]="newRental.endDate">
+
+            <label for="price">Price</label>
+            <input type="number" name="price" [(ngModel)]="newRental.price">
+
+        </div>
+    </form>
 </div>
+</div>
+
+<button type="button" class="btn btn-primary" (click)="addRental()">ADD RENTAL</button>
+
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)">Add Rental</button>
+<button class="btn btn-primary" (click)="open(content)">ADD</button>

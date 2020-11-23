@@ -1,13 +1,10 @@
 <h2> CARS </h2>
 
-<button type="button" class="btn btn-primary">
-  <app-car-modal (close)="getCars()">Add Car</app-car-modal>
-</button>
+<app-car-modal (close)="getCars()">Add Car</app-car-modal>
+<app-car-search (searchOutput)="searchCar($event)"></app-car-search>
 
-<!-- <input type="text" name="search" [(ngModel)]="text" (keyup.enter)="searchCar()"/>
- -->
 <table class="table table-striped table-hover">
-    <thead>
+  <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Model</th>
@@ -15,9 +12,9 @@
       <th scope="col">Creation Date</th>
       <th scope="col">Price</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     <tr *ngFor="let car of cars">
       <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
       <td> {{car.model}} </td>
@@ -25,15 +22,5 @@
       <td> {{car.creationDate | date :'dd / MM / yyyy'}} </td>
       <td> {{car.price}} </td>
     </tr>
-    </tbody>
-  </table>
-
-<!--    <div class="form-group">
-  <select [(ngModel)]="editedCar" class="form-control" name="select">
-    <option *ngFor="let car of cars" [ngValue]="car">{{car.model}}</option>
-  </select>
-  
-    <input *ngIf="editedCar" class="form-control" type="text" name="newmodel" 
-            id="newmodel" [(ngModel)]="editedCar.model" (keyup.enter)="updateCar()"/>
-  </div>
- -->
+  </tbody>
+</table>

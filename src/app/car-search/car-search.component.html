@@ -1,0 +1,24 @@
+<ng-template #content let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Search Car</h4>
+        <button type="button" class="close" (click)="modal.dismiss()"> X </button>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+
+                <label *ngFor="let f of searchFields">{{f}} search
+                    <input type="text" name="[f]" [(ngModel)]="searchOptions[f]">
+                </label>
+                    
+            </div>
+        </form>
+    </div>
+   
+    <button type="button" class="btn btn-primary" name="search" (click)="searchCars()">Search Cars</button>
+
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)">Search</button>

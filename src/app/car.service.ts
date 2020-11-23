@@ -17,7 +17,6 @@ export class CarService {
   getCars() : Observable<Car[]> { 
     return this.http.get<Car[]>(this.carsUrl)
   }
-
   //POST
   addCar(car: Car): Observable<Car> {
     return this.http.post<Car>(this.carsUrl, car)
@@ -27,7 +26,7 @@ export class CarService {
     const url = `${this.carsUrl}/${_id}`;
     return this.http.delete(url)
   }
-  //UPDATE
+  //PUT
   updateCar(car: Car): Observable<Car> {
     const url = this.carsUrl + '/' +  car._id;
     return this.http.put<Car>(url, car)
@@ -38,20 +37,19 @@ export class CarService {
     return this.http.get<Car>(url)
   }
   //SEARCH
-  searchCar(modelTerm?: string, makerTerm?: string) : Observable<Car[]> {
-  
-  modelTerm = modelTerm.trim();
-  makerTerm = makerTerm.trim();
-  
-  let options = new HttpParams();
-    if(modelTerm) {
-      options = options.append('model', modelTerm)
+  searchCar(options): Observable<Car[]> {
+    const par = this.toParams(options)
+    return this.http.get<Car[]>(this.carsUrl, { params: par})
+  }
+  //OBJ -> PARAMS
+  toParams(options): HttpParams {
+    const opt = {};
+    for(let k in options) {
+      if(options[k]!='') {
+        opt[k]=options[k]
+      }
     }
-    if(makerTerm) {
-      options = options.append('maker', makerTerm)
-    }
-    
-  return this.http.get<Car[]>(this.carsUrl, { params: options})
-    }
+    return new HttpParams( {fromObject: opt})
+  }
 
 }

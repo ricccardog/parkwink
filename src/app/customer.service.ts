@@ -11,8 +11,6 @@ export class CustomerService {
 
   customerUrl = 'http://localhost:3000/customers';
   
-        
-
   constructor(private http: HttpClient) { }
 
   //GET
@@ -38,24 +36,19 @@ export class CustomerService {
     const url = this.customerUrl +'/' + customer._id;
     return this.http.get<Customer>(url)
   }
-
   //SEARCH
-  searchCustomer(options) : Observable<Customer[]> { 
-  const par =  this.toParams(options)
-  console.log('final call')
-  return this.http.get<Customer[]>(this.customerUrl, {params: par})
+  searchCustomer(options): Observable<Customer[]> { 
+    const par =  this.toParams(options)
+    return this.http.get<Customer[]>(this.customerUrl, {params: par})
   }
-
-  //trsforma oggetto in parametri
-  toParams(options) : HttpParams {
-    console.log('data in service')
+  //OBJ -> PARAMS
+  toParams(options): HttpParams {
     const opt = {};
     for(let k in options) {
       if(options[k]!='') {
-        opt[k]=options[k].toLowerCase();
+        opt[k]=options[k]
       }
     }
-    console.log('data to search params')
     return new HttpParams( {fromObject: opt})
   }
 
