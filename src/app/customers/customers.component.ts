@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 
@@ -12,9 +11,11 @@ import { CustomerService } from '../customer.service';
 export class CustomersComponent  implements OnInit{
 
   customers: Customer[] = [];
+  sortOrder = '';
+  stringSortTracker = 0;
+  numSortTracker = 0;
 
   constructor(private customerService: CustomerService) { 
-
   }
 
   ngOnInit() : void { 
@@ -31,6 +32,39 @@ export class CustomersComponent  implements OnInit{
     this.customerService
         .searchCustomer(event)
         .subscribe( data => {this.customers = data})
+  }
+  //SORT LIST
+  sortByString() {
+    this.stringSortTracker++;
+    if (this.stringSortTracker % 2 == 0) {
+      this.customerService
+        .getCustomers()
+        .subscribe(data => {
+          this.customers = data.sort((a, b) => a[this.sortOrder].localeCompare(b[this.sortOrder]))
+        })
+    } else {
+      this.customerService
+        .getCustomers()
+        .subscribe(data => {
+          this.customers = data.sort((a, b) => b[this.sortOrder].localeCompare(a[this.sortOrder]))
+        })
+    }
+  }
+  sortByNumber() {
+    this.numSortTracker++;
+    if (this.numSortTracker % 2 == 0) {
+      this.customerService
+        .getCustomers()
+        .subscribe(data => {
+          this.customers = data.sort((a, b) => { return a.drivingLicense - b.drivingLicense })
+        })
+    } else {
+      this.customerService
+        .getCustomers()
+        .subscribe(data => {
+          this.customers = data.sort((a, b) => { return b.drivingLicense - a.drivingLicense })
+        })
+    }
   }
 
  

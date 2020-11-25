@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CarSearchComponent implements OnInit {
 
-  @Output() searchOutput = new EventEmitter <CarFilter> ();
+@Output() searchOutput = new EventEmitter <CarFilter> ();
 
   searchOptions = {} as CarFilter;
   searchFields = ['maker' , 'model'];

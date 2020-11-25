@@ -7,10 +7,10 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Email</th>
-            <th scope="col">Driving License</th>
+            <th scope="col" (click)="sortOrder='name'; sortByString()">Name</th>
+            <th scope="col" (click)="sortOrder='surname'; sortByString()">Surname</th>
+            <th scope="col" (click)="sortOrder='email'; sortByString()">Email</th>
+            <th scope="col" (click)="sortOrder='drivingLicense'; sortByNumber()">Driving License</th>
             <th scope="col">Birth Date</th>
         </tr>
     </thead>

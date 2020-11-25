@@ -21,6 +21,7 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
 import { CarSearchComponent } from './car-search/car-search.component';
 import { RentalSearchComponent } from './rental-search/rental-search.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,7 @@ import { RentalSearchComponent } from './rental-search/rental-search.component';
     CustomerSearchComponent,
     CarSearchComponent,
     RentalSearchComponent
-    ],
+  ],
   
   imports: [
     BrowserModule,

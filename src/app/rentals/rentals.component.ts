@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalFilter } from '../rentalFilter';
-
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
-
-
 
 @Component({
   selector: 'app-rentals',
@@ -15,13 +12,13 @@ import { RentalsService } from '../rentals.service'
 export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
-
+ 
   constructor(private rentalsService: RentalsService) { }
 
   ngOnInit(): void {
    this.getRentals();
   }
-
+  //GET
   getRentals(): void {
   this.rentalsService
       .getRentals()
@@ -31,7 +28,7 @@ export class RentalsComponent implements OnInit {
   searchRental(event: RentalFilter){
     this.rentalsService
         .searchRental(event)
-        .subscribe(data => { this.rentals = data})
-  //INSERIRE ALERT SE LA RICERCA VA A VUOTO
+        .subscribe(data => { this.rentals = data});
   }
+
 }

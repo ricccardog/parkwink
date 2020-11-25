@@ -5,7 +5,7 @@ export interface Car {
     creationDate: Date ;
     price: number;
 }
-
+/* 
 export class Car {
 
     constructor(
@@ -15,4 +15,4 @@ export class Car {
         creationDate: Date ,
         price: number
     ) {}
-}
+} */

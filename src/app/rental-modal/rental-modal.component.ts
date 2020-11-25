@@ -31,11 +31,11 @@ export class RentalModalComponent implements OnInit {
   ngOnInit(): void {
     this.getData()
   }
-
+  // OPEN MODAL
   open(content) {
     this.modalService.open(content)
   }
-
+  //GET
   getData() {
     this.customerService
         .getCustomers()
@@ -44,7 +44,7 @@ export class RentalModalComponent implements OnInit {
         .getCars()
         .subscribe(cars => {this.cars = cars})
   }
-
+  //POST
   addRental(): void {
     this.rentalsService
         .addRental(this.newRental)

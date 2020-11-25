@@ -1,2 +1,0 @@
-import { Customer } from './customers';
-

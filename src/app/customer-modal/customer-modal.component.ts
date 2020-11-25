@@ -1,8 +1,6 @@
 import { Component, EventEmitter, OnInit , Output} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 
@@ -14,18 +12,19 @@ import { CustomerService } from '../customer.service';
 export class CustomerModalComponent implements OnInit {
 
 @Output() close = new EventEmitter<void>();
-newCustomer = {} as Customer;
-customerForm: FormGroup;
+
+  newCustomer = {} as Customer;
+  customerForm: FormGroup;
 
   constructor(private modalService: NgbModal, private customerService: CustomerService) { }
 
   ngOnInit(): void {
   }
-  
+  //OPEN MODAL
   open(content) {
     this.modalService.open(content)
   }
- 
+  //POST
   addCustomer(): void {
     this.customerService
         .addCustomer(this.newCustomer)
