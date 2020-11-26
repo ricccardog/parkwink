@@ -35,9 +35,11 @@ export class CustomerDetailComponent implements OnInit {
   }
   //DELETE
   deleteCustomer(): void {
+    if(confirm(`Are you sure you want to delete user ${this.customer.name} ${this.customer.surname} ?`)){
     this.customerService
         .deleteCustomer(this.customer._id)
-        .subscribe(data => {alert('Customer successfully deleted')});
+        .subscribe(data => {alert('Customer successfully deleted')})
+    }
   }
     
   
