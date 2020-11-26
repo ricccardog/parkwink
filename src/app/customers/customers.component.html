@@ -9,23 +9,16 @@
             <th scope="col">#</th>
             <th scope="col" (click)="sortOrder='name'; sortByString()">Name</th>
             <th scope="col" (click)="sortOrder='surname'; sortByString()">Surname</th>
-            <th scope="col" (click)="sortOrder='email'; sortByString()">Email</th>
-            <th scope="col" (click)="sortOrder='drivingLicense'; sortByNumber()">Driving License</th>
-            <th scope="col">Birth Date</th>
         </tr>
     </thead>
 
     <tbody>
         <tr 
         *ngFor="let customer of customers"
-        routerLink="{{customer._id}}"
-        (click)="onSelect(customer)"> 
+        routerLink="{{customer._id}}"> 
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
             <td> {{customer.name | titlecase}} </td>
             <td> {{customer.surname | titlecase}} </td>
-            <td> {{customer.email}} </td>
-            <td> {{customer.drivingLicense}} </td>
-            <td> {{customer.birthDate | date :'dd / MM / yyyy'}} </td>
         </tr>
     </tbody>
 </table>

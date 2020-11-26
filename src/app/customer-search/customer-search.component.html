@@ -9,8 +9,12 @@
         <form>
             <div class="form-group">
 
-                <label *ngFor="let f of searchFields">{{f}} search
+                <label *ngFor="let f of searchFields">{{f | titlecase}} search
                     <input type="text" name="[f]" [(ngModel)]="searchOptions[f]">
+                </label>
+
+                <label for="license"> Driving License search
+                    <input type="number" name="license" [(ngModel)]="searchOptions.drivingLicense">
                 </label>
                     
             </div>

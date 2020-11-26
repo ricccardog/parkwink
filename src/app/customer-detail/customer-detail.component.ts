@@ -33,6 +33,12 @@ export class CustomerDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  //DELETE
+  deleteCustomer(): void {
+    this.customerService
+        .deleteCustomer(this.customer._id)
+        .subscribe(data => {alert('Customer successfully deleted')});
+  }
     
   
 }

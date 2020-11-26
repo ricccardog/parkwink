@@ -11,7 +11,6 @@ import { CustomerService } from '../customer.service';
 export class CustomersComponent  implements OnInit{
 
   customers : Customer[] = [];
-  selectedCustomer : Customer;
   sortOrder = '';
   stringSortTracker = 0;
   numSortTracker = 0;
@@ -22,10 +21,7 @@ export class CustomersComponent  implements OnInit{
   ngOnInit() : void { 
     this.getCustomers(); 
   }
-  onSelect(customer: Customer){
-    this.selectedCustomer = customer;
-    console.log(this.selectedCustomer)
-  }
+  
   //GET
   getCustomers(): void {
     this.customerService
