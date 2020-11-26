@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 
@@ -10,7 +10,8 @@ import { CustomerService } from '../customer.service';
 
 export class CustomersComponent  implements OnInit{
 
-  customers: Customer[] = [];
+  customers : Customer[] = [];
+  selectedCustomer : Customer;
   sortOrder = '';
   stringSortTracker = 0;
   numSortTracker = 0;
@@ -20,6 +21,10 @@ export class CustomersComponent  implements OnInit{
 
   ngOnInit() : void { 
     this.getCustomers(); 
+  }
+  onSelect(customer: Customer){
+    this.selectedCustomer = customer;
+    console.log(this.selectedCustomer)
   }
   //GET
   getCustomers(): void {
@@ -66,7 +71,6 @@ export class CustomersComponent  implements OnInit{
         })
     }
   }
-
  
 /* 
   deleteCustomer(): void {

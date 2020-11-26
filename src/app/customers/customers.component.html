@@ -16,10 +16,13 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let customer of customers">
+        <tr 
+        *ngFor="let customer of customers"
+        routerLink="{{customer._id}}"
+        (click)="onSelect(customer)"> 
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
-            <td> {{customer.name}} </td>
-            <td> {{customer.surname}} </td>
+            <td> {{customer.name | titlecase}} </td>
+            <td> {{customer.surname | titlecase}} </td>
             <td> {{customer.email}} </td>
             <td> {{customer.drivingLicense}} </td>
             <td> {{customer.birthDate | date :'dd / MM / yyyy'}} </td>

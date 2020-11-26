@@ -1,0 +1,28 @@
+
+<div class="container" *ngIf="customer">
+    <h4>Customer Detail</h4>
+    <table class="table table-striped table-hover">
+        <thead>
+           
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let field of fields">
+                <td>{{field | titlecase }} </td>
+                <td>{{ customer[field] | titlecase }}</td>
+            </tr>
+
+            <tr>
+                <td>Driving License</td>
+                <td>{{ customer.drivingLicense }}</td>
+            </tr>
+
+            <tr>
+                <td>Date of Birth</td>
+                <td>{{ customer.birthDate | date : 'dd / MM / yyyy' }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<button type="button" class="btn btn-primary" (click)="goBack()">go back</button>

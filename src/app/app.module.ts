@@ -20,7 +20,7 @@ import { CarModalComponent } from './car-modal/car-modal.component';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
 import { CarSearchComponent } from './car-search/car-search.component';
 import { RentalSearchComponent } from './rental-search/rental-search.component';
-
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { RentalSearchComponent } from './rental-search/rental-search.component';
     CarModalComponent,
     CustomerSearchComponent,
     CarSearchComponent,
-    RentalSearchComponent
+    RentalSearchComponent,
+    CustomerDetailComponent
   ],
   
   imports: [

@@ -32,8 +32,8 @@ export class CustomerService {
     return this.http.put<Customer>(url, customer)
   }
   //READ
-  readCustomer(customer: Customer): Observable<Customer> {
-    const url = this.customerUrl +'/' + customer._id;
+  readCustomer(id: string): Observable<Customer> {
+    const url = this.customerUrl +'/' + id;
     return this.http.get<Customer>(url)
   }
   //SEARCH
