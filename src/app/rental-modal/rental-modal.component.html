@@ -6,8 +6,9 @@
         x
     </button>
 </div>
-<div class="container">
+
 <div class="modal-body">
+<div class="container">
 
     <form #rentalForm="ngForm">
         
@@ -24,13 +25,13 @@
             </select>
 
             <label for="startDate">Start Date</label>
-            <input type="date" name="startDate" [(ngModel)]="newRental.startDate">
+            <input type="date" name="startDate" [(ngModel)]="newRental.startDate"/>
 
             <label for="endDate">End Date</label>
-            <input type="date" name="endDate" [(ngModel)]="newRental.endDate">
+            <input type="date" name="endDate" [(ngModel)]="newRental.endDate"/>
 
             <label for="price">Price</label>
-            <input type="number" name="price" [(ngModel)]="newRental.price">
+            <input type="number" name="price" [(ngModel)]="newRental.price"/>
 
         </div>
     </form>
