@@ -32,8 +32,8 @@ export class CarService {
     return this.http.put<Car>(url, car)
   }
   //READ | Inutilizzato al momento
-  readCar(car: Car): Observable<Car> {
-    const url = this.carsUrl + '/' +  car._id;
+  readCar(id: string): Observable<Car> {
+    const url = this.carsUrl + '/' +  id;
     return this.http.get<Car>(url)
   }
   //SEARCH

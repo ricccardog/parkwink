@@ -68,29 +68,10 @@ export class CustomersComponent  implements OnInit{
     }
   }
  
-/* 
-  deleteCustomer(): void {
-    this.customerService
-      .deleteCustomer(this.customerId)
-      .subscribe(customer => { this.getCustomers() })
-  }
-
-  updateCustomer(): void {
+ /*  updateCustomer(): void {
     this.customerService
       .updateCustomer(this.selectCustomer)
       .subscribe(customer => { this.getCustomers })
-  }
- */
- /*  addCustomer(): void {
-    this.customerService
-      .addCustomer(this.selectCustomer)
-      .subscribe(customer => { this.getCustomers() })
-  } */
-
-  /* searchCustomer(): void{
-    this.customerService
-        .searchCustomer(this.surnameSearch, this.nameSearch)
-        .subscribe(data => {this.customers = data})
   } */
 
 }

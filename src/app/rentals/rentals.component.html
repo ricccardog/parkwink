@@ -9,20 +9,18 @@
           <th scope="col">#</th>
           <th scope="col" (click)="sortByCar()">Car</th>
           <th scope="col" (click)="sortByCustomer()">User</th>
-          <th scope="col">Start Date</th>
-          <th scope="col">End Date</th>
-          <th scope="col" (click)="sortByPrice()">Price</th>
+          <th scope="col">Dates</th>
      </tr>
      </thead>
 
      <tbody>
-     <tr *ngFor="let rental of rentals">
+     <tr *ngFor="let rental of rentals"
+     routerLink="{{rental._id}}">
       <th scope="row">{{rentals.indexOf(rental) +1 }}</th>
       <td> {{rental.car.model | titlecase}} {{rental.car.maker | titlecase}} </td>
       <td> {{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}} </td>
-      <td> {{rental.startDate | date :'dd / MM / yyyy'}} </td>
-      <td> {{rental.endDate | date :'dd / MM / yyyy'}}</td>
-      <td> {{rental.price}}</td>
+      <td> from     {{rental.startDate | date :'dd/MM/yyyy'}}
+           to  {{rental.endDate | date :'dd/MM/yyyy'}} </td>
      </tr>
      </tbody>
 </table>

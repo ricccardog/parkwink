@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Customer } from '../customers';
-import { CustomerService } from '../customer.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { Customer } from '../customers';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-customer-detail',
@@ -17,8 +18,7 @@ export class CustomerDetailComponent implements OnInit {
   constructor(
     private customerService : CustomerService,
     private route : ActivatedRoute,
-    private location : Location) {
-   }
+    private location : Location) {}
 
   ngOnInit(): void {
     this.getCustomer();   
@@ -29,7 +29,7 @@ export class CustomerDetailComponent implements OnInit {
     this.customerService.readCustomer(id)
         .subscribe(data => this.customer = data) 
   }
-  //BACK TO CUSTOMERS
+  //NAVIGATE BACK
   goBack(): void {
     this.location.back();
   }

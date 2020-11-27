@@ -29,8 +29,8 @@ export class RentalsService {
     return this.http.delete(url)
   }
   //READ
-  readRental(rental: Rental): Observable<Rental> {
-    const url = this.rentalUrl +'/' + rental._id;
+  readRental(id: string): Observable<Rental> {
+    const url = this.rentalUrl +'/' + id;
     return this.http.get<Rental>(url)
   }
   //SEARCH
