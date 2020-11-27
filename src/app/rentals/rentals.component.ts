@@ -3,6 +3,7 @@ import { RentalFilter } from '../rentalFilter';
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
 
+
 @Component({
   selector: 'app-rentals',
   templateUrl: './rentals.component.html',
@@ -23,7 +24,7 @@ export class RentalsComponent implements OnInit {
   getRentals(): void {
   this.rentalsService
       .getRentals()
-      .subscribe(rentals => { this.rentals = rentals})
+      .subscribe(rentals => { this.rentals = rentals}) 
   }
   //SEARCH
   searchRental(event: RentalFilter){

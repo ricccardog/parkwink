@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+
+import { ResolverService } from '../resolver.service';
 
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service';
@@ -22,15 +23,9 @@ export class RentalDetailComponent implements OnInit {
     private location : Location) { }
 
   ngOnInit(): void {
-    this.getRental();
+    this.rental = this.route.snapshot.data.rentalResolve as Rental;
   }
-  //GET
-  getRental(): void {
-    const id : string = this.route.snapshot.paramMap.get('_id');
-    this.rentalService
-        .readRental(id)
-        .subscribe( data => this.rental = data)     
-  }
+
   //DELETE
   deleteRental(): void {
     if(confirm("Are you sure you want to delete this rental?")){
@@ -39,6 +34,7 @@ export class RentalDetailComponent implements OnInit {
           .subscribe(data => {alert("Rental successfully deleted!")})
     }
   }
+  
   //NAVIGATE BACK
   goBack(): void {
     this.location.back();

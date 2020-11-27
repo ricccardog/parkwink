@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { ResolverService } from '../resolver.service';
+
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 
@@ -21,18 +23,14 @@ export class CustomerDetailComponent implements OnInit {
     private location : Location) {}
 
   ngOnInit(): void {
-    this.getCustomer();   
+    this.customer = this.route.snapshot.data.customerResolve as Customer;   
   }
-  //GET
-  getCustomer(): void {
-    const id : string = this.route.snapshot.paramMap.get('_id');
-    this.customerService.readCustomer(id)
-        .subscribe(data => this.customer = data) 
-  }
+  
   //NAVIGATE BACK
   goBack(): void {
     this.location.back();
   }
+  
   //DELETE
   deleteCustomer(): void {
     if(confirm(`Are you sure you want to delete user ${this.customer.name} ${this.customer.surname} ?`)){

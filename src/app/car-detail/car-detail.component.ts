@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { ResolverService } from '../resolver.service';
+
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 
@@ -17,19 +19,15 @@ export class CarDetailComponent implements OnInit {
 ]
   constructor(
     private carService : CarService,
+    private resolver : ResolverService,
     private route : ActivatedRoute,
     private location : Location
   ) { }
 
   ngOnInit(): void {
-    this.getCar();
+    this.car = this.route.snapshot.data.carResolve as Car;
   }
-  //GET
-  getCar(): void {
-    const id : string = this.route.snapshot.paramMap.get('_id');
-    this.carService.readCar(id)
-        .subscribe( data => this.car = data)
-  }
+
   //DELETE
   deleteCar(): void {
     if(confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)){
@@ -38,6 +36,7 @@ export class CarDetailComponent implements OnInit {
           .subscribe(data => { alert('Car successfully deleted')})
     }
   }
+  
   //NAVIGATE BACK
   goBack(): void{
     this.location.back();
