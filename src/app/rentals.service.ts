@@ -28,6 +28,11 @@ export class RentalsService {
     const url = `${this.rentalUrl}/${_id}` ;
     return this.http.delete(url)
   }
+  //PUT
+  updateRental(rental: Rental): Observable<Rental> {
+    const url = this.rentalUrl + '/' + rental._id;
+    return this.http.put<Rental>(url, rental)
+  }
   //READ
   readRental(id: string): Observable<Rental> {
     const url = this.rentalUrl +'/' + id;

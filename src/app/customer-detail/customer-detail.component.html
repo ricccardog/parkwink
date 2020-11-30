@@ -1,4 +1,41 @@
+<ng-template #content let-activeModal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="customer-modal-title"> Edit Customer </h4>
+            <button type="button" class="close" (click)="activeModal.dismiss()">
+                x
+            </button>
+        
+    </div>
 
+    <div class="modal-body">
+
+        <form #customerForm="ngForm">
+
+            <div class="form-group">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" 
+                name="name" [(ngModel)]="editCustomer.name" placeholder="{{customer.name}}">
+    
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" class="form-control" 
+                name="surname" [(ngModel)]="editCustomer.surname" placeholder="{{customer.surname}}">
+    
+                <label for="date">Date of Birth</label>
+                <input type="date" id="birthDate" class="form-control" 
+                name="birthDate" [(ngModel)]="editCustomer.birthDate">
+    
+                <label for="license">Driving License</label>
+                <input type="number" id="license" class="form-control" 
+                name="license" [(ngModel)]="editCustomer.drivingLicense" placeholder="{{customer.drivingLicense}}">
+           
+            </div>
+        </form>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="updateCustomer()" routerLink="..">UPDATE</button>
+
+</ng-template>
 <div class="container">
     <h4>Customer Detail</h4>
     <table class="table table-striped table-hover">
@@ -23,4 +60,5 @@
     </table>
 </div>
 <button type="button" class="btn btn-secondary" (click)="goBack()">BACK</button>
+<button type="button" class="btn btn-secondary" (click)="open(content)">UPDATE</button>
 <button type="button" class="btn btn-danger" style="float : right" (click)="deleteCustomer()" routerLink="..">DELETE CUSTOMER</button>
