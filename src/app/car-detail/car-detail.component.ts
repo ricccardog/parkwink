@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ResolverService } from '../resolver.service';
 
 import { Car } from '../cars';
 import { CarService } from '../car.service';
@@ -17,19 +16,22 @@ import { FormGroup } from '@angular/forms';
 export class CarDetailComponent implements OnInit {
 
   car: Car;
-  fields = ['model', 'maker']
   editCar = {} as Car;
   carForm: FormGroup;
 
   constructor(
-    private carService : CarService,
-    private resolver : ResolverService,
-    private route : ActivatedRoute,
-    private location : Location,
-    private modal : NgbModal,
+    private carService: CarService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private modal: NgbModal,
   ) { }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  //GET DATA
+  getData(): void {
     this.car = this.route.snapshot.data.carResolve as Car;
     this.editCar._id = this.car._id;
   }
@@ -38,16 +40,18 @@ export class CarDetailComponent implements OnInit {
   open(content) {
     this.modal.open(content)
   }
+
   //NAVIGATE BACK
-  goBack(): void{
+  goBack(): void {
     this.location.back();
   }
+
   //DELETE
   deleteCar(): void {
-    if(confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)){
+    if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
       this.carService
-          .deleteCar(this.car._id)
-          .subscribe(data => { alert('Car successfully deleted')})
+        .deleteCar(this.car._id)
+        .subscribe(data => { alert('Car successfully deleted') })
     }
   }
   //UPDATE
@@ -57,7 +61,11 @@ export class CarDetailComponent implements OnInit {
         .updateCar(this.editCar)
         .subscribe(car => { alert('Car successfully edited') })
     }
+    this.carService
+      .readCar(this.editCar._id)
+      .subscribe(data => this.car = data)
     this.modal.dismissAll();
+
   }
-  
+
 }

@@ -34,7 +34,7 @@
 
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="updateCar()" routerLink="..">UPDATE</button>
+    <button type="button" class="btn btn-primary" (click)="updateCar()">EDIT</button>
 
 </ng-template>
 
@@ -43,9 +43,14 @@
     <table class="table table-striped table-hover">
 
         <tbody>
-            <tr *ngFor="let field of fields">
-                <td>{{field | titlecase }} </td>
-                <td>{{ car[field] | titlecase }}</td>
+            <tr>
+                <td>Car Model</td>
+                <td>{{ car.model | titlecase}}</td>
+            </tr>
+
+            <tr>
+                <td>Car Maker</td>
+                <td>{{ car.maker | titlecase}}</td>
             </tr>
 
             <tr>
@@ -62,5 +67,5 @@
     </table>
 </div>
 <button type="button" class="btn btn-secondary" (click)="goBack()">BACK</button>
-<button type="button" class="btn btn-secondary" (click)="open(content)">UPDATE</button>
+<button type="button" class="btn btn-primary" (click)="open(content)">EDIT</button>
 <button type="button" class="btn btn-danger" style="float : right" (click)="deleteCar()" routerLink="..">DELETE CAR</button>

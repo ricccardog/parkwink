@@ -21,6 +21,7 @@ export class CarslistComponent implements OnInit {
   ngOnInit() : void {
     this.getCars();
   }
+  
   //GET
   getCars(): void {
     this.carService
@@ -66,30 +67,6 @@ export class CarslistComponent implements OnInit {
         })
     }
   }
-
-/*   deleteCar(): void {
-    this.carService
-      .deleteCar(this.carId)
-      .subscribe(car => { this.getCars() })
-  }
-
-  updateCar(): void {
-    this.carService
-      .updateCar(this.selectCar)
-      .subscribe(car => { this.getCars })
-  }
-
-  addCar(): void {
-    this.carService
-      .addCar(this.selectCar)
-      .subscribe(car => { this.getCars() })
-  }
-
-  searchCar(): void{
-    this.carService
-      .searchCar(this.modelSearch, this.makerSearch)
-      .subscribe(data => {this.cars = data})
-  } */
 
 }
 

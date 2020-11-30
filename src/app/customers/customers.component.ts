@@ -68,10 +68,4 @@ export class CustomersComponent  implements OnInit{
     }
   }
  
- /*  updateCustomer(): void {
-    this.customerService
-      .updateCustomer(this.selectCustomer)
-      .subscribe(customer => { this.getCustomers })
-  } */
-
 }

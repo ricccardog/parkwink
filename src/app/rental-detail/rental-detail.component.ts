@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ResolverService } from '../resolver.service';
 
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service';
@@ -10,6 +9,7 @@ import { Customer } from '../customers';
 import { CustomerService } from '../customer.service'
 import { Car } from '../cars';
 import { CarService } from '../car.service';
+
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -29,7 +29,6 @@ export class RentalDetailComponent implements OnInit {
     private rentalService : RentalsService,
     private carService : CarService,
     private customerService : CustomerService,
-    private resolver : ResolverService,
     private route : ActivatedRoute,
     private location : Location,
     private modal : NgbModal) { }
@@ -50,6 +49,7 @@ export class RentalDetailComponent implements OnInit {
       .subscribe(cars => {this.cars = cars})
     
   }
+
   //OPEN UPDATE MODAL
   open(content){
     this.modal.open(content)
@@ -67,6 +67,7 @@ export class RentalDetailComponent implements OnInit {
           .subscribe(data => {alert("Rental successfully deleted!")})
     }
   }
+  
   //UPDATE
   updateRental(): void {
     if(confirm('Are you sure you want to edit this rental?')){
@@ -74,7 +75,11 @@ export class RentalDetailComponent implements OnInit {
         .updateRental(this.editRental)
         .subscribe(rental => {})
       }
+    this.rentalService
+        .readRental(this.editRental._id)
+        .subscribe(data => this.rental = data)
     this.modal.dismissAll();
+
   }
    
   
