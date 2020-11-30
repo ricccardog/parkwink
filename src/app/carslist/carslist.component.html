@@ -13,11 +13,22 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let car of cars"
+    <tr *ngFor="let car of CARS"
     routerLink="{{car._id}}">
-      <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
+      <th scope="row">{{ (CARS.indexOf(car) +1) }}</th>
       <td> {{car.model | titlecase}} </td>
       <td> {{car.price}} </td>
     </tr>
   </tbody>
 </table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="cars.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCars()">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCars()">
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+
+</div>

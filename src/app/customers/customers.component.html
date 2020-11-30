@@ -14,11 +14,21 @@
 
     <tbody>
         <tr 
-        *ngFor="let customer of customers"
+        *ngFor="let customer of CUSTOMERS"
         routerLink="{{customer._id}}"> 
-            <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
+            <th scope="row"> {{ (CUSTOMERS.indexOf(customer) +1) }}</th>
             <td> {{customer.name | titlecase}} </td>
             <td> {{customer.surname | titlecase}} </td>
         </tr>
     </tbody>
 </table>
+
+<div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="customers.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCustomers()">
+    </ngb-pagination>
+
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCustomers()">
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+    </select>
+</div>

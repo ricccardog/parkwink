@@ -14,19 +14,24 @@ export class CarslistComponent implements OnInit {
   stringSortTracker = 0;
   numSortTracker = 0;
 
+  CARS: Car[] = [];
+  page = 1;
+  pageSize = 4;
+  collectionSize = this.CARS.length;
+
   constructor(private carService : CarService) {
-    
+    this.refreshCars();
   }
 
   ngOnInit() : void {
     this.getCars();
   }
-  
+ 
   //GET
   getCars(): void {
     this.carService
       .getCars()
-      .subscribe(data => { this.cars = data })
+      .subscribe(data => { this.cars = data; this.CARS = data})
   }
   //SEARCH
   searchCar(event): void {
@@ -66,6 +71,12 @@ export class CarslistComponent implements OnInit {
           this.cars = data.sort((a, b) => { return b.price - a.price })
         })
     }
+  }
+  //PAGINATION
+  refreshCars() {
+    this.CARS = this.cars
+                .map((car, i) => ({id: i+1, ...car}))
+                .slice((this.page-1) * this.pageSize, (this.page -1) * this.pageSize + this.pageSize)
   }
 
 }

@@ -14,9 +14,9 @@
      </thead>
 
      <tbody>
-     <tr *ngFor="let rental of rentals"
+     <tr *ngFor="let rental of RENTALS"
      routerLink="{{rental._id}}">
-      <th scope="row">{{rentals.indexOf(rental) +1 }}</th>
+      <th scope="row">{{RENTALS.indexOf(rental) +1 }}</th>
       <td> {{rental.car.model | titlecase}} {{rental.car.maker | titlecase}} </td>
       <td> {{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}} </td>
       <td> from     {{rental.startDate | date :'dd/MM/yyyy'}}
@@ -24,3 +24,14 @@
      </tr>
      </tbody>
 </table>
+
+<div class="d-flex justify-content-between p-2">
+     <ngb-pagination [collectionSize]="rentals.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshRentals()">
+     </ngb-pagination>
+   
+     <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshRentals()">
+       <option [ngValue]="4">4 items per page</option>
+       <option [ngValue]="6">6 items per page</option>
+     </select>
+   
+   </div>

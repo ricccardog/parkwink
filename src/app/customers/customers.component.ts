@@ -15,7 +15,13 @@ export class CustomersComponent  implements OnInit{
   stringSortTracker = 0;
   numSortTracker = 0;
 
+  CUSTOMERS: Customer[] = [];
+  page = 1;
+  pageSize = 4;
+  collectionSize = this.CUSTOMERS.length;
+
   constructor(private customerService: CustomerService) { 
+    this.refreshCustomers();
   }
 
   ngOnInit() : void { 
@@ -26,7 +32,7 @@ export class CustomersComponent  implements OnInit{
   getCustomers(): void {
     this.customerService
       .getCustomers()
-      .subscribe(customers => { this.customers = customers })
+      .subscribe(data => { this.customers = data; this.CUSTOMERS = data })
   }
   //SEARCH
   searchCustomer(event): void {
@@ -66,6 +72,12 @@ export class CustomersComponent  implements OnInit{
           this.customers = data.sort((a, b) => { return b.drivingLicense - a.drivingLicense })
         })
     }
+  }
+  //PAGINATION
+  refreshCustomers() {
+    this.CUSTOMERS = this.customers
+    .map((customer, i) => ({id: i+1, ...customer}))
+    .slice((this.page-1) * this.pageSize, (this.page -1) * this.pageSize + this.pageSize)
   }
  
 }

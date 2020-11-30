@@ -14,8 +14,15 @@ export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
   sortString = 0;
+
+  RENTALS : Rental[] = [];
+  page = 1;
+  pageSize = 4;
+  collectionSize = this.RENTALS.length;
  
-  constructor(private rentalsService: RentalsService) { }
+  constructor(private rentalsService: RentalsService) { 
+    this.refreshRentals();
+  }
 
   ngOnInit(): void {
    this.getRentals();
@@ -24,7 +31,7 @@ export class RentalsComponent implements OnInit {
   getRentals(): void {
   this.rentalsService
       .getRentals()
-      .subscribe(rentals => { this.rentals = rentals}) 
+      .subscribe(rentals => { this.rentals = rentals ; this.RENTALS = rentals}) 
   }
   //SEARCH
   searchRental(event: RentalFilter){
@@ -56,6 +63,12 @@ export class RentalsComponent implements OnInit {
     }else{
       this.rentals = this.rentals.sort((a,b) => { return b.price - a.price})
     }
+  }
+  //PAGINATION
+  refreshRentals() {
+    this.RENTALS = this.rentals
+    .map((rental, i ) => ({id: i+1, ...rental}))
+    .slice((this.page-1) * this.pageSize, (this.page-1) * this.pageSize + this.pageSize)
   }
 }
 
