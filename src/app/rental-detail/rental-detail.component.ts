@@ -21,17 +21,17 @@ export class RentalDetailComponent implements OnInit {
 
   rental: Rental;
   editRental = {} as Rental;
-  customers: Customer [] = [];
+  customers: Customer[] = [];
   cars: Car[] = [];
-  rentalForm : FormGroup;
-  
+  rentalForm: FormGroup;
+
   constructor(
-    private rentalService : RentalsService,
-    private carService : CarService,
-    private customerService : CustomerService,
-    private route : ActivatedRoute,
-    private location : Location,
-    private modal : NgbModal) { }
+    private rentalService: RentalsService,
+    private carService: CarService,
+    private customerService: CustomerService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private modal: NgbModal) { }
 
   ngOnInit(): void {
     this.getData();
@@ -39,19 +39,19 @@ export class RentalDetailComponent implements OnInit {
 
   //STARTING SERVICE
   getData() {
-  this.rental = this.route.snapshot.data.rentalResolve as Rental;
-  this.editRental._id = this.rental._id;
-  this.customerService
+    this.rental = this.route.snapshot.data.rentalResolve as Rental;
+    this.editRental._id = this.rental._id;
+    this.customerService
       .getCustomers()
-      .subscribe(customers => {this.customers = customers});
-  this.carService
+      .subscribe(customers => { this.customers = customers });
+    this.carService
       .getCars()
-      .subscribe(cars => {this.cars = cars})
-    
+      .subscribe(cars => { this.cars = cars })
+
   }
 
   //OPEN UPDATE MODAL
-  open(content){
+  open(content) {
     this.modal.open(content)
   }
   //NAVIGATE BACK
@@ -61,28 +61,25 @@ export class RentalDetailComponent implements OnInit {
 
   //DELETE
   deleteRental(): void {
-    if(confirm("Are you sure you want to delete this rental?")){
+    if (confirm("Are you sure you want to delete this rental?")) {
       this.rentalService
-          .deleteRental(this.rental._id)
-          .subscribe(data => {alert("Rental successfully deleted!")})
+        .deleteRental(this.rental._id)
+        .subscribe(data => { alert("Rental successfully deleted!") })
     }
   }
-  
+
   //UPDATE
   updateRental(): void {
-    if(confirm('Are you sure you want to edit this rental?')){
-    this.rentalService
+    if (confirm('Are you sure you want to edit this rental?')) {
+      this.rentalService
         .updateRental(this.editRental)
-        .subscribe(rental => {})
-      }
+        .subscribe(rental => { })
+    }
     this.rentalService
-        .readRental(this.editRental._id)
-        .subscribe(data => this.rental = data)
+      .readRental(this.editRental._id)
+      .subscribe(data => this.rental = data)
     this.modal.dismissAll();
 
   }
-   
-  
-  
 
 }

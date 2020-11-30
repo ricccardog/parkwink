@@ -16,12 +16,12 @@
 
             <label for="car">Car</label>
             <select name="car" [(ngModel)]="newRental.car">
-                <option *ngFor="let car of cars" [value]="car._id">{{car.model}} {{car.maker}}</option>
+                <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}} {{car.maker | titlecase}}</option>
             </select>
 
             <label for="customer">Customer</label>
             <select name="customer" [(ngModel)]="newRental.customer">
-                <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name}} {{customer.surname}}</option>
+                <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name | titlecase}} {{customer.surname | titlecase}}</option>
             </select>
 
             <label for="startDate">Start Date</label>

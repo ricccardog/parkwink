@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Rental } from './rentals';
-import { Car } from './cars';
-import { Customer } from './customers';
-import { RentalFilter } from './rentalFilter';
 
 @Injectable({
   providedIn: 'root'

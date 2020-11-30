@@ -32,6 +32,7 @@
      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshRentals()">
        <option [ngValue]="4">4 items per page</option>
        <option [ngValue]="6">6 items per page</option>
+       <option [ngValue]="rentals.length">Show All</option>
      </select>
    
    </div>

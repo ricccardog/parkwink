@@ -7,6 +7,7 @@ import { CarService } from '../car.service';
   templateUrl: './carslist.component.html',
   styleUrls: ['./carslist.component.css']
 })
+
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
@@ -31,7 +32,7 @@ export class CarslistComponent implements OnInit {
   getCars(): void {
     this.carService
       .getCars()
-      .subscribe(data => { this.cars = data; this.CARS = data})
+      .subscribe(data => { this.cars = data; this.CARS = data.slice(0, 4)})
   }
   //SEARCH
   searchCar(event): void {

@@ -22,8 +22,10 @@ export class RentalSearchComponent implements OnInit {
   cars : Car[] = [];
   customers : Customer[] = [];
   
-  constructor(private modalService: NgbModal, private rentalsService: RentalsService, 
-              private customerService: CustomerService, private carService: CarService) { }
+  constructor(private modalService: NgbModal, 
+              private rentalsService: RentalsService, 
+              private customerService: CustomerService, 
+              private carService: CarService) { }
 
   ngOnInit(): void {
     this.rentalsService

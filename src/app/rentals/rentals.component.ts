@@ -31,7 +31,7 @@ export class RentalsComponent implements OnInit {
   getRentals(): void {
   this.rentalsService
       .getRentals()
-      .subscribe(rentals => { this.rentals = rentals ; this.RENTALS = rentals}) 
+      .subscribe(rentals => { this.rentals = rentals ; this.RENTALS = rentals.slice(0, 4)}) 
   }
   //SEARCH
   searchRental(event: RentalFilter){

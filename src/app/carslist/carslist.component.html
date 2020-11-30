@@ -17,7 +17,7 @@
     routerLink="{{car._id}}">
       <th scope="row">{{ (CARS.indexOf(car) +1) }}</th>
       <td> {{car.model | titlecase}} </td>
-      <td> {{car.price}} </td>
+      <td> {{car.price }} € </td>
     </tr>
   </tbody>
 </table>
@@ -29,6 +29,7 @@
   <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCars()">
     <option [ngValue]="4">4 items per page</option>
     <option [ngValue]="6">6 items per page</option>
+    <option [ngValue]="cars.length"> Show All</option>
   </select>
 
 </div>

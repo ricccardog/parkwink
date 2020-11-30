@@ -8,9 +8,9 @@ import { CustomerService } from '../customer.service';
   styleUrls: ['./customers.component.css']
 })
 
-export class CustomersComponent  implements OnInit{
+export class CustomersComponent implements OnInit {
 
-  customers : Customer[] = [];
+  customers: Customer[] = [];
   sortOrder = '';
   stringSortTracker = 0;
   numSortTracker = 0;
@@ -20,25 +20,25 @@ export class CustomersComponent  implements OnInit{
   pageSize = 4;
   collectionSize = this.CUSTOMERS.length;
 
-  constructor(private customerService: CustomerService) { 
+  constructor(private customerService: CustomerService) {
     this.refreshCustomers();
   }
 
-  ngOnInit() : void { 
-    this.getCustomers(); 
+  ngOnInit(): void {
+    this.getCustomers();
   }
-  
+
   //GET
   getCustomers(): void {
     this.customerService
       .getCustomers()
-      .subscribe(data => { this.customers = data; this.CUSTOMERS = data })
+      .subscribe(data => { this.customers = data; this.CUSTOMERS = data.slice(0, 4) })
   }
   //SEARCH
   searchCustomer(event): void {
     this.customerService
-        .searchCustomer(event)
-        .subscribe( data => {this.customers = data})
+      .searchCustomer(event)
+      .subscribe(data => { this.customers = data })
   }
   //SORT LIST
   sortByString() {
@@ -76,8 +76,8 @@ export class CustomersComponent  implements OnInit{
   //PAGINATION
   refreshCustomers() {
     this.CUSTOMERS = this.customers
-    .map((customer, i) => ({id: i+1, ...customer}))
-    .slice((this.page-1) * this.pageSize, (this.page -1) * this.pageSize + this.pageSize)
+      .map((customer, i) => ({ id: i + 1, ...customer }))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize)
   }
- 
+
 }

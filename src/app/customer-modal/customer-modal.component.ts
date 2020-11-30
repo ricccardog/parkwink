@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit , Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Customer } from '../customers';
@@ -11,12 +11,15 @@ import { CustomerService } from '../customer.service';
 })
 export class CustomerModalComponent implements OnInit {
 
-@Output() close = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
 
   newCustomer = {} as Customer;
   customerForm: FormGroup;
 
-  constructor(private modalService: NgbModal, private customerService: CustomerService) { }
+  constructor(private modalService: NgbModal,
+              private customerService: CustomerService) {
+                
+               }
 
   ngOnInit(): void {
   }
@@ -27,11 +30,11 @@ export class CustomerModalComponent implements OnInit {
   //POST
   addCustomer(): void {
     this.customerService
-        .addCustomer(this.newCustomer)
-        .subscribe(data => {this.customerService.getCustomers()});
+      .addCustomer(this.newCustomer)
+      .subscribe(data => { this.customerService.getCustomers() });
     this.close.emit();
     this.modalService.dismissAll();
   }
 
-  
+
 }
