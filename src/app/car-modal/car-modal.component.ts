@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Car } from '../cars';
 import { CarService } from '../car.service';
 
 @Component({
@@ -12,8 +11,21 @@ import { CarService } from '../car.service';
 export class CarModalComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
-  newCar = {} as Car;
-  carForm: FormGroup;
+  
+  
+  carForm = new FormGroup({
+    model : new FormControl('', Validators.required),
+    maker : new FormControl('', Validators.required),
+    price : new FormControl( '' , Validators.required),
+    creationDate : new FormControl ('', Validators.required)
+  })
+
+  fieldCheck = { 
+    model : this.carForm.get('model'),
+    maker : this.carForm.get('maker'),
+    creationDate : this.carForm.get('creationDate'),
+    price : this.carForm.get('price')
+  }
 
   constructor(private modalService: NgbModal, private carService: CarService) { }
 
@@ -27,10 +39,11 @@ export class CarModalComponent implements OnInit {
   //POST
   addCar(): void {
     this.carService
-        .addCar(this.newCar)
+        .addCar(this.carForm.value)
         .subscribe(data => {this.carService.getCars()});
     this.close.emit();
     this.modalService.dismissAll();
   }
-
+  
+  
 }
