@@ -27,15 +27,21 @@ export class CarModalComponent implements OnInit {
     price : this.carForm.get('price')
   }
 
-  constructor(private modalService: NgbModal, private carService: CarService) { }
+  constructor(
+    private modalService: NgbModal,
+    private carService: CarService) { 
+
+    }
 
   ngOnInit(): void {
   }
+
   //OPEN MODAL
   open(content) {
     this.modalService
         .open(content)
   }
+
   //POST
   addCar(): void {
     this.carService
@@ -44,6 +50,5 @@ export class CarModalComponent implements OnInit {
     this.close.emit();
     this.modalService.dismissAll();
   }
-  
   
 }

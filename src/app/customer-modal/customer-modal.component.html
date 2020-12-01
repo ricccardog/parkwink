@@ -1,46 +1,71 @@
 <ng-template #content let-activeModal>
 
-<div class="modal-header">
-        <h4 class="modal-title" id="car-modal-title"> Add Customer </h4>
-        <button type="button" class="close" (click)="activeModal.dismiss()">
-                X
-        </button>
-</div>
+        <div class="modal-header">
+                <h4 class="modal-title"> Add Customer </h4>
+                <button type="button" class="close" (click)="activeModal.dismiss()">
+                        X
+                </button>
+        </div>
 
-<div class="modal-body">
+        <div class="modal-body">
 
-        <form #customerForm="ngForm">
+                <form [formGroup]="customerForm" (ngSubmit)="addCustomer()">
 
-                <div class="form-group">
+                        <label> Name :
+                                <input type="text" class="form-control" formControlName="name" required>
+                        </label>
 
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" name="name"
-                                [(ngModel)]="newCustomer.name" required>
+                        <label> Surname :
+                                <input type="text" class="form-control" formControlName="surname" required>
+                        </label>
 
-                        <label for="surname">Surname</label>
-                        <input type="text" id="surname" class="form-control" name="surname"
-                                [(ngModel)]="newCustomer.surname" required>
+                        <label> Date of Birth :
+                                <input type="date" class="form-control" formControlName="birthDate" required>
+                        </label>
 
-                        <label for="email">E-Mail</label>
-                        <input type="email" id="email" class="form-control" name="email"
-                                [(ngModel)]="newCustomer.email" email="true" required>
+                        <label> Driving License :
+                                <input type="number" class="form-control" formControlName="drivingLicense" required>
+                        </label>
 
-                        <label for="date">Birth Date</label>
-                        <input type="date" id="date" class="form-control" name="date"
-                                [(ngModel)]="newCustomer.birthDate" required>
+                        <label> E-Mail :
+                                <input type="email" class="form-control" formControlName="email" required>
+                        </label>
 
-                        <label for="license">Driving License</label>
-                        <input type="number" id="license" class="form-control" name="license"
-                                [(ngModel)]="newCustomer.drivingLicense" required>
+                        <!-- VALIDATION ALERTS -->
 
+                        <div *ngIf="fieldCheck.name.invalid && (fieldCheck.name.touched || fieldCheck.name.dirty)"
+                                class="alert alert-danger">
+                                Please fill NAME
+                        </div>
 
-                </div>
-        </form>
-</div>
+                        <div *ngIf="fieldCheck.surname.invalid && (fieldCheck.surname.touched || fieldCheck.surname.dirty)"
+                                class="alert alert-danger">
+                                Please fill SURNAME
+                        </div>
 
-        <button type="button" class="btn btn-primary" (click)="addCustomer()" [disabled]="!customerForm.valid">ADD
-                CUSTOMER</button>
+                        <div *ngIf="fieldCheck.birthDate.invalid && (fieldCheck.birthDate.touched || fieldCheck.birthDate.dirty)"
+                                class="alert alert-danger">
+                                Please fill DATE OF BIRTH
+                        </div>
+
+                        <div *ngIf="fieldCheck.drivingLicense.invalid && (fieldCheck.drivingLicense.touched || fieldCheck.drivingLicense.dirty)"
+                                class="alert alert-danger">
+                                Please fill DRIVING LICENSE
+                        </div>    
+                       
+                        <div *ngIf="fieldCheck.email.invalid && (fieldCheck.email.touched || fieldCheck.email.dirty)"
+                                class="alert alert-danger">
+                                Please fill E-MAIL
+                        </div>
+
+        <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]=!customerForm.valid>Add
+                        Customer</button>
+        </div>
+
+                </form>
+        </div>
 
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)">  Add  </button>
+<button class="btn btn-primary" (click)="open(content)"> Add </button>
