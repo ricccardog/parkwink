@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,15 +18,33 @@ import { CarService } from '../car.service';
 export class RentalModalComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
-  rentalForm: FormGroup;
-  newRental = {} as Rental;
+ 
+  rentalForm = new FormGroup({
+    car : new FormControl(''),
+    customer : new FormControl(''),
+    startDate : new FormControl(''),
+    endDate : new FormControl(''),
+    price : new FormControl('')
+  })
+
+  fieldCheck = {
+    car : this.rentalForm.get('car'),
+    customer : this.rentalForm.get('customer'),
+    startDate : this.rentalForm.get('startDate'),
+    endDate : this.rentalForm.get('endDate'),
+    price : this.rentalForm.get('price')
+  }
+
   customers: Customer[] = [];
   cars: Car[] = [];
 
-  constructor(private modalService: NgbModal,
-              private rentalsService: RentalsService,
-              private customerService: CustomerService,
-              private carService: CarService) { }
+  constructor(
+    private modalService: NgbModal,
+    private rentalsService: RentalsService,
+    private customerService: CustomerService,
+    private carService: CarService) { 
+
+    }
 
   ngOnInit(): void {
     this.getData()
@@ -47,7 +65,7 @@ export class RentalModalComponent implements OnInit {
   //POST
   addRental(): void {
     this.rentalsService
-        .addRental(this.newRental)
+        .addRental(this.rentalForm.value)
         .subscribe(data => {this.rentalsService.getRentals()});
     this.close.emit();
     this.modalService.dismissAll();
