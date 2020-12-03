@@ -13,8 +13,8 @@ export class RentalsService {
   constructor(private http: HttpClient) { }
 
   //GET
-  getRentals(): Observable <Rental[]> {
-    return this.http.get<Rental[]>(this.rentalUrl)
+  getRentals(pagination?): Observable <Rental[]> {
+    return this.http.get<Rental[]>(this.rentalUrl, { params : pagination})
   }
   //POST
   addRental(rental: Rental): Observable<Rental>{

@@ -14,8 +14,8 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   //GET
-  getCustomers(): Observable <Customer[]> {   
-    return this.http.get<Customer[]>(this.customerUrl)
+  getCustomers(pagination?): Observable <Customer[]> {   
+    return this.http.get<Customer[]>(this.customerUrl, { params : pagination})
   }
   //POST
   addCustomer(customer: Customer): Observable<Customer> {

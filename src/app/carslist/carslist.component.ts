@@ -15,24 +15,37 @@ export class CarslistComponent implements OnInit {
   stringSortTracker = 0;
   numSortTracker = 0;
 
-  CARS: Car[] = [];
-  page = 1;
-  pageSize = 4;
-  collectionSize = this.CARS.length;
+
+  pagination = { 
+    pageNo : 1,
+    size : 4
+  }
+  collectionSize : number;
 
   constructor(private carService : CarService) {
-    this.refreshCars();
   }
 
   ngOnInit() : void {
-    this.getCars();
+    this.getCars(this.pagination);
+    this.getColl();
   }
  
   //GET
-  getCars(): void {
+  getCars(pagination): void {
     this.carService
-      .getCars()
-      .subscribe(data => { this.cars = data; this.CARS = data.slice(0, 4)})
+      .getCars(this.pagination)
+      .subscribe(data => { this.cars = data })
+  }
+  //GET COLLECTION LENGTH
+  getColl() : void {
+    this.carService
+        .getCars()
+        .subscribe(data => {this.collectionSize = data.length })
+  }
+  //REFRESH AFTER ADDING
+  refreshCars() {
+    this.getCars(this.pagination);
+    this.getColl();
   }
   //SEARCH
   searchCar(event): void {
@@ -73,12 +86,7 @@ export class CarslistComponent implements OnInit {
         })
     }
   }
-  //PAGINATION
-  refreshCars() {
-    this.CARS = this.cars
-                .map((car, i) => ({id: i+1, ...car}))
-                .slice((this.page-1) * this.pageSize, (this.page -1) * this.pageSize + this.pageSize)
-  }
+  
 
 }
 

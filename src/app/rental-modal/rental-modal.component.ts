@@ -20,11 +20,11 @@ export class RentalModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
  
   rentalForm = new FormGroup({
-    car : new FormControl(''),
-    customer : new FormControl(''),
-    startDate : new FormControl(''),
-    endDate : new FormControl(''),
-    price : new FormControl('')
+    car : new FormControl('', Validators.required),
+    customer : new FormControl('', Validators.required),
+    startDate : new FormControl('', Validators.required),
+    endDate : new FormControl('', Validators.required),
+    price : new FormControl('', Validators.required)
   })
 
   fieldCheck = {

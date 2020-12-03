@@ -14,8 +14,9 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   //GET
-  getCars() : Observable<Car[]> { 
-    return this.http.get<Car[]>(this.carsUrl)
+  getCars(pagination?) : Observable<Car[]> { 
+    return this.http.get<Car[]>(this.carsUrl, { params : pagination})
+
   }
   //POST
   addCar(car: Car): Observable<Car> {
