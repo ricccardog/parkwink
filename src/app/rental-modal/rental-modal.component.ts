@@ -1,9 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl,Validators, ValidationErrors } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service';
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service'
@@ -15,25 +14,20 @@ import { CarService } from '../car.service';
   templateUrl: './rental-modal.component.html',
   styleUrls: ['./rental-modal.component.css']
 })
+
 export class RentalModalComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
  
   rentalForm = new FormGroup({
-    car : new FormControl('', Validators.required),
-    customer : new FormControl('', Validators.required),
-    startDate : new FormControl('', Validators.required),
-    endDate : new FormControl('', Validators.required),
-    price : new FormControl('', Validators.required)
-  })
-
-  fieldCheck = {
-    car : this.rentalForm.get('car'),
-    customer : this.rentalForm.get('customer'),
-    startDate : this.rentalForm.get('startDate'),
-    endDate : this.rentalForm.get('endDate'),
-    price : this.rentalForm.get('price')
-  }
+    car : new FormControl(''),
+    customer : new FormControl(''),
+    startDate : new FormControl(''),
+    endDate : new FormControl(''),
+    price : new FormControl('', Validators.min(1))
+  }, { 
+    validators: [this.dateRange, this.missingFields]
+  });
 
   customers: Customer[] = [];
   cars: Car[] = [];
@@ -43,16 +37,17 @@ export class RentalModalComponent implements OnInit {
     private rentalsService: RentalsService,
     private customerService: CustomerService,
     private carService: CarService) { 
-
     }
 
   ngOnInit(): void {
-    this.getData()
   }
+
   // OPEN MODAL
   open(content) {
+    this.getData();
     this.modalService.open(content)
   }
+
   //GET
   getData() {
     this.customerService
@@ -62,6 +57,7 @@ export class RentalModalComponent implements OnInit {
         .getCars()
         .subscribe(cars => {this.cars = cars})
   }
+
   //POST
   addRental(): void {
     this.rentalsService
@@ -71,4 +67,25 @@ export class RentalModalComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  //DATE RANGE VALIDATION
+  dateRange(control: FormGroup) : ValidationErrors | null {
+      const endDate = control.get('endDate');
+      const startDate = control.get('startDate');
+    
+      return endDate && startDate && endDate.value < startDate.value ? { wrongRange: true } : null;
+  }
+
+  //MISSING FIELDS VALIDATION
+  missingFields(control: FormGroup) : ValidationErrors | null {
+    const car = control.get('car');
+    const customer = control.get('customer');
+    const startDate = control.get('startDate');
+    const endDate = control.get('endDate');
+    const price = control.get('price');
+
+    if(car.value && customer.value && startDate.value && endDate.value && price.value) return null
+    else return { missingFields : true} 
+  }
+
 }
+

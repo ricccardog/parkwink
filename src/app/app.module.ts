@@ -22,7 +22,7 @@ import { CarSearchComponent } from './car-search/car-search.component';
 import { RentalSearchComponent } from './rental-search/rental-search.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
-import { RentalDetailComponent } from './rental-detail/rental-detail.component'
+import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component'
     RentalSearchComponent,
     CustomerDetailComponent,
     CarDetailComponent,
-    RentalDetailComponent
+    RentalDetailComponent,
   ],
   
   imports: [

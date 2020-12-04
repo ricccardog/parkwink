@@ -12,6 +12,13 @@
 
         <form [formGroup]="rentalForm" (ngSubmit)="addRental()">
 
+            <!-- MISSING FIELDS ALERT -->
+            <div *ngIf="rentalForm.errors?.missingFields"
+                    class="alert alert-info">
+                Please fill all fields to enable ADD button
+            </div>
+
+            <!-- RENTAL FORM -->
             <label> Car : 
                 <select name="car" formControlName="car" required>
                     <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}} {{car.maker | titlecase}}</option>
@@ -35,28 +42,18 @@
              <label> Price :
                  <input type="number" formControlName="price" required>
              </label>
-
-             <!-- VALIDATION ALERTS -->
-
-             <div *ngIf="fieldCheck.car.invalid && fieldCheck.car.touched" class="alert alert-danger">
-                Please fill CAR
-            </div>
-
-             <div *ngIf="fieldCheck.customer.invalid && fieldCheck.customer.touched" class="alert alert-danger">
-                 Please fill CUSTOMER
+             
+             <!-- MINIMUM PRICE VALIDATION-->
+             <div *ngIf="rentalForm.get('price').errors?.min" class="alert alert-danger">
+                 Price cannot be lower than 1
              </div>
 
-             <div *ngIf="fieldCheck.startDate.invalid && fieldCheck.startDate.touched" class="alert alert-danger">
-                 Please fill START DATE
-             </div>
+             <!-- DATE RANGE VALIDATION ALERT -->          
+            <div *ngIf="rentalForm.errors?.wrongRange && (rentalForm.get('endDate').touched || rentalForm.get('endDate').dirty)"
+                    class="alert alert-danger">
+                START DATE must be before END DATE
+                </div>
 
-             <div *ngIf="fieldCheck.endDate.invalid && fieldCheck.endDate.touched" class="alert alert-danger">
-                Please fill END DATE
-            </div>
-
-            <div *ngIf="fieldCheck.price.invalid && (fieldCheck.price.touched || fieldCheck.price.dirty)" class="alert alert-danger">
-                Please fill PRICE
-            </div>
 
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" [disabled]=!rentalForm.valid>Add Rental</button>
