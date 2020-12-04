@@ -3,7 +3,7 @@
     <div class="modal-header">
         <h4 class="modal-title"> Add a new car</h4>
         <button type="button" class="close" (click)="activeModal.dismiss()">
-        X
+            X
         </button>
     </div>
 
@@ -11,44 +11,44 @@
 
         <form [formGroup]="carForm" (ngSubmit)="addCar()">
 
+            <!-- MISSING FIELDS ALERT -->
+            <div *ngIf="carForm.errors?.missingFields" class="alert alert-info">
+                Please fill all fields to enable ADD button
+            </div>
+
             <label> Maker :
                 <input type="text" class="form-control" formControlName="maker" required>
             </label>
-        
+
             <label> Model :
                 <input type="text" class="form-control" formControlName="model" required>
             </label>
-               
+
             <label> Price :
                 <input type="number" class="form-control" formControlName="price" required>
             </label>
-        
+
+            <!-- PRICE ERROR -->
+            <div *ngIf="carForm.get('price').errors?.min && (carForm.get('price').touched || carForm.get('price').dirty)"
+                class="alert alert-danger">
+                PRICE must be at least 1
+            </div>
+
             <label> Date :
-                <input type="date" class="form-control" formControlName="creationDate" required>  
+                <input type="date" class="form-control" formControlName="creationDate" required>
             </label>
 
-                <!-- VALIDATION ALERTS -->
-                <div *ngIf="fieldCheck.maker.invalid && (fieldCheck.maker.touched || fieldCheck.maker.dirty)" class="alert alert-danger">
-                    Please fill MAKER
-                </div>
+            <!-- DATE ERROR -->
+            <div *ngIf="carForm.errors?.minDate && (carForm.get('creationDate').touched || carForm.get('creationDate').dirty)"
+                class="alert alert-danger">
+                CREATION DATE cannot be lesser than 01/01/1960
+            </div>
 
-                <div *ngIf="fieldCheck.model.invalid && (fieldCheck.model.touched || fieldCheck.model.dirty)" class="alert alert-danger">
-                    Please fill MODEL
-                </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]=!carForm.valid>Add Car</button>
+            </div>
 
-                <div *ngIf="fieldCheck.price.invalid && (fieldCheck.price.touched || fieldCheck.price.dirty)" class="alert alert-danger">
-                    Please fill PRICE
-                </div>
-
-                <div *ngIf="fieldCheck.creationDate.invalid && (fieldCheck.creationDate.touched || fieldCheck.creationDate.dirty)" class="alert alert-danger">
-                    Please fill DATE
-                </div>
-    
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]=!carForm.valid>Add Car</button>
-    </div>
-
-         </form>
+        </form>
     </div>
 
 </ng-template>

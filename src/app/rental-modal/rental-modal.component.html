@@ -3,67 +3,67 @@
     <div class="modal-header">
         <h4 class="modal-title"> Add Rental </h4>
         <button type="button" class="close" (click)="activeModal.dismiss()">
-         x
+            x
         </button>
     </div>
 
     <div class="modal-body">
-    <div class="container">
+        <div class="container">
 
-        <form [formGroup]="rentalForm" (ngSubmit)="addRental()">
+            <form [formGroup]="rentalForm" (ngSubmit)="addRental()">
 
-            <!-- MISSING FIELDS ALERT -->
-            <div *ngIf="rentalForm.errors?.missingFields"
-                    class="alert alert-info">
-                Please fill all fields to enable ADD button
-            </div>
+                <!-- MISSING FIELDS ALERT -->
+                <div *ngIf="rentalForm.errors?.missingFields" class="alert alert-info">
+                    Please fill all fields to enable ADD button
+                </div>
 
-            <!-- RENTAL FORM -->
-            <label> Car : 
-                <select name="car" formControlName="car" required>
-                    <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}} {{car.maker | titlecase}}</option>
-                </select>
-             </label>
+                <!-- RENTAL FORM -->
+                <label> Car :
+                    <select name="car" formControlName="car" required>
+                        <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}}
+                            {{car.maker | titlecase}}</option>
+                    </select>
+                </label>
 
-             <label> Customer : 
-                <select name="customer" formControlName="customer" required>
-                    <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name | titlecase}} {{customer.surname | titlecase}}</option>
-                </select>
-             </label>
+                <label> Customer :
+                    <select name="customer" formControlName="customer" required>
+                        <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name | titlecase}}
+                            {{customer.surname | titlecase}}</option>
+                    </select>
+                </label>
 
-             <label> Start Date :
-                 <input type="date" formControlName="startDate" required>
-             </label>
+                <label> Start Date :
+                    <input type="date" formControlName="startDate" required>
+                </label>
 
-             <label> End Date :
-                 <input type="date" formControlName="endDate" required>
-             </label>
+                <label> End Date :
+                    <input type="date" formControlName="endDate" required>
+                </label>
 
-             <label> Price :
-                 <input type="number" formControlName="price" required>
-             </label>
-             
-             <!-- MINIMUM PRICE VALIDATION-->
-             <div *ngIf="rentalForm.get('price').errors?.min" class="alert alert-danger">
-                 Price cannot be lower than 1
-             </div>
+                <label> Price :
+                    <input type="number" formControlName="price" required>
+                </label>
 
-             <!-- DATE RANGE VALIDATION ALERT -->          
-            <div *ngIf="rentalForm.errors?.wrongRange && (rentalForm.get('endDate').touched || rentalForm.get('endDate').dirty)"
+                <!-- MINIMUM PRICE VALIDATION-->
+                <div *ngIf="rentalForm.get('price').errors?.min" class="alert alert-danger">
+                    Price cannot be lower than 1
+                </div>
+
+                <!-- DATE RANGE VALIDATION ALERT -->
+                <div *ngIf="rentalForm.errors?.wrongRange && (rentalForm.get('endDate').touched || rentalForm.get('endDate').dirty)"
                     class="alert alert-danger">
-                START DATE must be before END DATE
+                    START DATE must be before END DATE
                 </div>
 
 
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]=!rentalForm.valid>Add Rental</button>
-    </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]=!rentalForm.valid>Add Rental</button>
+                </div>
 
-        </form>
+            </form>
 
-    </div>
+        </div>
     </div>
 </ng-template>
 
 <button class="btn btn-primary" (click)="open(content)"> Add </button>
-       
