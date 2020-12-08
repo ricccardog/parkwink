@@ -3,19 +3,20 @@
 <app-customer-modal (close)="refreshCustomers()">Add Customer</app-customer-modal>
 <app-customer-search (searchOutput)="searchCustomer($event)"></app-customer-search>
 
+<button *ngIf="searched" type="button" class="btn btn-danger" style="float : right"
+    (click)="this.getCustomers()">↻</button>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col" (click)="sortOrder='name'; sortByString()">Name</th>
-            <th scope="col" (click)="sortOrder='surname'; sortByString()">Surname</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr 
-        *ngFor="let customer of customers"
-        routerLink="{{customer._id}}"> 
+        <tr *ngFor="let customer of customers" routerLink="{{customer._id}}">
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
             <td> {{customer.name | titlecase}} </td>
             <td> {{customer.surname | titlecase}} </td>
@@ -24,10 +25,12 @@
 </table>
 
 <div class="d-flex justify-content-between p-2">
-    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pagination.pageNo" [pageSize]="pagination.size" (pageChange)="getCustomers(this.pagination)">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pagination.pageNo" [pageSize]="pagination.size"
+        (pageChange)="getCustomers(this.pagination)">
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto" [(ngModel)]="pagination.size" (ngModelChange)="getCustomers(this.pagination)">
+    <select class="custom-select" style="width: auto" [(ngModel)]="pagination.size"
+        (ngModelChange)="getCustomers(this.pagination)">
         <option [ngValue]="4">4 items per page</option>
         <option [ngValue]="6">6 items per page</option>
         <option [ngValue]="">Show All</option>

@@ -2,13 +2,14 @@
 
 <app-rental-modal (close)="refreshRentals()">Add Rental</app-rental-modal>
 <app-rental-search (searchOutput)="searchRental($event)"></app-rental-search>
+<button *ngIf="searched" type="button" class="btn btn-danger" style="float : right" (click)="this.getRentals()">↻</button>
 
 <table class="table table-striped table-hover">
      <thead>
      <tr>
           <th scope="col">#</th>
-          <th scope="col" (click)="sortByCar()">Car</th>
-          <th scope="col" (click)="sortByCustomer()">User</th>
+          <th scope="col">Car</th>
+          <th scope="col">User</th>
           <th scope="col">Dates</th>
      </tr>
      </thead>

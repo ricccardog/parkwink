@@ -11,15 +11,13 @@ import { CustomerService } from '../customer.service';
 export class CustomersComponent implements OnInit {
 
   customers: Customer[] = [];
-  sortOrder = '';
-  stringSortTracker = 0;
-  numSortTracker = 0;
-
+ 
   pagination = {
     pageNo : 1,
     size : 4
   }
   collectionSize : number
+  searched = false;
 
   constructor(private customerService: CustomerService) {
   }
@@ -31,6 +29,7 @@ export class CustomersComponent implements OnInit {
 
   //GET
   getCustomers(pagination): void {
+    this.searched = false;
     this.customerService
       .getCustomers(this.pagination)
       .subscribe(data => { this.customers = data})
@@ -48,42 +47,10 @@ export class CustomersComponent implements OnInit {
   }
   //SEARCH
   searchCustomer(event): void {
+    this.searched = true;
     this.customerService
       .searchCustomer(event)
       .subscribe(data => { this.customers = data })
-  }
-  //SORT LIST
-  sortByString() {
-    this.stringSortTracker++;
-    if (this.stringSortTracker % 2 == 0) {
-      this.customerService
-        .getCustomers()
-        .subscribe(data => {
-          this.customers = data.sort((a, b) => a[this.sortOrder].localeCompare(b[this.sortOrder]))
-        })
-    } else {
-      this.customerService
-        .getCustomers()
-        .subscribe(data => {
-          this.customers = data.sort((a, b) => b[this.sortOrder].localeCompare(a[this.sortOrder]))
-        })
-    }
-  }
-  sortByNumber() {
-    this.numSortTracker++;
-    if (this.numSortTracker % 2 == 0) {
-      this.customerService
-        .getCustomers()
-        .subscribe(data => {
-          this.customers = data.sort((a, b) => { return a.drivingLicense - b.drivingLicense })
-        })
-    } else {
-      this.customerService
-        .getCustomers()
-        .subscribe(data => {
-          this.customers = data.sort((a, b) => { return b.drivingLicense - a.drivingLicense })
-        })
-    }
   }
   
 }

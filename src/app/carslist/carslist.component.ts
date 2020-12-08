@@ -16,9 +16,14 @@ export class CarslistComponent implements OnInit {
   pagination = { 
     pageNo : 1,
     size : 4,
+    toSort : '_id',
+    order : 1
   }
-
+  searched = false;
   collectionSize : number;
+  byModel = false;
+  byPrice = false;
+  arrow : string;
 
   constructor(private carService : CarService) {
   }
@@ -30,6 +35,7 @@ export class CarslistComponent implements OnInit {
  
   //GET
   getCars(pagination): void {
+    this.searched = false;
     this.carService
       .getCars(this.pagination)
       .subscribe(data => { this.cars = data })
@@ -47,50 +53,34 @@ export class CarslistComponent implements OnInit {
   }
   //SEARCH
   searchCar(event): void {
+    this.searched = true;
     this.carService
         .searchCar(event)
         .subscribe(data => {this.cars = data});
   }
-  /* //SORT
-  sortCar(pagination): void {
-    this.carService
-        .getCars(this.pagination)
-        .subscribe(data => { this.cars = data})
-  } */
-  /* //SORT LIST
-  sortByString() {
-    this.stringSortTracker++;
-    if (this.stringSortTracker % 2 == 0) {
-      this.carService
-        .getCars()
-        .subscribe(data => {
-          this.cars = data.sort((a, b) => a[this.sortOrder].localeCompare(b[this.sortOrder]))
-        })
-    } else {
-      this.carService
-        .getCars()
-        .subscribe(data => {
-          this.cars = data.sort((a, b) => b[this.sortOrder].localeCompare(a[this.sortOrder]))
-        })
-    }
+  //SORT
+  sortByModel() {
+    this.byModel = true;
+    this.byPrice = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort = "model";
+    this.setArrow();
+    this.getCars(this.pagination);
+    this.getColl();
   }
-  sortByNumber() {
-    this.numSortTracker++;
-    if (this.numSortTracker % 2 == 0) {
-      this.carService
-        .getCars()
-        .subscribe(data => {
-          this.cars = data.sort((a, b) => { return a.price - b.price })
-        })
-    } else {
-      this.carService
-        .getCars()
-        .subscribe(data => {
-          this.cars = data.sort((a, b) => { return b.price - a.price })
-        })
-    }
-  } */
+  sortByPrice() {
+    this.byPrice = true;
+    this.byModel = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort = "price";
+    this.setArrow();
+    this.getCars(this.pagination);
+    this.getColl();
+  }
+  setArrow(){
+    if(this.pagination.order===1) this.arrow = "↑";
+    else this.arrow = "↓";
+  }
   
-
 }
 

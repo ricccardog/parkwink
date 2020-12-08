@@ -13,13 +13,14 @@ import { RentalsService } from '../rentals.service'
 export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
-  sortString = 0;
 
   pagination = {
     pageNo : 1,
     size : 4
   }
   collectionSize : number;
+  
+  searched = false;
 
   constructor(private rentalsService: RentalsService) { 
   }
@@ -30,7 +31,8 @@ export class RentalsComponent implements OnInit {
   }
   //GET
   getRentals(pagination): void {
-  this.rentalsService
+    this.searched = false;
+    this.rentalsService
       .getRentals(this.pagination)
       .subscribe(rentals => { this.rentals = rentals }) 
   }
@@ -47,35 +49,12 @@ export class RentalsComponent implements OnInit {
   }
   //SEARCH
   searchRental(event: RentalFilter){
+    this.searched = true;
     this.rentalsService
         .searchRental(event)
         .subscribe(data => { this.rentals = data});
   }
-  //SORT RENTAL
-  sortByCar() {
-    this.sortString++ ;
-    if(this.sortString % 2 == 0){
-      this.rentals = this.rentals.sort((a,b) => { return a.car.model.localeCompare(b.car.model) })
-    }else{
-      this.rentals = this.rentals.sort((a,b) => { return b.car.model.localeCompare(a.car.model) })
-    }
-  }
-  sortByCustomer() {
-    this.sortString++ ;
-    if(this.sortString % 2 == 0){
-      this.rentals = this.rentals.sort((a,b) => { return a.customer.surname.localeCompare(b.customer.surname)})
-    }else{
-     this.rentals = this.rentals.sort((a,b) => { return b.customer.surname.localeCompare(a.customer.surname)})
-    }
-  }
-  sortByPrice() {
-    this.sortString++ ;
-    if(this.sortString % 2 == 0){
-      this.rentals = this.rentals.sort((a,b) => { return a.price - b.price})
-    }else{
-      this.rentals = this.rentals.sort((a,b) => { return b.price - a.price})
-    }
-  }
+ 
   
 }
 
