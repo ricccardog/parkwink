@@ -16,11 +16,17 @@ export class RentalsComponent implements OnInit {
 
   pagination = {
     pageNo : 1,
-    size : 4
+    size : 4,
+    toSort : '_id',
+    order : -1
   }
+
   collectionSize : number;
-  
   searched = false;
+  byDate = false;
+  byCustomer = false;
+  byCar = false;
+  arrow : string;
 
   constructor(private rentalsService: RentalsService) { 
   }
@@ -53,6 +59,41 @@ export class RentalsComponent implements OnInit {
     this.rentalsService
         .searchRental(event)
         .subscribe(data => { this.rentals = data});
+  }
+  //SORT
+  sortByCar(){
+    this.byCar = true;
+    this.byDate = false;
+    this.byCustomer = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort ="car";
+    this.setArrow();
+    this.getRentals(this.pagination);
+    this.getColl();
+  }
+  sortByCustomer(){
+    this.byCustomer = true;
+    this.byCar = false;
+    this.byDate = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort= "customer";
+    this.setArrow();
+    this.getRentals(this.pagination);
+    this.getColl();
+  }
+  sortByDate(){
+    this.byDate = true;
+    this.byCar = false,
+    this.byCustomer = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort = "startDate";
+    this.setArrow();
+    this.getRentals(this.pagination);
+    this.getColl();
+  }
+  setArrow(){
+    if(this.pagination.order===1) this.arrow = "↑";
+    else this.arrow = "↓";
   }
  
   

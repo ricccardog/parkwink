@@ -8,9 +8,9 @@
      <thead>
      <tr>
           <th scope="col">#</th>
-          <th scope="col">Car</th>
-          <th scope="col">User</th>
-          <th scope="col">Dates</th>
+          <th scope="col" (click)="sortByCar()">Car <span *ngIf="byCar"> {{arrow}} </span></th>
+          <th scope="col" (click)="sortByCustomer()">User <span *ngIf="byCustomer"> {{arrow}} </span></th>
+          <th scope="col" (click)="sortByDate()">Dates <span *ngIf="byDate"> {{arrow}} </span></th>
      </tr>
      </thead>
 

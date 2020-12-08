@@ -14,10 +14,16 @@ export class CustomersComponent implements OnInit {
  
   pagination = {
     pageNo : 1,
-    size : 4
+    size : 4,
+    toSort : '_id',
+    order : -1
   }
+
   collectionSize : number
   searched = false;
+  byName = false;
+  bySurname = false;
+  arrow : string;
 
   constructor(private customerService: CustomerService) {
   }
@@ -51,6 +57,29 @@ export class CustomersComponent implements OnInit {
     this.customerService
       .searchCustomer(event)
       .subscribe(data => { this.customers = data })
+  }
+  //SORT
+  sortByName() {
+    this.byName = true;
+    this.bySurname = false;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort = "name";
+    this.setArrow();
+    this.getCustomers(this.pagination);
+    this.getColl();
+  }
+  sortBySurname() {
+    this.byName = false;
+    this.bySurname = true;
+    this.pagination.order = -this.pagination.order;
+    this.pagination.toSort = "surname";
+    this.setArrow();
+    this.getCustomers(this.pagination);
+    this.getColl();
+  }
+  setArrow(){
+    if(this.pagination.order===1) this.arrow = "↑";
+    else this.arrow = "↓";
   }
   
 }

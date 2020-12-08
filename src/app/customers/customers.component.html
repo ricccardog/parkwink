@@ -10,8 +10,8 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
+            <th scope="col" (click)="sortByName()">Name <span *ngIf="byName">{{arrow}}</span></th>
+            <th scope="col" (click)="sortBySurname()">Surname <span *ngIf="bySurname"> {{arrow}}</span></th>
         </tr>
     </thead>
 
