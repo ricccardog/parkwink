@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-carslist',
@@ -11,15 +12,12 @@ import { CarService } from '../car.service';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
-  sortOrder = '';
-  stringSortTracker = 0;
-  numSortTracker = 0;
-
 
   pagination = { 
     pageNo : 1,
-    size : 4
+    size : 4,
   }
+
   collectionSize : number;
 
   constructor(private carService : CarService) {
@@ -53,7 +51,13 @@ export class CarslistComponent implements OnInit {
         .searchCar(event)
         .subscribe(data => {this.cars = data});
   }
-  //SORT LIST
+  /* //SORT
+  sortCar(pagination): void {
+    this.carService
+        .getCars(this.pagination)
+        .subscribe(data => { this.cars = data})
+  } */
+  /* //SORT LIST
   sortByString() {
     this.stringSortTracker++;
     if (this.stringSortTracker % 2 == 0) {
@@ -85,7 +89,7 @@ export class CarslistComponent implements OnInit {
           this.cars = data.sort((a, b) => { return b.price - a.price })
         })
     }
-  }
+  } */
   
 
 }
