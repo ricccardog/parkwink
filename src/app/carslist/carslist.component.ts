@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
-import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-carslist',
@@ -11,52 +10,76 @@ import { NgModel } from '@angular/forms';
 
 export class CarslistComponent implements OnInit {
 
-  cars: Car[] = []; 
+  cars: Car[] = [];
 
-  pagination = { 
-    pageNo : 1,
-    size : 4,
-    toSort : '_id',
-    order : -1
+
+  pagination = {
+    pageNo: 1,
+    size: 4,
+    toSort: '_id',
+    order: -1
   }
+
   searched = false;
-  collectionSize : number;
+  collectionSize: number;
   byModel = false;
   byPrice = false;
-  arrow : string;
+  arrow: string;
+  skip: number;
+  limit: number;
+  checker: number;
 
-  constructor(private carService : CarService) {
+  constructor(private carService: CarService) {
   }
 
-  ngOnInit() : void {
-    this.getCars(this.pagination);
+  ngOnInit(): void {
     this.getColl();
+    this.getCars();
   }
- 
+
   //GET
-  getCars(pagination): void {
-    this.searched = false;
-    this.carService
-      .getCars(this.pagination)
-      .subscribe(data => { this.cars = data })
+  getCars(): void {
+    this.sliceParams();
+    if (!this.cars[this.skip]) {
+      this.carService
+        .getCars(this.pagination)
+        .subscribe(data => {
+          for (let i = 0; i < 4; i++) {
+            this.checker = this.skip + i;
+            if (!this.cars[this.checker] && this.checker <= this.collectionSize) {
+              this.cars[this.checker] = data[i];
+            }
+          }
+        })
+    }
   }
+
+  //SLICE PARAMETERS
+  sliceParams() {
+    this.skip = (this.pagination.pageNo - 1) * this.pagination.size;
+    this.limit = this.pagination.size * this.pagination.pageNo;
+    if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;
+
+  }
+
   //GET COLLECTION LENGTH
-  getColl() : void {
+  getColl(): void {
     this.carService
-        .getCars()
-        .subscribe(data => {this.collectionSize = data.length })
+      .getCars()
+      .subscribe(data => { this.collectionSize = data.length; });
   }
+
   //REFRESH AFTER ADDING
   refreshCars() {
-    this.getCars(this.pagination);
+    this.getCars();
     this.getColl();
   }
   //SEARCH
   searchCar(event): void {
     this.searched = true;
     this.carService
-        .searchCar(event)
-        .subscribe(data => {this.cars = data});
+      .searchCar(event)
+      .subscribe(data => { this.cars = data });
   }
   //SORT
   sortByModel() {
@@ -65,7 +88,7 @@ export class CarslistComponent implements OnInit {
     this.pagination.order = -this.pagination.order;
     this.pagination.toSort = "model";
     this.setArrow();
-    this.getCars(this.pagination);
+    this.getCars();
     this.getColl();
   }
   sortByPrice() {
@@ -74,13 +97,13 @@ export class CarslistComponent implements OnInit {
     this.pagination.order = -this.pagination.order;
     this.pagination.toSort = "price";
     this.setArrow();
-    this.getCars(this.pagination);
+    this.getCars();
     this.getColl();
   }
-  setArrow(){
-    if(this.pagination.order===1) this.arrow = "↑";
+  setArrow() {
+    if (this.pagination.order === 1) this.arrow = "↑";
     else this.arrow = "↓";
   }
-  
+
 }
 
