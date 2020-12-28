@@ -1,22 +1,69 @@
-<h2> CUSTOMERS </h2>
+<div class="detail-wrapper">
 
-<app-customer-modal (close)="refreshCustomers()">Add Customer</app-customer-modal>
-<app-customer-search (searchOutput)="searchCustomer($event)"></app-customer-search>
-
-<button *ngIf="searched" type="button" class="btn btn-danger" style="float : right"
+    <div class="detail-title">
+        <h2> CUSTOMERS </h2>
+</div>
+<!-- HEADER BUTTONS -->
+<div class="detail-buttons">
+    <app-customer-modal (close)="refreshCustomers()">Add Customer</app-customer-modal>
+    <button class="btn btn-secondary open-search" (click)="showSearch()"> <img src="../../assets/filter.svg"></button>
+    <button *ngIf="searched" type="button" class="btn btn-danger reload-button" style="float : right"
     (click)="this.getCustomers()">↻</button>
+</div>
 
-<table class="table table-striped table-hover">
+</div>
+<!-- SEARCH FORM -->
+
+    <div class="form-wrap" *ngIf="this.showFilters">
+
+        <div class="search-form-title">
+            <h3>Filters</h3>
+        </div>
+
+        <div class="form-body">
+
+            <form>
+
+                <div class="entry">
+                    <label>Name Search</label>
+                    <input type="text" name="name" placeholder="Enter Name" [(ngModel)]="searchOptions.name">
+                </div>
+
+                <div class="entry">
+                    <label>Surname Search</label>
+                    <input type="text" name="surname" placeholder="Enter Surname" [(ngModel)]="searchOptions.surname">
+                </div>
+
+                <div class="entry">
+                    <label>E-mail Search</label>
+                    <input type="email" name="email" placeholder="Enter E-mail" [(ngModel)]="searchOptions.email">
+                </div>
+
+                <div class="entry">
+                    <label>License Search</label>
+                    <input type="number" name="license" placeholder="0000" [(ngModel)]="searchOptions.drivingLicense">
+                </div>
+
+            </form>
+        </div>
+
+        <div class="search-form-title">
+            <button type="button" class="btn btn-primary filter" name="search" (click)="searchCustomer()">Filter</button>
+        </div>
+    </div>
+
+<!-- TABLE -->
+<table class="table table-striped table-hover list-table">
     <thead>
-        <tr>
+        <tr ngbTooltip="Click on any category to sort elements." openDelay="1000">
             <th scope="col">#</th>
-            <th scope="col" (click)="sortByName()">Name <span *ngIf="byName">{{arrow}}</span></th>
-            <th scope="col" (click)="sortBySurname()">Surname <span *ngIf="bySurname"> {{arrow}}</span></th>
+            <th scope="col" (click)="this.sortParameter='name'; this.sortByString()">Name <span *ngIf="this.sortParameter==='name'">{{this.arrow}}</span></th>
+            <th scope="col" (click)="this.sortParameter='surname'; this.sortByString()">Surname <span *ngIf="this.sortParameter==='surname'"> {{this.arrow}}</span></th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let customer of customers" routerLink="{{customer._id}}">
+        <tr *ngFor="let customer of customers.slice(this.skip, this.limit)" routerLink="{{customer._id}}">
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
             <td> {{customer.name | titlecase}} </td>
             <td> {{customer.surname | titlecase}} </td>
@@ -24,15 +71,16 @@
     </tbody>
 </table>
 
+<!-- PAGINATION CONTROLS -->
 <div class="d-flex justify-content-between p-2">
-    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pagination.pageNo" [pageSize]="pagination.size"
-        (pageChange)="getCustomers(this.pagination)">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size"
+        (pageChange)="getCustomers()">
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto" [(ngModel)]="pagination.size"
-        (ngModelChange)="getCustomers(this.pagination)">
+    <select class="custom-select" style="width: auto" [(ngModel)]="pag.size"
+        (ngModelChange)="getCustomers()">
         <option [ngValue]="4">4 items per page</option>
         <option [ngValue]="6">6 items per page</option>
-        <option [ngValue]="">Show All</option>
+        <option [ngValue]="collectionSize">Show All</option>
     </select>
 </div>

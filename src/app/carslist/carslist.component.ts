@@ -102,6 +102,7 @@ export class CarslistComponent implements OnInit {
 
   //SLICE PAGINATION PARAMETERS
   sliceParams() {
+    
     this.skip = (this.pag.pageNo - 1) * this.pag.size;
     this.limit = this.pag.size * this.pag.pageNo;
     if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;

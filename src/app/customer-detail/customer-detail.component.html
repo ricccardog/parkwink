@@ -1,79 +1,67 @@
-<ng-template #content let-activeModal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="customer-modal-title"> Edit Customer </h4>
-            <button type="button" class="close" (click)="activeModal.dismiss()">
-                x
-            </button>
-        
-    </div>
+<div class="container detail-view">
 
-    <div class="modal-body">
+    <h4><b>{{customer.name | titlecase}} {{customer.surname | titlecase}} </b> Detail 
+        <button *ngIf="editMode==false" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
+        <button *ngIf="editMode" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
+    </h4>
 
-        <form #customerForm="ngForm">
+    <table class="table table-striped">
 
-            <div class="form-group">
-
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" 
-                name="name" [(ngModel)]="editCustomer.name" placeholder="{{customer.name}}">
-    
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" 
-                name="surname" [(ngModel)]="editCustomer.surname" placeholder="{{customer.surname}}">
-
-                <label for="email">E-Mail</label>
-                <input type="email" id="email" class="form-control"
-                name="email" [(ngModel)]="editCustomer.email" placeholder="{{customer.email}}">
-    
-                <label for="date">Date of Birth</label>
-                <input type="date" id="birthDate" class="form-control" 
-                name="birthDate" [(ngModel)]="editCustomer.birthDate">
-    
-                <label for="license">Driving License</label>
-                <input type="number" id="license" class="form-control" 
-                name="license" [(ngModel)]="editCustomer.drivingLicense" placeholder="{{customer.drivingLicense}}">
-           
-            </div>
-        </form>
-    </div>
-
-    <button type="button" class="btn btn-primary" (click)="updateCustomer()">EDIT</button>
-
-</ng-template>
-<div class="container">
-    <h4>Customer Detail</h4>
-    <table class="table table-striped table-hover">
-        
         <tbody>
-           
             <tr>
-                <td>Name</td>
-                <td>{{ customer.name | titlecase }}</td>
+                <td><b>Name</b></td>
+                <td>{{ customer.name | titlecase}}</td>
+                <td *ngIf="editMode">
+                    <input type="text" id="name" class="form-control" name="name" [(ngModel)]="editCustomer.name"
+                        placeholder="{{customer.name}}">
+                </td>
             </tr>
 
             <tr>
-                <td>Surname</td>
-                <td>{{ customer.surname | titlecase }}</td>
+                <td><b>Surname</b></td>
+                <td>{{ customer.surname | titlecase}}</td>
+                <td *ngIf="editMode">
+                    <input type="text" id="surname" class="form-control" name="surname" [(ngModel)]="editCustomer.surname"
+                        placeholder="{{customer.surname}}">
+                </td>
             </tr>
 
             <tr>
-                <td>E-Mail</td>
-                <td>{{ customer.email | titlecase }}</td>
+                <td><b>E-Mail</b></td>
+                <td>{{ customer.email }}</td>
+                <td *ngIf="editMode">
+                    <input type="email" id="email" class="form-control" name="email" [(ngModel)]="editCustomer.email"
+                        placeholder="{{customer.email}}">
+                </td>
             </tr>
 
             <tr>
-                <td>Driving License</td>
-                <td>{{ customer.drivingLicense }}</td>
+                <td><b>License</b></td>
+                <td>{{ customer.drivingLicense}}</td>
+                <td *ngIf="editMode">
+                    <input type="number" id="drivingLicense" class="form-control" name="drivingLicense" [(ngModel)]="editCustomer.drivingLicense"
+                        placeholder="{{customer.drivingLicense}}">
+                </td>
             </tr>
 
             <tr>
-                <td>Date of Birth</td>
+                <td><b>Birth Date</b></td>
                 <td>{{ customer.birthDate | date : 'dd / MM / yyyy' }}</td>
+                <td *ngIf="editMode">
+                    <input type="date" id="birthDate" class="form-control" name="birthDate" [(ngModel)]="editCustomer.birthDate">
+                </td>
             </tr>
 
         </tbody>
     </table>
+    
+<button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateCustomer()">SAVE CHANGES</button>
+
+<button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCustomer()" routerLink="..">DELETE CUSTOMER</button>
+
 </div>
-<button type="button" class="btn btn-secondary" (click)="goBack()">BACK</button>
-<button type="button" class="btn btn-primary" (click)="open(content)">EDIT</button>
-<button type="button" class="btn btn-danger" style="float : right" (click)="deleteCustomer()" routerLink="..">DELETE CUSTOMER</button>
+
+<button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
+
+
+

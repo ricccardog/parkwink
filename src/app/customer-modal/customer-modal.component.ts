@@ -8,7 +8,7 @@ import { CustomerService } from '../customer.service';
 @Component({
   selector: 'app-customer-modal',
   templateUrl: './customer-modal.component.html',
-  styleUrls: ['./customer-modal.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 export class CustomerModalComponent implements OnInit {
 

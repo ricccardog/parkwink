@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
@@ -10,28 +9,28 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-customer-detail',
   templateUrl: './customer-detail.component.html',
-  styleUrls: ['./customer-detail.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 export class CustomerDetailComponent implements OnInit {
 
   customer: Customer;
   editCustomer = {} as Customer;
   customerForm: FormGroup;
+  editMode = false;
 
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private location: Location,
-    private modal: NgbModal) { }
+    private location: Location) { }
 
   ngOnInit(): void {
-    this.customer = this.route.snapshot.data.customerResolve as Customer;
-    this.editCustomer._id = this.customer._id
+    this.getData();
   }
 
-  //OPEN UPDATE MODAL
-  open(content) {
-    this.modal.open(content)
+  //GET DATA
+  getData(): void {
+    this.customer = this.route.snapshot.data.customerResolve as Customer;
+    this.editCustomer._id = this.customer._id;
   }
 
   //NAVIGATE BACK
@@ -56,8 +55,10 @@ export class CustomerDetailComponent implements OnInit {
     }
     this.customerService
       .readCustomer(this.editCustomer._id)
-      .subscribe(data => this.customer = data)
-    this.modal.dismissAll();
+      .subscribe(data => this.customer = data);
+  }
+  startEditing(){
+    this.editMode = !this.editMode;
   }
 
 }

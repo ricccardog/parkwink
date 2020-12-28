@@ -1,7 +1,7 @@
 <ng-template #content let-activeModal>
 
         <div class="modal-header">
-                <h4 class="modal-title"> Add Customer </h4>
+                <h4 class="modal-title"> Add a new Customer </h4>
                 <button type="button" class="close" (click)="activeModal.dismiss()">
                         X
                 </button>
@@ -57,7 +57,7 @@
 
 
                         <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" [disabled]=!customerForm.valid>Add
+                                <button type="submit" class="btn btn-primary modal-add" [disabled]=!customerForm.valid>Add
                                         Customer</button>
                         </div>
 
@@ -66,4 +66,4 @@
 
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)"> Add </button>
+<button class="btn btn-primary open-add" (click)="open(content)"> <b>+</b> Add </button>
