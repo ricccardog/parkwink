@@ -1,33 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
+import { Pagination } from '../pagination';
+import { CarFilter } from '../carFilter';
 
 @Component({
   selector: 'app-carslist',
   templateUrl: './carslist.component.html',
-  styleUrls: ['./carslist.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 
 export class CarslistComponent implements OnInit {
 
-  cars: Car[] = [];
+  cars: Car[] = []; 
 
 
-  pagination = {
+  pag: Pagination = { 
     pageNo: 1,
     size: 4,
     toSort: '_id',
     order: -1
   }
-
+  //SEARCH PROPERTIES
+  searchOptions = {} as CarFilter;
   searched = false;
+  showFilters = false;
+  //GET PROPERTIES
   collectionSize: number;
-  byModel = false;
-  byPrice = false;
-  arrow: string;
   skip: number;
   limit: number;
-  checker: number;
+  //SORT PROPERTIES
+  sortParameter: string;
+  arrow: string;
+  sortOrder = true;
+  
+
 
   constructor(private carService: CarService) {
   }
@@ -35,29 +42,68 @@ export class CarslistComponent implements OnInit {
   ngOnInit(): void {
     this.getColl();
     this.getCars();
+    this.resetOptions();
   }
 
   //GET
   getCars(): void {
     this.sliceParams();
-    if (!this.cars[this.skip]) {
-      this.carService
-        .getCars(this.pagination)
-        .subscribe(data => {
-          for (let i = 0; i < 4; i++) {
-            this.checker = this.skip + i;
-            if (!this.cars[this.checker] && this.checker <= this.collectionSize) {
-              this.cars[this.checker] = data[i];
-            }
-          }
-        })
+
+    for (let i = this.skip; i < this.limit; i++) {
+
+      if (this.cars[i]) {
+
+        continue
+
+      } else {
+
+        this.carService
+          .getCars(this.pag)
+          .subscribe(data => {
+            this.cars[i] = data[i - this.skip]
+          })
+      }
+    }
+
+  }
+
+  //LOCAL SORTING
+  sortByString(){
+
+    if(this.sortOrder==true){
+
+      this.arrow = '↑';
+      this.cars.sort((a,b)  => b[this.sortParameter].localeCompare(a[this.sortParameter]));
+      this.sortOrder = false;
+
+    }else{
+
+      this.arrow = '↓';
+      this.cars.sort((a,b)  => a[this.sortParameter].localeCompare(b[this.sortParameter]));
+      this.sortOrder = true;
     }
   }
 
-  //SLICE PARAMETERS
+  sortByNumber(){
+
+    if(this.sortOrder==true){
+
+      this.cars.sort((a,b) => a.price - b.price)
+      this.arrow = '↑';
+      this.sortOrder = false;
+
+    }else{
+
+      this.cars.sort((a,b) => b.price - a.price)
+      this.arrow = '↓';
+      this.sortOrder = true;
+    }
+  }
+
+  //SLICE PAGINATION PARAMETERS
   sliceParams() {
-    this.skip = (this.pagination.pageNo - 1) * this.pagination.size;
-    this.limit = this.pagination.size * this.pagination.pageNo;
+    this.skip = (this.pag.pageNo - 1) * this.pag.size;
+    this.limit = this.pag.size * this.pag.pageNo;
     if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;
 
   }
@@ -69,41 +115,29 @@ export class CarslistComponent implements OnInit {
       .subscribe(data => { this.collectionSize = data.length; });
   }
 
-  //REFRESH AFTER ADDING
+  //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
     this.getCars();
     this.getColl();
   }
-  //SEARCH
-  searchCar(event): void {
-    this.searched = true;
-    this.carService
-      .searchCar(event)
-      .subscribe(data => { this.cars = data });
-  }
-  //SORT
-  sortByModel() {
-    this.byModel = true;
-    this.byPrice = false;
-    this.pagination.order = -this.pagination.order;
-    this.pagination.toSort = "model";
-    this.setArrow();
-    this.getCars();
-    this.getColl();
-  }
-  sortByPrice() {
-    this.byPrice = true;
-    this.byModel = false;
-    this.pagination.order = -this.pagination.order;
-    this.pagination.toSort = "price";
-    this.setArrow();
-    this.getCars();
-    this.getColl();
-  }
-  setArrow() {
-    if (this.pagination.order === 1) this.arrow = "↑";
-    else this.arrow = "↓";
+
+  //SHOW SEARCH MENU
+  showSearch(){
+    this.showFilters = !this.showFilters;
   }
 
+  //SEARCH CARS
+  searchCars(): void {
+    this.searched = true;
+    this.carService
+      .searchCar(this.searchOptions)
+      .subscribe(data => { this.cars = data });
+  }
+
+  //RESET SEARCH OPTIONS
+  resetOptions(){
+    for(let k in this.searchOptions) this.searchOptions[k]='';
+  }
+  
 }
 

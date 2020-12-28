@@ -1,0 +1,105 @@
+/* open add menu button */
+.open-add {
+    float: right;  
+    display: inline;
+    margin-left: 2px; 
+    flex: 0 0 10%;
+}
+/* open search button */
+.open-search {
+    float: right;
+    background-color: #E6E6E6;
+    border: solid 1px #ADADAD;
+    color: #373A3C;
+    flex: 0 0 15%;
+}
+/* filter button */
+.filter {
+    float: right;
+    background-color: #faf8f8;
+    margin: 10px;
+    color: #373A3C;
+    flex: 0 0 15%;
+    border: solid 1px #BFBFBF;
+}
+/* reload after filtering button */
+.reload-button {
+    margin-right: 2px;
+}
+/* delete in detail view button */
+.delete-detail {
+    float: right;
+    margin-right: 2px;
+}
+/* open editing button */
+.edit-detail {
+    float: right;
+}
+/* confirm editing button */
+.confirm-edit {
+    float: right;
+    overflow: hidden;
+    margin: 3px;
+}
+/* go back to list view button */
+.back-detail {
+    float: left;
+    background-color: #E6E6E6;
+    border: solid 1px #ADADAD;
+    color: #373A3C;
+}
+/* add entry button in modal */
+.modal-add{
+    width: 100%;
+}
+.detail-wrapper {
+    display: flex;
+    margin-top: 5%;
+}
+.detail-title {
+    flex: 50%;
+}
+
+.detail-buttons {
+    flex: 50%;
+}
+
+.detail-view {
+    margin-top: 5%;
+}
+.form-wrap{
+    border: solid 1px #E5E5E5;
+    border-radius: 3px;
+}
+.search-form-title {
+    background-color: #F5F5F5;
+    overflow:hidden;
+    border-radius: 3px;
+    border: solid 1px #E5E5E5;
+
+}
+.form-body {
+    background-color: white;
+    border-radius: 3px;
+}
+/* form entries */
+.entry {
+    font-family: Helvetica, sans;
+    display: inline-block;
+    margin: 5%;
+}
+.entry label{
+    display: block;
+    font-weight: bold;
+}
+.entry input {
+    border: solid 1px #E5E5E5;
+    border-radius: 2px;
+}
+.list-table{
+    cursor: pointer;
+}
+
+table {
+    table-layout: fixed;
+}

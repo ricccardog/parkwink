@@ -1,0 +1,18 @@
+.dashstyle a {
+    margin: 15px;
+    display: block;
+    color: black;
+    font-family: Helvetica, sans;
+    font-weight: bold;
+}
+
+a:hover{
+    background-color:rgb(211, 206, 206);
+    text-decoration: none;
+}
+
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}

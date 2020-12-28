@@ -1,3 +1,15 @@
-<a routerLink=""><h1>{{title}}</h1> </a>
-<app-dashboard></app-dashboard>
-<router-outlet></router-outlet>
+<div class="wrapper">
+
+        <div class="titleboard">
+                <h1> <a routerLink=""> {{title}} </a></h1> 
+        </div>
+
+        <div class="dashboard">
+                <app-dashboard></app-dashboard>
+        </div>
+
+        <div class="content">
+                <router-outlet></router-outlet>
+        </div>
+
+</div>

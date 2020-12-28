@@ -1,71 +1,59 @@
-<ng-template #content let-activeModal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="car-modal-title"> Edit Car </h4>
-        <button type="button" class="close" (click)="activeModal.dismiss()">
-            x
-        </button>
+<div class="container detail-view">
 
-    </div>
+   
+    
+        <h4><b>{{car.model | titlecase}} </b> Detail
+            <button *ngIf="editMode" class="btn btn-danger confirm-edit" (click)="updateCar()">SAVE CHANGES</button>
+        </h4>
 
-    <div class="modal-body">
+    
 
-        <form #carForm="ngForm">
-
-            <div class="form-group">
-
-                <label for="model">Model</label>
-                <input type="text" id="model" class="form-control" name="model" [(ngModel)]="editCar.model"
-                    placeholder="{{car.model}}">
-
-                <label for="maker">Maker</label>
-                <input type="text" id="Maker" class="form-control" name="Maker" [(ngModel)]="editCar.maker"
-                    placeholder="{{car.maker}}">
-
-                <label for="date">Creation Date</label>
-                <input type="date" id="creationDate" class="form-control" name="creationDate"
-                    [(ngModel)]="editCar.creationDate">
-
-                <label for="price">Price</label>
-                <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editCar.price"
-                    placeholder="{{car.price}}">
-
-            </div>
-        </form>
-
-    </div>
-
-    <button type="button" class="btn btn-primary" (click)="updateCar()">EDIT</button>
-
-</ng-template>
-
-<div class="container">
-    <h4>Car Detail</h4>
-    <table class="table table-striped table-hover">
+    <table class="table table-striped">
 
         <tbody>
             <tr>
-                <td>Car Model</td>
+                <td><b>Car Model</b></td>
                 <td>{{ car.model | titlecase}}</td>
+                <td *ngIf="editMode"> 
+                    <input type="text" id="model" class="form-control" name="model" [(ngModel)]="editCar.model"
+                        placeholder="{{car.model}}">
+                </td>
             </tr>
 
             <tr>
-                <td>Car Maker</td>
+                <td><b>Car Maker</b></td>
                 <td>{{ car.maker | titlecase}}</td>
+                <td *ngIf="editMode">
+                    <input type="text" id="Maker" class="form-control" name="Maker" [(ngModel)]="editCar.maker"
+                    placeholder="{{car.maker}}">
+                </td>
             </tr>
 
             <tr>
-                <td>Creation Date</td>
+                <td><b>Creation Date</b></td>
                 <td>{{ car.creationDate | date : 'dd / MM / yyyy' }}</td>
+                <td *ngIf="editMode">
+                    <input type="date" id="creationDate" class="form-control" name="creationDate"
+                    [(ngModel)]="editCar.creationDate">
+                </td>
             </tr>
 
             <tr>
-                <td>Price per day</td>
+                <td><b>Price per day</b></td>
                 <td>{{ car.price }}</td>
+                <td *ngIf="editMode">
+                    <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editCar.price"
+                    placeholder="{{car.price}}">
+                </td>
             </tr>
 
         </tbody>
     </table>
+
 </div>
-<button type="button" class="btn btn-secondary" (click)="goBack()">BACK</button>
-<button type="button" class="btn btn-primary" (click)="open(content)">EDIT</button>
-<button type="button" class="btn btn-danger" style="float : right" (click)="deleteCar()" routerLink="..">DELETE CAR</button>
+<button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
+
+<button *ngIf="editMode==false" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT CAR</button>
+<button *ngIf="editMode" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EXIT EDIT</button>
+
+<button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCar()" routerLink="..">DELETE CAR</button>

@@ -45,7 +45,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" [disabled]=!carForm.valid>Add Car</button>
+                <button type="submit" class="btn btn-primary modal-add" [disabled]=!carForm.valid>Add Car</button>
             </div>
 
         </form>
@@ -53,4 +53,4 @@
 
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)"> Add </button>
+<button class="btn btn-primary open-add" (click)="open(content)"> <b>+</b> Add Car</button>

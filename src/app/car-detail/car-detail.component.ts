@@ -11,13 +11,14 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-car-detail',
   templateUrl: './car-detail.component.html',
-  styleUrls: ['./car-detail.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 export class CarDetailComponent implements OnInit {
 
   car: Car;
   editCar = {} as Car;
   carForm: FormGroup;
+  editMode = false;
 
   constructor(
     private carService: CarService,
@@ -66,6 +67,9 @@ export class CarDetailComponent implements OnInit {
       .subscribe(data => this.car = data)
     this.modal.dismissAll();
 
+  }
+  startEditing(){
+    this.editMode = !this.editMode;
   }
 
 }
