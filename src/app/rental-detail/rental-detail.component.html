@@ -1,93 +1,64 @@
-<ng-template #content let-activeModal>
+<div class="container detail-view">
 
-    <div class="modal-header">
-        <h4 class="modal-title" id="rental-modal-title">Edit Rental </h4>
-        <button type="button" class="close" (click)="this.activeModal.dismiss()">
-            x
-        </button>
-    </div>
+    <h4><b>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> rental Details
+        <button *ngIf="editMode==false" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
+        <button *ngIf="editMode" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
 
-    <div class="modal-body">
+    </h4>
 
-        <form #rentalForm="ngForm">
-
-            <div class="form-group">
-
-                <label for="car">Car</label>
-                <select name="car" [(ngModel)]="editRental.car">
-                    <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}}
-                        {{car.maker | titlecase}}</option>
-                </select>
-
-                <label for="customer">Customer</label>
-                <select name="customer" [(ngModel)]="editRental.customer">
-                    <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name | titlecase}}
-                        {{customer.surname | titlecase}}</option>
-                </select>
-
-                <label for="startDate">Start Date</label>
-                <input type="date" id="startDate" class="form-control" name="startDate"
-                    [(ngModel)]="editRental.startDate">
-
-                <label for="endDate">End Date</label>
-                <input type="date" id="endDate" class="form-control" name="endDate" [(ngModel)]="editRental.endDate">
-
-                <label for="price">Price</label>
-                <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editRental.price"
-                    placeholder="{{rental.price}}">
-
-            </div>
-        </form>
-    </div>
-
-    <button type="button" class="btn btn-primary" (click)="updateRental()">EDIT</button>
-
-</ng-template>
-
-<div class="container">
-    <h4>Customer Detail</h4>
-    <table class="table table-striped table-hover">
+    <table class="table table-striped">
 
         <tbody>
             <tr>
-                <td> Customer Name</td>
-                <td> {{rental.customer.name | titlecase}} </td>
+                <td><b> Customer </b></td>
+                <td>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}</td>
+                <td *ngIf="editMode"> 
+                    <select name="customer" [(ngModel)]="editRental.customer">
+                        <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
-                <td> Customer Surname</td>
-                <td> {{rental.customer.surname | titlecase}} </td>
+                <td><b>Car</b></td>
+                <td>{{rental.car.maker | titlecase}} {{rental.car.model | titlecase}}</td>
+                <td *ngIf="editMode">
+                    <select name="car" [(ngModel)]="editRental.car">
+                        <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
-                <td> Car Model </td>
-                <td> {{rental.car.model | titlecase }}</td>
+                <td><b>Starting Date</b></td>
+                <td>{{rental.startDate | date: 'dd / MM / yyyy'}}</td>
+                <td *ngIf="editMode">
+                    <input type="date" name="startDate" [(ngModel)]="editRental.startDate">
+                </td>
             </tr>
 
             <tr>
-                <td> Car Maker </td>
-                <td> {{rental.car.maker | titlecase }}</td>
+                <td><b>Ending Date</b></td>
+                <td>{{rental.endDate | date: 'dd / MM / yyyy' }}</td>
+                <td *ngIf="editMode">
+                    <input type="date" name="endDate" [(ngModel)]="editRental.endDate">
+                </td>
             </tr>
-
+   
             <tr>
-                <td> Start Date </td>
-                <td> {{rental.startDate | date : 'dd / MM / yyyy' }}</td>
+                <td><b>Price</b></td>
+                <td>{{rental.price}}</td>
+                <td *ngIf="editMode">
+                    <input type="number" name="price" [(ngModel)]="editRental.price">
+                </td>
             </tr>
-
-            <tr>
-                <td> End Date </td>
-                <td> {{rental.endDate | date : 'dd / MM / yyyy' }}</td>
-            </tr>
-
-            <tr>
-                <td> Price </td>
-                <td> {{rental.price}} </td>
-            </tr>
-
         </tbody>
     </table>
-</div>
+    
+    <button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateRental()">SAVE CHANGES</button>
+    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteRental()" routerLink="..">DELETE CAR</button>
 
-<button type="button" class="btn btn-secondary" (click)="goBack()">BACK</button>
-<button type="button" class="btn btn-primary" (click)="open(content)">EDIT</button>
-<button type="button" class="btn btn-danger" style="float : right" (click)="deleteRental()" routerLink="..">DELETE RENTAL</button>
+</div>
+<button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
+
+

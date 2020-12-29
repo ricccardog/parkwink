@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { Car } from '../cars';
@@ -23,9 +22,7 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private route: ActivatedRoute,
-    private location: Location,
-    private modal: NgbModal,
-  ) { }
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getData();
@@ -35,11 +32,6 @@ export class CarDetailComponent implements OnInit {
   getData(): void {
     this.car = this.route.snapshot.data.carResolve as Car;
     this.editCar._id = this.car._id;
-  }
-
-  //OPEN UPDATE MODAL
-  open(content) {
-    this.modal.open(content)
   }
 
   //NAVIGATE BACK
@@ -65,8 +57,6 @@ export class CarDetailComponent implements OnInit {
     this.carService
       .readCar(this.editCar._id)
       .subscribe(data => this.car = data)
-    this.modal.dismissAll();
-
   }
   startEditing(){
     this.editMode = !this.editMode;

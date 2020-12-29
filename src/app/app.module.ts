@@ -17,7 +17,6 @@ import { CarslistComponent } from './carslist/carslist.component';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { RentalModalComponent } from './rental-modal/rental-modal.component';
 import { CarModalComponent } from './car-modal/car-modal.component';
-import { RentalSearchComponent } from './rental-search/rental-search.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
@@ -32,7 +31,6 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component';
     CustomerModalComponent,
     RentalModalComponent,
     CarModalComponent,
-    RentalSearchComponent,
     CustomerDetailComponent,
     CarDetailComponent,
     RentalDetailComponent,

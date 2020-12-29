@@ -72,3 +72,4 @@
 [1215/165743.807:ERROR:exception_snapshot_win.cc(99)] thread ID 9376 not found in process
 [1218/110921.326:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
 [1228/154309.810:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[1229/144311.884:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)

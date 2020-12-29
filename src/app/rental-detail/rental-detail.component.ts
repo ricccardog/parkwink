@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service';
@@ -15,7 +15,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-rental-detail',
   templateUrl: './rental-detail.component.html',
-  styleUrls: ['./rental-detail.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 export class RentalDetailComponent implements OnInit {
 
@@ -24,14 +24,14 @@ export class RentalDetailComponent implements OnInit {
   customers: Customer[] = [];
   cars: Car[] = [];
   rentalForm: FormGroup;
+  editMode = false;
 
   constructor(
     private rentalService: RentalsService,
     private carService: CarService,
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private location: Location,
-    private modal: NgbModal) { }
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getData();
@@ -50,10 +50,6 @@ export class RentalDetailComponent implements OnInit {
 
   }
 
-  //OPEN UPDATE MODAL
-  open(content) {
-    this.modal.open(content)
-  }
   //NAVIGATE BACK
   goBack(): void {
     this.location.back();
@@ -78,8 +74,10 @@ export class RentalDetailComponent implements OnInit {
     this.rentalService
       .readRental(this.editRental._id)
       .subscribe(data => this.rental = data)
-    this.modal.dismissAll();
 
+  }
+  startEditing(){
+    this.editMode = !this.editMode
   }
 
 }

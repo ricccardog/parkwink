@@ -34,8 +34,7 @@ export class CarModalComponent implements OnInit {
 
   //OPEN MODAL
   open(content) {
-    this.modalService
-      .open(content)
+    this.modalService.open(content)
   }
 
   //POST

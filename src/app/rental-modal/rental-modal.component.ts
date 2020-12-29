@@ -12,7 +12,7 @@ import { CarService } from '../car.service';
 @Component({
   selector: 'app-rental-modal',
   templateUrl: './rental-modal.component.html',
-  styleUrls: ['./rental-modal.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 
 export class RentalModalComponent implements OnInit {

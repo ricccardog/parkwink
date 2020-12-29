@@ -2,45 +2,88 @@ import { Component, OnInit } from '@angular/core';
 import { RentalFilter } from '../rentalFilter';
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
-
+import { Pagination } from '../pagination';
+import { Car } from '../cars';
+import { Customer } from '../customers';
+import { CarService } from '../car.service';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-rentals',
   templateUrl: './rentals.component.html',
-  styleUrls: ['./rentals.component.css']
+  styleUrls: ['../detailStyle.css']
 })
 
 export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
 
-  pagination = {
+  pag: Pagination = {
     pageNo : 1,
     size : 4,
     toSort : '_id',
     order : -1
   }
-
-  collectionSize : number;
+  //SEARCH PROPERTIES
+  searchOptions = {} as RentalFilter;
   searched = false;
-  byDate = false;
-  byCustomer = false;
-  byCar = false;
-  arrow : string;
+  showFilters = false;
+  searchByCar = false;
+  searchByCustomer = false;
+  cars : Car[];
+  customers : Customer[];
+  //GET PROPERTIES
+  collectionSize : number;
+  skip: number;
+  limit: number;
+  //SORT PROPERTIES
+  sortParameter: string;
+  arrow: string;
+  sortOrder = true;
 
-  constructor(private rentalsService: RentalsService) { 
-  }
+  constructor(
+    private rentalsService: RentalsService,
+    private customerService: CustomerService,
+    private carService: CarService) {}
 
   ngOnInit(): void {
-   this.getRentals(this.pagination);
-   this.getColl();
+    this.getColl();
+    this.getRentals();
+    this.resetOptions();
   }
+
   //GET
-  getRentals(pagination): void {
-    this.searched = false;
-    this.rentalsService
-      .getRentals(this.pagination)
-      .subscribe(rentals => { this.rentals = rentals }) 
+  getRentals(): void {
+    this.sliceParams();
+
+    for (let i = this.skip; i < this.limit; i++) {
+
+      if (this.rentals[i]) {
+
+        continue
+
+      } else {
+
+        this.rentalsService
+          .getRentals(this.pag)
+          .subscribe(data => {
+            this.rentals[i] = data[i - this.skip]
+          })
+      }
+    }
+
+  }
+  
+  //LOCAL SORTING
+
+
+  //SLICE PAGINATION PARAMETERS
+  sliceParams() {
+    
+    this.skip = (this.pag.pageNo - 1) * this.pag.size;
+    this.limit = this.pag.size * this.pag.pageNo;
+    if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;
+
   }
   // GET COLLECTION LENGTH
   getColl() : void {
@@ -50,52 +93,31 @@ export class RentalsComponent implements OnInit {
   }
   //REFRESH AFTER ADDING
   refreshRentals() {
-    this.getRentals(this.pagination);
+    this.getRentals();
     this.getColl();
   }
-  //SEARCH
-  searchRental(event: RentalFilter){
+
+  //SHOW SEARCH MENU
+  showSearch(){
+    this.showFilters = !this.showFilters;
+    this.carService.getCars().subscribe(data => this.cars = data);
+    this.customerService.getCustomers().subscribe(data => this.customers = data);
+  }
+
+  //SEARCH RENTALS
+  searchRental(){
     this.searched = true;
+    console.log(this.searchOptions)
     this.rentalsService
-        .searchRental(event)
+        .searchRental(this.searchOptions)
         .subscribe(data => { this.rentals = data});
+    this.resetOptions();
   }
-  //SORT
-  sortByCar(){
-    this.byCar = true;
-    this.byDate = false;
-    this.byCustomer = false;
-    this.pagination.order = -this.pagination.order;
-    this.pagination.toSort ="car";
-    this.setArrow();
-    this.getRentals(this.pagination);
-    this.getColl();
+  
+  //RESET SEARCH OPTIONS
+  resetOptions(){
+    for(let k in this.searchOptions) this.searchOptions[k]='';
   }
-  sortByCustomer(){
-    this.byCustomer = true;
-    this.byCar = false;
-    this.byDate = false;
-    this.pagination.order = -this.pagination.order;
-    this.pagination.toSort= "customer";
-    this.setArrow();
-    this.getRentals(this.pagination);
-    this.getColl();
-  }
-  sortByDate(){
-    this.byDate = true;
-    this.byCar = false,
-    this.byCustomer = false;
-    this.pagination.order = -this.pagination.order;
-    this.pagination.toSort = "startDate";
-    this.setArrow();
-    this.getRentals(this.pagination);
-    this.getColl();
-  }
-  setArrow(){
-    if(this.pagination.order===1) this.arrow = "↑";
-    else this.arrow = "↓";
-  }
- 
   
 }
 

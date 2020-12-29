@@ -1,7 +1,7 @@
 <ng-template #content let-activeModal>
 
     <div class="modal-header">
-        <h4 class="modal-title"> Add Rental </h4>
+        <h4 class="modal-title"> Add a new rental </h4>
         <button type="button" class="close" (click)="activeModal.dismiss()">
             x
         </button>
@@ -18,31 +18,37 @@
                 </div>
 
                 <!-- RENTAL FORM -->
+                
                 <label> Car :
-                    <select name="car" formControlName="car" required>
+                    <select name="car" class="form-control" formControlName="car" required>
                         <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}}
                             {{car.maker | titlecase}}</option>
                     </select>
                 </label>
 
                 <label> Customer :
-                    <select name="customer" formControlName="customer" required>
+                    <select name="customer" class="form-control" formControlName="customer" required>
                         <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name | titlecase}}
                             {{customer.surname | titlecase}}</option>
                     </select>
                 </label>
+                
 
+                
                 <label> Start Date :
-                    <input type="date" formControlName="startDate" required>
+                    <input type="date" class="form-control" formControlName="startDate" required>
                 </label>
-
+                
                 <label> End Date :
-                    <input type="date" formControlName="endDate" required>
+                    <input type="date" class="form-control" formControlName="endDate" required>
                 </label>
+                
 
+                
                 <label> Price :
-                    <input type="number" formControlName="price" required>
+                    <input type="number" class="form-control" formControlName="price" required>
                 </label>
+               
 
                 <!-- MINIMUM PRICE VALIDATION-->
                 <div *ngIf="rentalForm.get('price').errors?.min" class="alert alert-danger">
@@ -57,7 +63,7 @@
 
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]=!rentalForm.valid>Add Rental</button>
+                    <button type="submit" class="btn btn-primary modal-add" [disabled]=!rentalForm.valid>Add Rental</button>
                 </div>
 
             </form>
@@ -66,4 +72,4 @@
     </div>
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)"> Add </button>
+<button class="btn btn-primary open-add" (click)="open(content)"> <b>+</b> Add </button>
