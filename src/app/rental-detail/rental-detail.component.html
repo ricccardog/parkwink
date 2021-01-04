@@ -1,19 +1,19 @@
 <div class="container detail-view">
 
-    <h4><b>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> rental Details
-        <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT MODE</button>
-        <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT MODE</button>
+    <h4><b>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> Rental Details
+        <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
+        <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
 
     </h4>
 
     <table class="table table-striped">
-
+        
         <tbody>
-            <tr>
+            <tr ng-form="rentalForm">
                 <td><b> Customer </b></td>
                 <td>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}</td>
                 <td *ngIf="editMode"> 
-                    <select name="customer" [(ngModel)]="editRental.customer">
+                    <select name="customer" [(ngModel)]="editRental.customer" class="form-control">
                         <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
                     </select>
                 </td>
@@ -23,7 +23,7 @@
                 <td><b>Car</b></td>
                 <td>{{rental.car.maker | titlecase}} {{rental.car.model | titlecase}}</td>
                 <td *ngIf="editMode">
-                    <select name="car" [(ngModel)]="editRental.car">
+                    <select name="car" [(ngModel)]="editRental.car" class="form-control">
                         <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
                     </select>
                 </td>
@@ -33,7 +33,7 @@
                 <td><b>Starting Date</b></td>
                 <td>{{rental.startDate | date: 'dd / MM / yyyy'}}</td>
                 <td *ngIf="editMode">
-                    <input type="date" name="startDate" [(ngModel)]="editRental.startDate">
+                    <input type="date" name="startDate" [(ngModel)]="editRental.startDate" class="form-control">
                 </td>
             </tr>
 
@@ -41,7 +41,7 @@
                 <td><b>Ending Date</b></td>
                 <td>{{rental.endDate | date: 'dd / MM / yyyy' }}</td>
                 <td *ngIf="editMode">
-                    <input type="date" name="endDate" [(ngModel)]="editRental.endDate" min="rental.startDate">
+                    <input type="date" name="endDate" [(ngModel)]="editRental.endDate" min="rental.startDate" class="form-control">
                 </td>
             </tr>
    
@@ -49,7 +49,7 @@
                 <td><b>Price</b></td>
                 <td>{{rental.price}}</td>
                 <td *ngIf="editMode">
-                    <input type="number" name="price" [(ngModel)]="editRental.price">
+                    <input type="number" name="price" [(ngModel)]="editRental.price" class="form-control" placeholder="Price">
                 </td>
             </tr>
         </tbody>

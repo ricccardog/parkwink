@@ -10,7 +10,7 @@ import { CustomerService } from '../customer.service'
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 
-import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-rental-detail',
@@ -23,8 +23,8 @@ export class RentalDetailComponent implements OnInit {
   editRental = {} as Rental;
   customers: Customer[] = [];
   cars: Car[] = [];
-  rentalForm: FormGroup;
   editMode = false;
+  validDates = false;
 
   constructor(
     private rentalService: RentalsService,
@@ -64,19 +64,44 @@ export class RentalDetailComponent implements OnInit {
     }
   }
 
+  // DATE VALIDATION
+  dateCheck() {
+    if (this.editRental.startDate && this.editRental.endDate) {
+
+      if (this.editRental.startDate <= this.editRental.endDate) this.validDates = true;
+
+    } else if (this.editRental.startDate && !this.editRental.endDate) {
+
+      if (this.editRental.startDate <= this.rental.endDate) this.validDates = true;
+
+    } else if (!this.editRental.startDate && this.editRental.endDate) {
+
+      if (this.rental.startDate <= this.editRental.endDate) this.validDates = true;
+
+    } else {
+
+      this.validDates = true;
+    }
+  }
+
   //UPDATE
   updateRental(): void {
-    if (confirm('Are you sure you want to edit this rental?')) {
+    this.dateCheck();
+    if (this.validDates === true) {
+      if (confirm('Are you sure you want to edit this rental?')) {
+        this.rentalService
+          .updateRental(this.editRental)
+          .subscribe(rental => { })
+      }
       this.rentalService
-        .updateRental(this.editRental)
-        .subscribe(rental => { })
+        .readRental(this.editRental._id)
+        .subscribe(data => this.rental = data)
+    } else {
+      confirm('Please insert a valid date range')
     }
-    this.rentalService
-      .readRental(this.editRental._id)
-      .subscribe(data => this.rental = data)
-
+    this.toggleEditing();
   }
-  startEditing(){
+  toggleEditing() {
     this.editMode = !this.editMode
   }
 

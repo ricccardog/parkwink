@@ -124,3 +124,8 @@ table {
     table-layout: fixed;
 }
 
+.icon {
+    height: 20px;
+    width: 20px;
+}
+

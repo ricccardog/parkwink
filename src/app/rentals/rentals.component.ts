@@ -22,7 +22,7 @@ export class RentalsComponent implements OnInit {
     pageNo : 1,
     size : 4,
     toSort : '_id',
-    order : -1
+    order : 1
   }
   //SEARCH PROPERTIES
   searchOptions = {} as RentalFilter;
