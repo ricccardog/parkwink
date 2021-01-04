@@ -17,47 +17,54 @@
                         </div>
 
                         <!-- CUSTOMER FORM -->
-                        <label> Name :
-                                <input type="text" class="form-control" formControlName="name" required>
-                        </label>
-
-                        <label> Surname :
-                                <input type="text" class="form-control" formControlName="surname" required>
-                        </label>
-
-                        <label> Date of Birth :
-                                <input type="date" class="form-control" formControlName="birthDate" required>
-                        </label>
-                        <!-- BIRTH DATE ERROR -->
-                        <div *ngIf="customerForm.errors?.minDate && (customerForm.get('birthDate').touched || customerForm.get('birthDate').dirty)"
-                                class="alert alert-danger">
-                                Birth Date cannot be before 01 / 01 / 1940
+                        <div class="modal-entry">
+                                <label> Name :
+                                        <input type="text" class="form-control" formControlName="name" placeholder="Name" required>
+                                </label>
                         </div>
 
-                        <label> Driving License :
-                                <input type="number" class="form-control" formControlName="drivingLicense" required>
-                        </label>
-
-                        <!-- DRIVING LICENSE FORMAT ERROR -->
-                        <div *ngIf="(customerForm.get('drivingLicense').errors?.min
-                                || customerForm.get('drivingLicense').errors?.max) && (customerForm.get('drivingLicense').touched || customerForm.get('drivingLicense').dirty)"
-                                class="alert alert-danger">
-                                Driving License number must be between 1 and 9999
+                        <div class="modal-entry">
+                                <label> Surname :
+                                        <input type="text" class="form-control" formControlName="surname" placeholder="Surname" required>
+                                </label>
                         </div>
 
-                        <label> E-Mail :
-                                <input type="email" class="form-control" formControlName="email" required>
-                        </label>
-                        <!-- EMAIL ERROR -->
-                        <div *ngIf="customerForm.get('email').errors?.email" class="alert alert-danger">
-                                Please insert a valid E-mail Address
+                        <div class="modal-entry">
+                                <label> Date of Birth :
+                                        <input type="date" class="form-control" formControlName="birthDate" required>
+                                </label>
                         </div>
+                                <!-- BIRTH DATE ERROR -->
+                                <div *ngIf="customerForm.errors?.minDate && (customerForm.get('birthDate').touched || customerForm.get('birthDate').dirty)"
+                                        class="alert alert-danger">
+                                        Birth Date cannot be before 01 / 01 / 1940
+                                </div>
 
+                        <div class="modal-entry">
+                                <label> Driving License :
+                                        <input type="number" class="form-control" formControlName="drivingLicense" placeholder="1234" required>
+                                </label>
+                        </div>
+                                <!-- DRIVING LICENSE FORMAT ERROR -->
+                                <div *ngIf="(customerForm.get('drivingLicense').errors?.min
+                                                || customerForm.get('drivingLicense').errors?.max) && (customerForm.get('drivingLicense').touched || customerForm.get('drivingLicense').dirty)"
+                                        class="alert alert-danger">
+                                        Driving License number must be between 1 and 9999
+                                </div>
 
-
+                        <div class="modal-entry">
+                                <label> E-Mail :
+                                        <input type="email" class="form-control" formControlName="email" placeholder="E-mail" required>
+                                </label>
+                        </div>
+                                <!-- EMAIL ERROR -->
+                                <div *ngIf="customerForm.get('email').errors?.email" class="alert alert-danger">
+                                        Please insert a valid E-mail Address
+                                </div>
 
                         <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary modal-add" [disabled]=!customerForm.valid>Add
+                                <button type="submit" class="btn btn-primary modal-add"
+                                        [disabled]=!customerForm.valid>Add
                                         Customer</button>
                         </div>
 

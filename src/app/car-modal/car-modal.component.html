@@ -7,8 +7,8 @@
         </button>
     </div>
 
-    <div class="modal-body">
 
+    <div class="modal-body">
         <form [formGroup]="carForm" (ngSubmit)="addCar()">
 
             <!-- MISSING FIELDS ALERT -->
@@ -16,28 +16,34 @@
                 Please fill all fields to enable ADD button
             </div>
 
-            <label> Maker :
-                <input type="text" class="form-control" formControlName="maker" required>
-            </label>
+            <div class="modal-entry">
+                <label> Maker :
+                    <input type="text" class="form-control" formControlName="maker" placeholder="Maker" required>
+                </label>
+            </div>
 
-            <label> Model :
-                <input type="text" class="form-control" formControlName="model" required>
-            </label>
+            <div class="modal-entry">
+                <label> Model :
+                    <input type="text" class="form-control" formControlName="model" placeholder="Model" required>
+                </label>
+            </div>
 
-            <label> Price :
-                <input type="number" class="form-control" formControlName="price" required>
-            </label>
-
+            <div class="modal-entry">
+                <label> Price :
+                    <input type="number" class="form-control" formControlName="price" placeholder="1" required>
+                </label>
+            </div>
             <!-- PRICE ERROR -->
             <div *ngIf="carForm.get('price').errors?.min && (carForm.get('price').touched || carForm.get('price').dirty)"
                 class="alert alert-danger">
                 PRICE must be at least 1
             </div>
 
-            <label> Date :
-                <input type="date" class="form-control" formControlName="creationDate" required>
-            </label>
-
+            <div class="modal-entry">
+                <label> Date :
+                    <input type="date" class="form-control" formControlName="creationDate" required>
+                </label>
+            </div>
             <!-- DATE ERROR -->
             <div *ngIf="carForm.errors?.minDate && (carForm.get('creationDate').touched || carForm.get('creationDate').dirty)"
                 class="alert alert-danger">

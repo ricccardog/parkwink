@@ -35,6 +35,9 @@
 .edit-detail {
     float: right;
     margin-bottom: 3px;
+    background-color: #E6E6E6;
+    border: solid 1px #ADADAD;
+    color: #373A3C;
 }
 /* confirm editing button */
 .confirm-edit {
@@ -53,6 +56,7 @@
 .modal-add{
     width: 100%;
 }
+/*detail view styles */
 .detail-wrapper {
     display: flex;
     margin-top: 5%;
@@ -68,6 +72,7 @@
 .detail-view {
     margin-top: 5%;
 }
+/* Form styles */
 .form-wrap{
     border: solid 1px #E5E5E5;
     border-radius: 3px;
@@ -83,11 +88,23 @@
     background-color: white;
     border-radius: 3px;
 }
+
+.modal-entry {
+    display: block;
+}
+
+.modal-body input {
+    width: 250px;
+}
+.modal-body select {
+    width: 250px;
+}
+
 /* form entries */
 .entry {
     font-family: Helvetica, sans;
     display: inline-block;
-    margin: 5%;
+    margin: 2%;
 }
 .entry label{
     display: block;
@@ -97,10 +114,13 @@
     border: solid 1px #E5E5E5;
     border-radius: 2px;
 }
+/*Hover behaviour on main view*/
 .list-table{
     cursor: pointer;
 }
 
+
 table {
     table-layout: fixed;
 }
+

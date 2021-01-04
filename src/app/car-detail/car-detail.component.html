@@ -1,15 +1,17 @@
 <div class="container detail-view">
 
-   
-    
-        <h4><b>{{car.model | titlecase}} </b> Detail
-            <button *ngIf="editMode==false" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
-            <button *ngIf="editMode" type="button" class="btn btn-primary edit-detail" (click)="startEditing()">EDIT MODE</button>
 
 
-        </h4>
+    <h4><b>{{car.model | titlecase}} </b> Detail
+        <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail"
+            (click)="startEditing()">EDIT MODE</button>
+        <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT
+            MODE</button>
 
-    
+
+    </h4>
+
+
 
     <table class="table table-striped">
 
@@ -17,7 +19,7 @@
             <tr>
                 <td><b> Model</b></td>
                 <td>{{ car.model | titlecase}}</td>
-                <td *ngIf="editMode"> 
+                <td *ngIf="editMode">
                     <input type="text" id="model" class="form-control" name="model" [(ngModel)]="editCar.model"
                         placeholder="{{car.model}}">
                 </td>
@@ -28,7 +30,7 @@
                 <td>{{ car.maker | titlecase}}</td>
                 <td *ngIf="editMode">
                     <input type="text" id="Maker" class="form-control" name="Maker" [(ngModel)]="editCar.maker"
-                    placeholder="{{car.maker}}">
+                        placeholder="{{car.maker}}">
                 </td>
             </tr>
 
@@ -37,7 +39,7 @@
                 <td>{{ car.creationDate | date : 'dd / MM / yyyy' }}</td>
                 <td *ngIf="editMode">
                     <input type="date" id="creationDate" class="form-control" name="creationDate"
-                    [(ngModel)]="editCar.creationDate">
+                        [(ngModel)]="editCar.creationDate">
                 </td>
             </tr>
 
@@ -46,14 +48,15 @@
                 <td>{{ car.price }}</td>
                 <td *ngIf="editMode">
                     <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editCar.price"
-                    placeholder="{{car.price}}">
+                        placeholder="{{car.price}}">
                 </td>
             </tr>
 
         </tbody>
     </table>
     <button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateCar()">SAVE CHANGES</button>
-    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCar()" routerLink="..">DELETE CAR</button>
+    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCar()"
+        routerLink="..">DELETE CAR</button>
+    <button type="button" class="btn btn-secondary back-detail" (click)="goBack()"> BACK </button>
 
 </div>
-<button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
