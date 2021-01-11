@@ -26,16 +26,18 @@
          <div class="entry">
           
           <label for="car">Car Search</label>
-          <select name="car" [(ngModel)]="searchOptions.car">
-              <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
+          <select name="car" class="form-control" [(ngModel)]="searchOptions.car">
+               <option value=undefined selected hidden disabled> Select a car</option>
+               <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
           </select>
          </div>
 
         <div class="entry">
 
           <label for="customer">Customer Search</label>
-          <select name="customer" [(ngModel)]="searchOptions.customer">
-              <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
+          <select name="customer" class="form-control" [(ngModel)]="searchOptions.customer">
+               <option value=undefined selected hidden disabled> Select a customer </option>
+               <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
           </select>
 
          </div>
@@ -51,7 +53,7 @@
 
 <table class="table table-striped table-hover list-table">
      <thead>
-     <tr ngbTooltip="Click on any category to sort elements." openDelay="1000">
+     <tr ngbTooltip="Click on any date category to sort elements." openDelay="1000">
           <th scope="col">#</th>
           <th scope="col">Car </th>
           <th scope="col">User </th>

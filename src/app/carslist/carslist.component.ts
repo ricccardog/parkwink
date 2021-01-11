@@ -48,6 +48,8 @@ export class CarslistComponent implements OnInit {
   //GET
   getCars(): void {
     this.sliceParams();
+    this.resetOptions();
+    this.searched = false;
 
     for (let i = this.skip; i < this.limit; i++) {
 
@@ -133,6 +135,7 @@ export class CarslistComponent implements OnInit {
     this.carService
       .searchCar(this.searchOptions)
       .subscribe(data => { this.cars = data });
+  this.resetOptions();
   }
 
   //RESET SEARCH OPTIONS

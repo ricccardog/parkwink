@@ -55,6 +55,8 @@ export class RentalsComponent implements OnInit {
   //GET
   getRentals(): void {
     this.sliceParams();
+    this.searched = false;
+    this.resetOptions();
 
     for (let i = this.skip; i < this.limit; i++) {
 

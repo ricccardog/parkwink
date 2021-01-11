@@ -45,6 +45,8 @@ export class CustomersComponent implements OnInit {
   //GET
   getCustomers(): void {
     this.sliceParams();
+    this.searched = false;
+    this.resetOptions();
 
     for (let i = this.skip; i < this.limit; i++) {
 
@@ -112,6 +114,7 @@ export class CustomersComponent implements OnInit {
     this.customerService
       .searchCustomer(this.searchOptions)
       .subscribe(data => { this.customers = data })
+  this.resetOptions();
   }
 
   //RESET SEARCH OPTIONS
