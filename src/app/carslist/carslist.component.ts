@@ -59,9 +59,7 @@ export class CarslistComponent implements OnInit {
 
         this.carService
           .getCars(this.pag)
-          .subscribe(data => {
-            this.cars[i] = data[i - this.skip]
-          })
+          .subscribe(data => { this.cars[i] = data[i - this.skip] })
       }
     }
 
@@ -81,6 +79,7 @@ export class CarslistComponent implements OnInit {
       this.arrow = '↓';
       this.cars.sort((a,b)  => a[this.sortParameter].localeCompare(b[this.sortParameter]));
       this.sortOrder = true;
+
     }
   }
 
@@ -97,6 +96,7 @@ export class CarslistComponent implements OnInit {
       this.cars.sort((a,b) => b.price - a.price)
       this.arrow = '↓';
       this.sortOrder = true;
+      
     }
   }
 
@@ -113,7 +113,7 @@ export class CarslistComponent implements OnInit {
   getColl(): void {
     this.carService
       .getCars()
-      .subscribe(data => { this.collectionSize = data.length; });
+      .subscribe(data => { this.collectionSize = data.length });
   }
 
   //REFRESH COLLECTION AFTER ADDING
@@ -137,7 +137,7 @@ export class CarslistComponent implements OnInit {
 
   //RESET SEARCH OPTIONS
   resetOptions(){
-    for(let k in this.searchOptions) this.searchOptions[k]='';
+    for(let k in this.searchOptions) this.searchOptions[k] = '';
   }
   
 }

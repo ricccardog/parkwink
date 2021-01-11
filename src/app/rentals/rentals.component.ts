@@ -37,8 +37,8 @@ export class RentalsComponent implements OnInit {
   skip: number;
   limit: number;
   //SORT PROPERTIES
-  sortParameter: string;
   arrow: string;
+  sortParameter : string;
   sortOrder = true;
 
   constructor(
@@ -64,6 +64,7 @@ export class RentalsComponent implements OnInit {
 
       } else {
 
+        this.sortParameter = '';
         this.rentalsService
           .getRentals(this.pag)
           .subscribe(data => {
@@ -75,7 +76,50 @@ export class RentalsComponent implements OnInit {
   }
   
   //LOCAL SORTING
+  sortByDate(){
 
+    this.sortParameter = 'startDate';
+
+    if (this.sortOrder === true) {
+
+      this.sortOrder = false;
+      this.arrow = '↑';
+      this.rentals.sort(function (a, b) {
+        return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      })
+
+    } else {
+
+      this.sortOrder = true;
+      this.arrow = '↓';
+      this.rentals.sort(function (a, b) {
+        return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+      })
+    }
+ 
+  }
+
+  sortByEnd() {
+
+    this.sortParameter = 'endDate';
+
+    if (this.sortOrder === true) {
+
+      this.sortOrder = false;
+      this.arrow = '↑';
+      this.rentals.sort(function (a, b) {
+        return new Date(a.endDate).getTime() - new Date(b.endDate).getTime()
+      })
+
+    } else {
+
+      this.sortOrder = true;
+      this.arrow = '↓';
+      this.rentals.sort(function (a, b) {
+        return new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
+      })
+    }
+  }
 
   //SLICE PAGINATION PARAMETERS
   sliceParams() {
