@@ -23,7 +23,8 @@ export class RentalsComponent implements OnInit {
     size : 4,
     toSort : '_id',
     order : 1
-  }
+  }  
+  
   //SEARCH PROPERTIES
   searchOptions = {} as RentalFilter;
   searched = false;
@@ -52,8 +53,10 @@ export class RentalsComponent implements OnInit {
     this.resetOptions();
   }
 
+  
   //GET
   getRentals(): void {
+
     this.sliceParams();
     this.searched = false;
     this.resetOptions();
@@ -70,12 +73,13 @@ export class RentalsComponent implements OnInit {
         this.rentalsService
           .getRentals(this.pag)
           .subscribe(data => {
-            this.rentals[i] = data[i - this.skip]
+            this.rentals[i] = data[i - this.skip]; 
           })
       }
     }
-
+   
   }
+  
   
   //LOCAL SORTING
   sortByDate(){

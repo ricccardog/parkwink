@@ -16,6 +16,7 @@ export class CarDetailComponent implements OnInit {
 
   car: Car;
   editCar = {} as Car;
+  deletionCar = {} as Car;
   carForm: FormGroup;
   editMode = false;
 
@@ -32,6 +33,7 @@ export class CarDetailComponent implements OnInit {
   getData(): void {
     this.car = this.route.snapshot.data.carResolve as Car;
     this.editCar._id = this.car._id;
+    this.deletionCar._id = this.car._id;
   }
 
   //NAVIGATE BACK
@@ -42,6 +44,7 @@ export class CarDetailComponent implements OnInit {
   //DELETE
   deleteCar(): void {
     if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
+/*       this.deletionCar = {_id: this.car._id, model: null, maker: null, price: null, creationDate: null} */
       this.carService
         .deleteCar(this.car._id)
         .subscribe(data => { alert('Car successfully deleted') })

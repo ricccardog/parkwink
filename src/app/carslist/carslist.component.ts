@@ -13,8 +13,6 @@ import { CarFilter } from '../carFilter';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
-
-
   pag: Pagination = { 
     pageNo: 1,
     size: 4,
@@ -51,6 +49,8 @@ export class CarslistComponent implements OnInit {
     this.resetOptions();
     this.searched = false;
 
+    
+
     for (let i = this.skip; i < this.limit; i++) {
 
       if (this.cars[i]) {
@@ -61,12 +61,14 @@ export class CarslistComponent implements OnInit {
 
         this.carService
           .getCars(this.pag)
-          .subscribe(data => { this.cars[i] = data[i - this.skip] })
+          .subscribe(data => { this.cars[i] = data[i - this.skip]
+               
+          })
+        
       }
-    }
-
+    }  
   }
-
+  
   //LOCAL SORTING
   sortByString(){
 

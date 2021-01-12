@@ -53,15 +53,15 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let car of cars.slice(this.skip, this.limit)" 
-    routerLink="{{car._id}}">
+    <tr *ngFor="let car of cars.slice(this.skip, this.limit)" routerLink="{{car._id}}">
       <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
-      <td> {{car.model | titlecase}} </td>
-      <td> {{car.maker | titlecase}}</td>
-      <td> {{car.price }} € </td>
+        <td> {{car.model | titlecase}} </td>
+        <td> {{car.maker | titlecase}}</td>
+        <td> {{car.price}} € </td>
     </tr>
   </tbody>
 </table>
+
 <!-- PAGINATION CONTROLS -->
 <div class="d-flex justify-content-between p-2">
   <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size" (pageChange)="getCars()">

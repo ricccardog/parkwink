@@ -1,6 +1,6 @@
 <div class="container detail-view">
 
-    <h4><b>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> Rental Details
+    <h4><b *ngIf="rental.customer">{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> Rental Details
         <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
         <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
 
@@ -8,10 +8,10 @@
 
     <table class="table table-striped">
         
-        <tbody>
-            <tr ng-form="rentalForm">
+        <tbody ng-form="rentalForm">
+            <tr>
                 <td><b> Customer </b></td>
-                <td>{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}</td>
+                <td>{{rental.customer ? (rental.customer.name | titlecase) : 'n/a'}} {{rental.customer ? (rental.customer.surname | titlecase) : ''}}</td>
                 <td *ngIf="editMode"> 
                     <select name="customer" [(ngModel)]="editRental.customer" class="form-control">
                         <option value=undefined hidden disabled> Change customer </option>
@@ -22,7 +22,7 @@
 
             <tr>
                 <td><b>Car</b></td>
-                <td>{{rental.car.maker | titlecase}} {{rental.car.model | titlecase}}</td>
+                <td>{{rental.car ? (rental.car.maker | titlecase) : 'n/a'}} {{ rental.car ? (rental.car.model | titlecase) : ''}}</td>
                 <td *ngIf="editMode">
                     <select name="car" [(ngModel)]="editRental.car" class="form-control">
                         <option value=undefined hidden disabled> Change car</option>
