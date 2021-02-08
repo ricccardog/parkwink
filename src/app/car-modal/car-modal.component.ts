@@ -20,7 +20,7 @@ export class CarModalComponent implements OnInit {
     price: new FormControl('', Validators.min(1)),
     creationDate: new FormControl('')
   }, {
-    validators: [this.missingFields/* , this.minDate */]
+    validators: [this.missingFields]
   });
 
   constructor(
@@ -42,7 +42,11 @@ export class CarModalComponent implements OnInit {
     this.carService
       .addCar(this.carForm.value)
       .subscribe(data => { this.carService.getCars() });
+
+    this.carForm.reset();
+
     this.close.emit();
+
     this.modalService.dismissAll();
   }
   
@@ -57,11 +61,11 @@ export class CarModalComponent implements OnInit {
     else return { missingFields: true }
   }
 
-  //MINIMUM DATE VALIDATION
-  minDate(control: FormGroup): ValidationErrors {
+  //MINIMUM DATE VALIDATION optional  
+  /* minDate(control: FormGroup): ValidationErrors {
     const creationDate = new Date(control.get('creationDate').value);
     const minDate = new Date(1900, 0, 1);
     if (creationDate && creationDate >= minDate) return null
     else return { minDate: true }
-  }
+  } */
 }

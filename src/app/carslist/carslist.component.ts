@@ -127,8 +127,9 @@ export class CarslistComponent implements OnInit {
 
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
+    console.log('refresh called');
     this.cars = [];
-    this.resetOptions;
+    this.resetOptions();
     this.getCars();
     this.getColl();
   }

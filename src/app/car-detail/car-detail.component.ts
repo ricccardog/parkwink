@@ -14,7 +14,6 @@ import { FormGroup } from '@angular/forms';
 })
 export class CarDetailComponent implements OnInit {
 
-
   car: Car;
   editCar = {} as Car;
   deletionCar = {} as Car;
@@ -41,6 +40,7 @@ export class CarDetailComponent implements OnInit {
   //NAVIGATE BACK
   goBack(): void {
     this.location.back();
+    //this.location.back();
   }
 
   //DELETE
@@ -49,11 +49,11 @@ export class CarDetailComponent implements OnInit {
     if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
       this.carService
         .deleteCar(this.car.id)
-        .subscribe(data => { alert('Car successfully deleted') });
-      
+        .subscribe(data => { alert('Car successfully deleted') }); 
     }
-    this.goBack();
+    
   }
+
   //UPDATE
   updateCar(): void {
     if (confirm('Are you sure you want to update this car?')) {

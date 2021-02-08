@@ -54,8 +54,7 @@
         </tbody>
     </table>
     <button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateCar()">SAVE CHANGES</button>
-    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCar()"
-        routerLink="..">DELETE CAR</button>
+    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCar()">DELETE CAR</button>
     <button type="button" class="btn btn-secondary back-detail" (click)="goBack()"> BACK </button>
 
 </div>

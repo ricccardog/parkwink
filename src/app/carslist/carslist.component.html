@@ -23,11 +23,13 @@
      
       <form>
 
+        <div class="entry">
         <label for="searchKey">Search Field</label>
           <select name="key" class="form-control" [(ngModel)]="searchOptions.searchKey">
                <option value=undefined selected hidden disabled> Select a field</option>
                <option *ngFor="let field of fields" [value]="field">{{field | titlecase}}</option>    
         </select>
+        </div>
         
         <div class="entry">
           <label>Search Input</label>
