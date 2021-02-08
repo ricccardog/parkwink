@@ -3,4 +3,5 @@ export interface Pagination {
     size: number,
     toSort: string,
     order: number,
+    //modifica un file
 }
