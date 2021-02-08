@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RentalFilter } from '../rentalFilter';
+import { searchFilter } from '../searchFilter';
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
 import { Pagination } from '../pagination';
@@ -21,12 +21,13 @@ export class RentalsComponent implements OnInit {
   pag: Pagination = {
     pageNo : 1,
     size : 4,
-    toSort : '_id',
+    sort : 'id',
     order : 1
   }  
   
   //SEARCH PROPERTIES
-  searchOptions = {} as RentalFilter;
+  searchOptions = {} as searchFilter;
+  fields = ["startDate", "endDate", "carId", "customerId"];
   searched = false;
   showFilters = false;
   searchByCar = false;

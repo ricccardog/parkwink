@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: 'cars', component: CarslistComponent},
   { path: 'rentals', component: RentalsComponent},
   { path: 'customers', component: CustomersComponent},
-  { path: 'customers/:_id', component: CustomerDetailComponent, resolve: { customerResolve : ResolverService}},
-  { path: 'cars/:_id', component: CarDetailComponent, resolve: {carResolve : ResolverService}},
-  { path: 'rentals/:_id', component: RentalDetailComponent, resolve: {rentalResolve : ResolverService}},
+  { path: 'customers/:id', component: CustomerDetailComponent, resolve: { customerResolve : ResolverService}},
+  { path: 'cars/:id', component: CarDetailComponent, resolve: {carResolve : ResolverService}},
+  { path: 'rentals/:id', component: RentalDetailComponent, resolve: {rentalResolve : ResolverService}},
   { path: 'dashboard', redirectTo:'', pathMatch: 'full'},
  
 ];

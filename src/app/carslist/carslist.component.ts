@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { Pagination } from '../pagination';
-import { CarFilter } from '../carFilter';
+import { searchFilter } from '../searchFilter';
 
 @Component({
   selector: 'app-carslist',
@@ -13,14 +13,17 @@ import { CarFilter } from '../carFilter';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
+
   pag: Pagination = { 
     pageNo: 1,
     size: 4,
-    toSort: '_id',
+    sort:'id',
     order: 1
   }
+
   //SEARCH PROPERTIES
-  searchOptions = {} as CarFilter;
+  searchOptions = {} as searchFilter;
+  fields = ["maker", "model"];
   searched = false;
   showFilters = false;
   //GET PROPERTIES
@@ -45,28 +48,30 @@ export class CarslistComponent implements OnInit {
 
   //GET
   getCars(): void {
+
     this.sliceParams();
     this.resetOptions();
     this.searched = false;
 
+    if(this.cars.includes(undefined) || this.cars.length != this.collectionSize) {
+  
     
-
-    for (let i = this.skip; i < this.limit; i++) {
-
-      if (this.cars[i]) {
-
-        continue
-
-      } else {
-
         this.carService
-          .getCars(this.pag)
-          .subscribe(data => { this.cars[i] = data[i - this.skip]
-               
-          })
+        .getCars(this.pag)
+        .subscribe(data => {          
+          for(let i = 0; i < this.pag.size; i++){
+
+            if(data[i]) {
+               this.cars[this.skip + i] = data[i]
+            }
+         
+          }
+          
         
-      }
+
+        })
     }  
+   console.log(this.cars)
   }
   
   //LOCAL SORTING
@@ -122,6 +127,8 @@ export class CarslistComponent implements OnInit {
 
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
+    this.cars = [];
+    this.resetOptions;
     this.getCars();
     this.getColl();
   }

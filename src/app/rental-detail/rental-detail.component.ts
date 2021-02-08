@@ -40,7 +40,7 @@ export class RentalDetailComponent implements OnInit {
   //STARTING SERVICE
   getData() {
     this.rental = this.route.snapshot.data.rentalResolve as Rental;
-    this.editRental._id = this.rental._id;
+    this.editRental.id = this.rental.id;
     this.customerService
       .getCustomers()
       .subscribe(customers => { this.customers = customers });
@@ -59,7 +59,7 @@ export class RentalDetailComponent implements OnInit {
   deleteRental(): void {
     if (confirm("Are you sure you want to delete this rental?")) {
       this.rentalService
-        .deleteRental(this.rental._id)
+        .deleteRental(this.rental.id)
         .subscribe(data => { alert("Rental successfully deleted!") })
     }
   }
@@ -94,7 +94,7 @@ export class RentalDetailComponent implements OnInit {
           .subscribe(rental => { })
       }
       this.rentalService
-        .readRental(this.editRental._id)
+        .readRental(this.editRental.id)
         .subscribe(data => this.rental = data)
     } else {
       confirm('Please insert a valid date range')

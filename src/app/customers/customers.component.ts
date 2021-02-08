@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from '../customers';
 import { CustomerService } from '../customer.service';
 import { Pagination } from '../pagination';
-import { CustomerFilter } from '../customerFilter';
+import { searchFilter } from '../searchFilter';
 
 @Component({
   selector: 'app-customers',
@@ -17,11 +17,12 @@ export class CustomersComponent implements OnInit {
   pag: Pagination = {
     pageNo : 1,
     size : 4,
-    toSort : '_id',
+    sort : 'id',
     order : 1
   }
   //SEARCH PROPERTIES
-  searchOptions = {} as CustomerFilter;
+  searchOptions = {} as searchFilter;
+  fields = ["name", "surname", "email", "drivingLicense"]
   searched = false;
   showFilters = false;
   //GET PROPERTIES

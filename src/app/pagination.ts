@@ -1,7 +1,6 @@
 export interface Pagination {
     pageNo: number,
     size: number,
-    toSort: string,
+    sort: string,
     order: number,
-    //modifica un file sdaasdassad
 }

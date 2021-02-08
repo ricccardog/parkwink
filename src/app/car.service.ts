@@ -9,12 +9,13 @@ import { Car } from './cars';
 
 export class CarService {
 
-  carsUrl = 'http://localhost:3000/cars';
+  carsUrl = 'http://localhost:8000/api/cars';
 
   constructor(private http: HttpClient) { }
 
   //GET
   getCars(pagination?) : Observable<Car[]> { 
+    
     return this.http.get<Car[]>(this.carsUrl, { params : pagination})
 
   }
@@ -23,17 +24,17 @@ export class CarService {
     return this.http.post<Car>(this.carsUrl, car)
   }
   //DELETE
-  deleteCar(_id: string): Observable<{}> {
-    const url = `${this.carsUrl}/${_id}`;
+  deleteCar(id: number): Observable<{}> {
+    const url = `${this.carsUrl}/${id}`;
     return this.http.delete(url)
   }
   //PUT
   updateCar(car: Car): Observable<Car> {
-    const url = this.carsUrl + '/' +  car._id;
+    const url = this.carsUrl + '/' +  car.id;
     return this.http.put<Car>(url, car)
   }
   //READ
-  readCar(id: string): Observable<Car> {
+  readCar(id: number): Observable<Car> {
     const url = this.carsUrl + '/' +  id;
     return this.http.get<Car>(url)
   }

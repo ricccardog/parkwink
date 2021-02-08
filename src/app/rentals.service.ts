@@ -8,7 +8,7 @@ import { Rental } from './rentals';
 })
 export class RentalsService {
 
-  rentalUrl = 'http://localhost:3000/rentals';
+  rentalUrl = 'http://localhost:8000/api/rentals';
 
   constructor(private http: HttpClient) { }
 
@@ -21,17 +21,17 @@ export class RentalsService {
     return this.http.post<Rental>(this.rentalUrl, rental)
   }
   //DELETE
-  deleteRental(_id: string): Observable<{}> {
-    const url = `${this.rentalUrl}/${_id}` ;
+  deleteRental(id: number): Observable<{}> {
+    const url = `${this.rentalUrl}/${id}` ;
     return this.http.delete(url)
   }
   //PUT
   updateRental(rental: Rental): Observable<Rental> {
-    const url = this.rentalUrl + '/' + rental._id;
+    const url = this.rentalUrl + '/' + rental.id;
     return this.http.put<Rental>(url, rental)
   }
   //READ
-  readRental(id: string): Observable<Rental> {
+  readRental(id: number): Observable<Rental> {
     const url = this.rentalUrl +'/' + id;
     return this.http.get<Rental>(url)
   }

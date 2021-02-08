@@ -30,7 +30,7 @@ export class CustomerDetailComponent implements OnInit {
   //GET DATA
   getData(): void {
     this.customer = this.route.snapshot.data.customerResolve as Customer;
-    this.editCustomer._id = this.customer._id;
+    this.editCustomer.id = this.customer.id;
   }
 
   //NAVIGATE BACK
@@ -42,7 +42,7 @@ export class CustomerDetailComponent implements OnInit {
   deleteCustomer(): void {
     if (confirm(`Are you sure you want to delete user ${this.customer.name} ${this.customer.surname} ?`)) {
       this.customerService
-        .deleteCustomer(this.customer._id)
+        .deleteCustomer(this.customer.id)
         .subscribe(data => { alert('Customer successfully deleted') })
     }
   }
@@ -54,7 +54,7 @@ export class CustomerDetailComponent implements OnInit {
         .subscribe(customer => { alert('Customer successfully edited') })
     }
     this.customerService
-      .readCustomer(this.editCustomer._id)
+      .readCustomer(this.editCustomer.id)
       .subscribe(data => this.customer = data);
   }
   startEditing(){

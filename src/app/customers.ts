@@ -1,8 +1,10 @@
 export interface Customer{
-    _id: string,
+
+    id: number,
     name: string,
     surname: string,
     email: string,
     drivingLicense: number,
     birthDate: Date
+
 }

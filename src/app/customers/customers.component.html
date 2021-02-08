@@ -24,25 +24,16 @@
 
             <form>
 
-                <div class="entry">
-                    <label>Name Search</label>
-                    <input class="form-control" type="text" name="name" placeholder="Enter Name" [(ngModel)]="searchOptions.name">
-                </div>
-
-                <div class="entry">
-                    <label>Surname Search</label>
-                    <input class="form-control" type="text" name="surname" placeholder="Enter Surname" [(ngModel)]="searchOptions.surname">
-                </div>
-
-                <div class="entry">
-                    <label>E-mail Search</label>
-                    <input class="form-control" type="email" name="email" placeholder="Enter E-mail" [(ngModel)]="searchOptions.email">
-                </div>
-
-                <div class="entry">
-                    <label>License Search</label>
-                    <input class="form-control" type="number" name="license" placeholder="0000" [(ngModel)]="searchOptions.drivingLicense">
-                </div>
+                <label for="searchKey">Search Field</label>
+                <select name="key" class="form-control" [(ngModel)]="searchOptions.searchKey">
+                     <option value=undefined selected hidden disabled> Select a field</option>
+                     <option *ngFor="let field of fields" [value]="field">{{field | titlecase}}</option>    
+              </select>
+              
+              <div class="entry">
+                <label>Search Input</label>
+                <input class="form-control" type="text" name="maker" placeholder="Input" [(ngModel)]="searchOptions.searchValue">
+              </div>
 
             </form>
         </div>
@@ -63,7 +54,7 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let customer of customers.slice(this.skip, this.limit)" routerLink="{{customer._id}}">
+        <tr *ngFor="let customer of customers.slice(this.skip, this.limit)" routerLink="{{customer.id}}">
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
             <td> {{customer.name | titlecase}} </td>
             <td> {{customer.surname | titlecase}} </td>

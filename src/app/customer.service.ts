@@ -9,7 +9,7 @@ import { Customer } from './customers';
 
 export class CustomerService {
 
-  customerUrl = 'http://localhost:3000/customers';
+  customerUrl = 'http://localhost:8000/api/customers';
   
   constructor(private http: HttpClient) { }
 
@@ -22,17 +22,17 @@ export class CustomerService {
     return this.http.post<Customer>(this.customerUrl, customer)
   }
   //DELETE
-  deleteCustomer(_id: string): Observable<{}> {
-    const url = `${this.customerUrl}/${_id}` ;
+  deleteCustomer(id: number): Observable<{}> {
+    const url = `${this.customerUrl}/${id}` ;
     return this.http.delete(url)
   }
   //PUT
   updateCustomer(customer: Customer): Observable<Customer> {
-    const url = this.customerUrl + '/' + customer._id;
+    const url = this.customerUrl + '/' + customer.id;
     return this.http.put<Customer>(url, customer)
   }
   //READ
-  readCustomer(id: string): Observable<Customer> {
+  readCustomer(id: number): Observable<Customer> {
     const url = this.customerUrl +'/' + id;
     return this.http.get<Customer>(url)
   }

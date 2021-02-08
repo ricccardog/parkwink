@@ -15,7 +15,7 @@
                 <td *ngIf="editMode"> 
                     <select name="customer" [(ngModel)]="editRental.customer" class="form-control">
                         <option value=undefined hidden disabled> Change customer </option>
-                        <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
+                        <option *ngFor="let entry of customers" [value]="entry.id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
                     </select>
                 </td>
             </tr>
@@ -26,7 +26,7 @@
                 <td *ngIf="editMode">
                     <select name="car" [(ngModel)]="editRental.car" class="form-control">
                         <option value=undefined hidden disabled> Change car</option>
-                        <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
+                        <option *ngFor="let entry of cars" [value]="entry.id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
                     </select>
                 </td>
             </tr>

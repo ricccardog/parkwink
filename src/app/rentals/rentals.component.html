@@ -25,21 +25,7 @@
          
          <div class="entry">
           
-          <label for="car">Car Search</label>
-          <select name="car" class="form-control" [(ngModel)]="searchOptions.car">
-               <option value=undefined selected hidden disabled> Select a car</option>
-               <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
-          </select>
-         </div>
-
-        <div class="entry">
-
-          <label for="customer">Customer Search</label>
-          <select name="customer" class="form-control" [(ngModel)]="searchOptions.customer">
-               <option value=undefined selected hidden disabled> Select a customer </option>
-               <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
-          </select>
-
+         <!--search-->
          </div>
 
        </form>
@@ -65,7 +51,7 @@
 
      <tbody>
      <tr *ngFor="let rental of rentals.slice(this.skip, this.limit)"
-     routerLink="{{rental._id}}">
+     routerLink="{{rental.id}}">
       <th scope="row">{{rentals.indexOf(rental) +1 }}</th>
       <td> {{rental.car ? (rental.car.maker | titlecase) : 'n/a'}} {{rental.car ? (rental.car.model | titlecase) : ''}} </td>
       <td> {{rental.customer ? (rental.customer.name | titlecase) : 'n/a'}} {{rental.customer ? (rental.customer.surname | titlecase) : ''}} </td>

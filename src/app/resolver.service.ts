@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class ResolverService implements Resolve<any> {
 
-  url = 'http://localhost:3000';
+  url = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
 
   resolve(route: ActivatedRouteSnapshot, rstate: RouterStateSnapshot) : Observable<any>{
+    
     return this.http.get(this.url+rstate.url)
   }
 }

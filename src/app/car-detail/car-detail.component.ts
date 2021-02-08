@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class CarDetailComponent implements OnInit {
 
+
   car: Car;
   editCar = {} as Car;
   deletionCar = {} as Car;
@@ -31,9 +32,10 @@ export class CarDetailComponent implements OnInit {
 
   //GET DATA
   getData(): void {
-    this.car = this.route.snapshot.data.carResolve as Car;
-    this.editCar._id = this.car._id;
-    this.deletionCar._id = this.car._id;
+    this.car = this.route.snapshot.data.carResolve[0] as Car;
+    
+    this.editCar.id = this.car.id;
+    this.deletionCar.id = this.car.id;
   }
 
   //NAVIGATE BACK
@@ -43,12 +45,14 @@ export class CarDetailComponent implements OnInit {
 
   //DELETE
   deleteCar(): void {
+
     if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
-/*       this.deletionCar = {_id: this.car._id, model: null, maker: null, price: null, creationDate: null} */
       this.carService
-        .deleteCar(this.car._id)
-        .subscribe(data => { alert('Car successfully deleted') })
+        .deleteCar(this.car.id)
+        .subscribe(data => { alert('Car successfully deleted') });
+      
     }
+    this.goBack();
   }
   //UPDATE
   updateCar(): void {
@@ -58,9 +62,11 @@ export class CarDetailComponent implements OnInit {
         .subscribe(car => { alert('Car successfully edited') })
     }
     this.carService
-      .readCar(this.editCar._id)
+      .readCar(this.editCar.id)
       .subscribe(data => this.car = data)
+    
   }
+  //TOGGLE EDIT MODE
   startEditing(){
     this.editMode = !this.editMode;
   }

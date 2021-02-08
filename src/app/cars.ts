@@ -1,7 +1,9 @@
 export interface Car {
-   _id?: string;
+
+    id: number;
     model: string;
     maker: string;
-    creationDate: Date ;
+    creationDate: Date;
     price: number;
+    
 }
