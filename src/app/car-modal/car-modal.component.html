@@ -51,7 +51,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary modal-add" [disabled]=!carForm.valid>Add Car</button>
+                <button type="button" class="btn btn-primary modal-add" [disabled]=!carForm.valid (click)="addCar()">Add Car</button>
             </div>
 
         </form>

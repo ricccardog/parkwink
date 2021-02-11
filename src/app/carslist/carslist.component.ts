@@ -3,6 +3,7 @@ import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { Pagination } from '../pagination';
 import { searchFilter } from '../searchFilter';
+import { NGB_DATEPICKER_PARSER_FORMATTER_FACTORY } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 
 @Component({
   selector: 'app-carslist',
@@ -42,36 +43,39 @@ export class CarslistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColl();
-    this.getCars();
     this.resetOptions();
+    this.getCars();
   }
 
   //GET
   getCars(): void {
 
+    console.log('called get cars')
     this.sliceParams();
     this.resetOptions();
     this.searched = false;
-
+    
     if(this.cars.includes(undefined) || this.cars.length != this.collectionSize) {
   
-    
+    console.log('get cars connecting to service');
+
         this.carService
         .getCars(this.pag)
-        .subscribe(data => {          
+        .subscribe(data => {   
+          console.log('subscribe begin')       
           for(let i = 0; i < this.pag.size; i++){
-
             if(data[i]) {
                this.cars[this.skip + i] = data[i]
             }
-         
+
           }
           
-        
+        console.log('subscribe done')
 
         })
     }  
-   console.log(this.cars)
+  
+   console.log('get cars done', this.cars)
   }
   
   //LOCAL SORTING
@@ -128,10 +132,7 @@ export class CarslistComponent implements OnInit {
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
     console.log('refresh called');
-    this.cars = [];
-    this.resetOptions();
-    this.getCars();
-    this.getColl();
+    this.ngOnInit();
   }
 
   //SHOW SEARCH MENU
