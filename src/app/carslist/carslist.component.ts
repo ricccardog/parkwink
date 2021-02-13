@@ -12,7 +12,7 @@ import { searchFilter } from '../searchFilter';
 
 export class CarslistComponent implements OnInit {
 
-  @Input() close = new EventEmitter <Car>();
+  
   cars: Car[] = []; 
   
 
@@ -51,19 +51,26 @@ export class CarslistComponent implements OnInit {
   //GET
   getCars() {
 
+    
     this.sliceParams();
     this.resetOptions();
     
     this.searched = false;
+    
+    if(this.collectionSize && this.cars.length != this.collectionSize){
+      //reset arrow if collection hasn't fully downloaded
+      this.arrow = '';
+    }
 
     if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
-      
+      //download cars only once
       this.carService
         .getCars(this.pag)
         .subscribe(data => { 
           
             for(let i = 0; i < this.pag.size; i++){
 
+            
               if(data[i]) {
                 this.cars[this.skip + i] = data[i];
                 
@@ -71,6 +78,7 @@ export class CarslistComponent implements OnInit {
             } 
           })
       }
+    
     return this.cars
   }
   

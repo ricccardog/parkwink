@@ -17,25 +17,25 @@
         <tbody>
             <tr>
                 <td><b> Model</b></td>
-                <td>{{ car.model | titlecase}}</td>
+                <td>{{ car?.model | titlecase}}</td>
                 <td *ngIf="editMode">
                     <input type="text" id="model" class="form-control" name="model" [(ngModel)]="editCar.model"
-                        placeholder="{{car.model}}">
+                        placeholder="{{car?.model}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b> Maker</b></td>
-                <td>{{ car.maker | titlecase}}</td>
+                <td>{{ car?.maker | titlecase}}</td>
                 <td *ngIf="editMode">
                     <input type="text" id="Maker" class="form-control" name="Maker" [(ngModel)]="editCar.maker"
-                        placeholder="{{car.maker}}">
+                        placeholder="{{car?.maker}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b>Creation Date</b></td>
-                <td>{{ car.creationDate | date : 'dd / MM / yyyy' }}</td>
+                <td>{{ car?.creationDate | date : 'dd / MM / yyyy' }}</td>
                 <td *ngIf="editMode">
                     <input type="date" id="creationDate" class="form-control" name="creationDate"
                         [(ngModel)]="editCar.creationDate">
@@ -44,10 +44,10 @@
 
             <tr>
                 <td><b>Price per day</b></td>
-                <td>{{ car.price }}</td>
+                <td>{{ car?.price }}</td>
                 <td *ngIf="editMode">
                     <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editCar.price"
-                        placeholder="{{car.price}}">
+                        placeholder="{{car?.price}}">
                 </td>
             </tr>
 
