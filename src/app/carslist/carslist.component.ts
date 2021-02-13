@@ -55,11 +55,9 @@ export class CarslistComponent implements OnInit {
     this.resetOptions();
     
     this.searched = false;
-    console.log('get cars params are ', 'skip ', this.skip, 'limit ', this.limit, 'col size', this.collectionSize);
-    console.log('cars before calling service ', this.cars)
 
     if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
-      console.log('service called')  
+      
       this.carService
         .getCars(this.pag)
         .subscribe(data => { 
@@ -73,8 +71,6 @@ export class CarslistComponent implements OnInit {
             } 
           })
       }
-    console.log('cars after service called ', this.cars)
-    console.log('collection size at end of get cars', this.collectionSize)
     return this.cars
   }
   

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 
@@ -23,7 +23,6 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -50,20 +49,33 @@ export class CarDetailComponent implements OnInit {
     if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
       this.carService
         .deleteCar(this.car.id)
-        .subscribe(data => { alert('Car successfully deleted') }); 
+        .subscribe(data => { 
+          alert('Car successfully deleted');
+          this.goBack();
+      }); 
     }
   }
 
   //UPDATE
   updateCar(): void {
+    
     if (confirm('Are you sure you want to update this car?')) {
+      
       this.carService
         .updateCar(this.editCar)
-        .subscribe(car => { alert('Car successfully edited') })
+        .subscribe(car => { 
+          alert('Car successfully edited');
+          
+          for(let key in this.editCar){
+            if(this.car[key] != this.editCar[key]) this.car[key] = this.editCar[key];
+          }
+          
+          this.startEditing();
+
+         
+      })
     }
-    this.carService
-      .readCar(this.editCar.id)
-      .subscribe(data => this.car = data)
+   
     
   }
   //TOGGLE EDIT MODE
