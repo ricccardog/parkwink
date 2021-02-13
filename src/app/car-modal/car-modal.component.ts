@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CarService } from '../car.service';
+import { Car } from '../cars';
 
 @Component({
   selector: 'app-car-modal',
@@ -12,7 +13,7 @@ import { CarService } from '../car.service';
 })
 export class CarModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
+  @Output() addedCar = new EventEmitter<Car>();
 
   carForm = new FormGroup({
     model: new FormControl(''),
@@ -42,10 +43,11 @@ export class CarModalComponent implements OnInit {
     this.carService
       .addCar(this.carForm.value)
       .subscribe(data => { this.carService.getCars() });
+    
+     this.addedCar.emit(this.carForm.value as Car);
 
     this.carForm.reset();
 
-    this.close.emit();
 
     this.modalService.dismissAll();
   }

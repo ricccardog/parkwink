@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { Pagination } from '../pagination';
 import { searchFilter } from '../searchFilter';
-import { NGB_DATEPICKER_PARSER_FORMATTER_FACTORY } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 
 @Component({
   selector: 'app-carslist',
@@ -13,7 +12,9 @@ import { NGB_DATEPICKER_PARSER_FORMATTER_FACTORY } from '@ng-bootstrap/ng-bootst
 
 export class CarslistComponent implements OnInit {
 
+  @Input() close = new EventEmitter <Car>();
   cars: Car[] = []; 
+  
 
   pag: Pagination = { 
     pageNo: 1,
@@ -43,39 +44,45 @@ export class CarslistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColl();
-    this.resetOptions();
     this.getCars();
+    this.resetOptions();
   }
 
   //GET
   getCars(): void {
 
-    console.log('called get cars')
-    this.sliceParams();
+    this.carService
+      .getCars()
+      .subscribe(data => { 
+        this.cars = data
+        this.collectionSize = data.length;
+        console.log('cars in subscribe', this.cars);
+        console.log('collection size', this.collectionSize);
+      });
+
+    /* this.sliceParams();
     this.resetOptions();
     this.searched = false;
-    
+
     if(this.cars.includes(undefined) || this.cars.length != this.collectionSize) {
   
-    console.log('get cars connecting to service');
-
+    
         this.carService
         .getCars(this.pag)
-        .subscribe(data => {   
-          console.log('subscribe begin')       
+        .subscribe(data => {          
           for(let i = 0; i < this.pag.size; i++){
+
             if(data[i]) {
                this.cars[this.skip + i] = data[i]
             }
-
+         
           }
           
-        console.log('subscribe done')
+        
 
         })
     }  
-  
-   console.log('get cars done', this.cars)
+   console.log(this.cars) */
   }
   
   //LOCAL SORTING
@@ -124,15 +131,26 @@ export class CarslistComponent implements OnInit {
 
   //GET COLLECTION LENGTH
   getColl(): void {
-    this.carService
+    /* this.carService
       .getCars()
-      .subscribe(data => { this.collectionSize = data.length });
+      .subscribe(data => { 
+        console.log('current collection size' ,this.collectionSize);
+        console.log('fetched data', data);
+        console.log('data.length', data.length);
+        this.collectionSize = data.length;
+        console.log('post assignment col size' , this.collectionSize) 
+      });
+    console.log('end of get coll', this.collectionSize) */
+    //L'ADD FINISCE DOPO AVER CHIAMATO GET COLL
   }
 
   //REFRESH COLLECTION AFTER ADDING
-  refreshCars() {
-    console.log('refresh called');
-    this.ngOnInit();
+  refreshCars($event : Car) {
+    console.log('refresh called, $event value is ', $event)
+    this.cars.push($event)
+    console.log(this.cars)
+    console.log('done with refresh')
+   
   }
 
   //SHOW SEARCH MENU

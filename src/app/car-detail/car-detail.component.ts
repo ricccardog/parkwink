@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 
@@ -23,6 +23,7 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -45,13 +46,12 @@ export class CarDetailComponent implements OnInit {
 
   //DELETE
   deleteCar(): void {
-
+    
     if (confirm(`Are you sure you want to delete car ${this.car.model} ${this.car.maker} ?`)) {
       this.carService
         .deleteCar(this.car.id)
         .subscribe(data => { alert('Car successfully deleted') }); 
     }
-    
   }
 
   //UPDATE

@@ -5,7 +5,7 @@
   </div>
 <!-- HEADER BUTTONS -->
   <div class="detail-buttons"> 
-    <app-car-modal (close)="refreshCars()">Add Car</app-car-modal>
+    <app-car-modal (addedCar)="refreshCars($event)">Add Car</app-car-modal>
     <button class="btn btn-secondary open-search" (click)="showSearch()"> <img src="../../assets/filter.svg"> </button>
     <button *ngIf="searched" type="button" class="btn btn-danger reload-button" style="float : right"
         (click)="this.getCars()">↻</button>
@@ -58,7 +58,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let car of cars.slice(this.skip, this.limit)" routerLink="{{car.id}}">
+    <tr *ngFor="let car of cars" routerLink="{{car.id}}">
       <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
         <td> {{car.model | titlecase}} </td>
         <td> {{car.maker | titlecase}}</td>
@@ -68,7 +68,7 @@
 </table>
 
 <!-- PAGINATION CONTROLS -->
-<div class="d-flex justify-content-between p-2">
+<!-- <div class="d-flex justify-content-between p-2">
   <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size" (pageChange)="getCars()">
 
 
@@ -76,4 +76,4 @@
     <option [ngValue]="4">4 items per page</option>
     <option [ngValue]="6">6 items per page</option>
 </select>
-</ngb-pagination>
+</ngb-pagination> -->
