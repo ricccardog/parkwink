@@ -20,6 +20,7 @@ export class CustomersComponent implements OnInit {
     sort : 'id',
     order : 1
   }
+
   //SEARCH PROPERTIES
   searchOptions = {} as searchFilter;
   fields = ["name", "surname", "email", "drivingLicense"]
@@ -38,37 +39,43 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getColl();
+    this.customers.length = 0;
+    this.getCollectionSize();
     this.getCustomers();
-    this.resetOptions();
   }
 
   //GET
-  getCustomers(): void {
+  getCustomers() {
+
     this.sliceParams();
-    this.searched = false;
     this.resetOptions();
-
-    for (let i = this.skip; i < this.limit; i++) {
-
-      if (this.customers[i]) {
-
-        continue
-
-      } else {
-
-        this.customerService
-          .getCustomers(this.pag)
-          .subscribe(data => {
-            this.customers[i] = data[i - this.skip]
-          })
-      }
-    }
     
+    this.searched = false;
+    
+    if(this.collectionSize && this.customers.length != this.collectionSize) {
+      this.arrow = '';
+    }
+
+    if(this.collectionSize != this.customers.length || this.collectionSize == undefined || this.customers.includes(undefined)) {
+      this.customerService  
+        .getCustomers(this.pag)
+        .subscribe(data => {
+
+            for(let i = 0; i < this.pag.size; i++) {
+
+              if(data[i]) {
+                this.customers[this.skip + i] = data[i];
+              }
+
+            }
+        })
+    }
+    return this.customers 
   }
 
   //LOCAL SORTING
   sortByString(){
+    
     if(this.sortOrder==true){
 
       this.arrow = '↑';
@@ -92,16 +99,21 @@ export class CustomersComponent implements OnInit {
 
   }
 
-  //GET COLLECTION LENGTH
-  getColl() : void {
+  //GET COLLECTION SIZE FROM DATABASE
+  getCollectionSize() {
+
     this.customerService
-        .getCustomers()
-        .subscribe(data => { this.collectionSize = data.length})
+        .getCollectionSize()
+        .subscribe(data => {
+           this.collectionSize = data
+          })
+    return this.collectionSize
   }
+
   //REFRESH COLLECTION AFTER ADDING
   refreshCustomers() {
+    this.collectionSize++;
     this.getCustomers();
-    this.getColl();
   }
 
   //SHOW SEARCH MENU

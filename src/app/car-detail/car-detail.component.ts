@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { FormGroup } from '@angular/forms';
@@ -16,7 +15,6 @@ export class CarDetailComponent implements OnInit {
 
   car: Car;
   editCar = {} as Car;
-  deletionCar = {} as Car;
   carForm: FormGroup;
   editMode = false;
 
@@ -34,13 +32,11 @@ export class CarDetailComponent implements OnInit {
     this.car = this.route.snapshot.data.carResolve[0] as Car;
     
     this.editCar.id = this.car.id;
-    this.deletionCar.id = this.car.id;
   }
 
   //NAVIGATE BACK
   goBack(): void {
     this.location.back();
-    //this.location.back();
   }
 
   //DELETE
@@ -72,12 +68,11 @@ export class CarDetailComponent implements OnInit {
           
           this.startEditing();
 
-         
-      })
+        })
     }
    
-    
   }
+
   //TOGGLE EDIT MODE
   startEditing(){
     this.editMode = !this.editMode;

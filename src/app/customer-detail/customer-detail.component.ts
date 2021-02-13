@@ -29,7 +29,8 @@ export class CustomerDetailComponent implements OnInit {
 
   //GET DATA
   getData(): void {
-    this.customer = this.route.snapshot.data.customerResolve as Customer;
+    this.customer = this.route.snapshot.data.customerResolve[0] as Customer;
+
     this.editCustomer.id = this.customer.id;
   }
 
@@ -40,23 +41,40 @@ export class CustomerDetailComponent implements OnInit {
 
   //DELETE
   deleteCustomer(): void {
+
     if (confirm(`Are you sure you want to delete user ${this.customer.name} ${this.customer.surname} ?`)) {
       this.customerService
         .deleteCustomer(this.customer.id)
-        .subscribe(data => { alert('Customer successfully deleted') })
+        .subscribe(data => { 
+          alert('Customer successfully deleted');
+          this.goBack();
+        });
     }
+
   }
+
   //UPDATE
   updateCustomer(): void {
+
     if (confirm('Are you sure you want to update this customer?')) {
+     
       this.customerService
         .updateCustomer(this.editCustomer)
-        .subscribe(customer => { alert('Customer successfully edited') })
+        .subscribe(customer => {
+           alert('Customer successfully edited');
+          
+           for(let key in this.editCustomer){
+             if(this.customer[key] != this.editCustomer[key]) this.customer[key] = this.editCustomer[key];
+           }
+
+           this.startEditing();
+
+          });
     }
-    this.customerService
-      .readCustomer(this.editCustomer.id)
-      .subscribe(data => this.customer = data);
+    
   }
+
+  //TOGGLE EDIT MODE
   startEditing(){
     this.editMode = !this.editMode;
   }

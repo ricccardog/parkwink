@@ -17,6 +17,10 @@ export class CustomerService {
   getCustomers(pagination?): Observable <Customer[]> {   
     return this.http.get<Customer[]>(this.customerUrl, { params : pagination})
   }
+  //GET COLLECTION SIZE
+  getCollectionSize() : Observable<number> {
+    return this.http.get<number>(`${this.customerUrl}/collectionSize`)
+  }
   //POST
   addCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(this.customerUrl, customer)

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { Pagination } from '../pagination';
@@ -12,10 +12,8 @@ import { searchFilter } from '../searchFilter';
 
 export class CarslistComponent implements OnInit {
 
-  
   cars: Car[] = []; 
   
-
   pag: Pagination = { 
     pageNo: 1,
     size: 4,
@@ -37,8 +35,6 @@ export class CarslistComponent implements OnInit {
   arrow: string;
   sortOrder = true;
   
-
-
   constructor(private carService: CarService) {
   }
 
@@ -51,34 +47,29 @@ export class CarslistComponent implements OnInit {
   //GET
   getCars() {
 
-    
     this.sliceParams();
     this.resetOptions();
     
     this.searched = false;
     
     if(this.collectionSize && this.cars.length != this.collectionSize){
-      //reset arrow if collection hasn't fully downloaded
       this.arrow = '';
     }
 
     if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
-      //download cars only once
       this.carService
         .getCars(this.pag)
         .subscribe(data => { 
           
             for(let i = 0; i < this.pag.size; i++){
-
-            
+ 
               if(data[i]) {
                 this.cars[this.skip + i] = data[i];
-                
               }
+
             } 
           })
       }
-    
     return this.cars
   }
   
@@ -134,11 +125,9 @@ export class CarslistComponent implements OnInit {
       .subscribe(data => {
         this.collectionSize = data;
       })
-    return this.collectionSize
-    
+    return this.collectionSize  
   }
  
-
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
     this.collectionSize++;

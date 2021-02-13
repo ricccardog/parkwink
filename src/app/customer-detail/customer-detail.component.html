@@ -1,6 +1,6 @@
 <div class="container detail-view">
 
-    <h4><b>{{customer.name | titlecase}} {{customer.surname | titlecase}} </b> Detail
+    <h4><b>{{customer?.name | titlecase}} {{customer?.surname | titlecase}} </b> Detail
         <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail"
             (click)="startEditing()">EDIT MODE</button>
         <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT
@@ -12,43 +12,43 @@
         <tbody>
             <tr>
                 <td><b>Name</b></td>
-                <td>{{ customer.name | titlecase}}</td>
+                <td>{{ customer?.name | titlecase}}</td>
                 <td *ngIf="editMode">
                     <input type="text" id="name" class="form-control" name="name" [(ngModel)]="editCustomer.name"
-                        placeholder="{{customer.name}}">
+                        placeholder="{{customer?.name}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b>Surname</b></td>
-                <td>{{ customer.surname | titlecase}}</td>
+                <td>{{ customer?.surname | titlecase}}</td>
                 <td *ngIf="editMode">
                     <input type="text" id="surname" class="form-control" name="surname"
-                        [(ngModel)]="editCustomer.surname" placeholder="{{customer.surname}}">
+                        [(ngModel)]="editCustomer.surname" placeholder="{{customer?.surname}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b>E-Mail</b></td>
-                <td>{{ customer.email }}</td>
+                <td>{{ customer?.email }}</td>
                 <td *ngIf="editMode">
                     <input type="email" id="email" class="form-control" name="email" [(ngModel)]="editCustomer.email"
-                        placeholder="{{customer.email}}">
+                        placeholder="{{customer?.email}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b>License</b></td>
-                <td>{{ customer.drivingLicense}}</td>
+                <td>{{ customer?.drivingLicense}}</td>
                 <td *ngIf="editMode">
                     <input type="number" id="drivingLicense" class="form-control" name="drivingLicense"
-                        [(ngModel)]="editCustomer.drivingLicense" placeholder="{{customer.drivingLicense}}">
+                        [(ngModel)]="editCustomer.drivingLicense" placeholder="{{customer?.drivingLicense}}">
                 </td>
             </tr>
 
             <tr>
                 <td><b>Birth Date</b></td>
-                <td>{{ customer.birthDate | date : 'dd / MM / yyyy' }}</td>
+                <td>{{ customer?.birthDate | date : 'dd / MM / yyyy' }}</td>
                 <td *ngIf="editMode">
                     <input type="date" id="birthDate" class="form-control" name="birthDate"
                         [(ngModel)]="editCustomer.birthDate">
@@ -59,8 +59,7 @@
     </table>
 
     <button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateCustomer()">SAVE CHANGES</button>
-    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCustomer()"
-        routerLink="..">DELETE CUSTOMER</button>
+    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteCustomer()">DELETE CUSTOMER</button>
     <button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
 
 </div>

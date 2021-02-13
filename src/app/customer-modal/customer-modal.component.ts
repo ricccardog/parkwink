@@ -12,7 +12,7 @@ import { CustomerService } from '../customer.service';
 })
 export class CustomerModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
+  @Output() addedCustomer = new EventEmitter<void>();
 
   customerForm = new FormGroup({
     name: new FormControl(''),
@@ -39,11 +39,16 @@ export class CustomerModalComponent implements OnInit {
 
   //POST
   addCustomer(): void {
+    
     this.customerService
       .addCustomer(this.customerForm.value)
-      .subscribe(data => { this.customerService.getCustomers() });
-    this.close.emit();
-    this.modalService.dismissAll();
+      .subscribe(data => { 
+        console.log('Customer successfully added');
+        this.addedCustomer.emit();
+        this.customerForm.reset();
+        this.modalService.dismissAll();
+      });
+        
   }
 
   //MINIMUM DATE VALIDATION

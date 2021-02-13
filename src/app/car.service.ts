@@ -17,6 +17,7 @@ export class CarService {
   getCars(pagination?) : Observable<Car[]> { 
     return this.http.get<Car[]>(this.carsUrl, { params : pagination})
   }
+  //GET COLLECTION SIZE
   getCollectionSize() : Observable<number> {
     return this.http.get<number>(`${this.carsUrl}/collectionSize`)
   }

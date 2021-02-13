@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CarService } from '../car.service';
-import { Car } from '../cars';
 
 @Component({
   selector: 'app-car-modal',
@@ -40,6 +39,7 @@ export class CarModalComponent implements OnInit {
 
   //POST
   addCar(): void {
+    
     this.carService
       .addCar(this.carForm.value)
       .subscribe(data => { 
