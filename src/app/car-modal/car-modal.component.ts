@@ -13,7 +13,7 @@ import { Car } from '../cars';
 })
 export class CarModalComponent implements OnInit {
 
-  @Output() addedCar = new EventEmitter<Car>();
+  @Output() addedCar = new EventEmitter<void>();
 
   carForm = new FormGroup({
     model: new FormControl(''),
@@ -42,14 +42,13 @@ export class CarModalComponent implements OnInit {
   addCar(): void {
     this.carService
       .addCar(this.carForm.value)
-      .subscribe(data => { this.carService.getCars() });
-    
-     this.addedCar.emit(this.carForm.value as Car);
+      .subscribe(data => { 
+        console.log('Car successfully added');
+        this.addedCar.emit();
+        this.carForm.reset();
+        this.modalService.dismissAll();
+     });
 
-    this.carForm.reset();
-
-
-    this.modalService.dismissAll();
   }
   
   //MISSING FIELDS VALIDATION

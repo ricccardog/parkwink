@@ -49,15 +49,18 @@ export class CarslistComponent implements OnInit {
   }
 
   //GET
-  getCars(): void {
+  getCars() {
 
     this.sliceParams();
     this.resetOptions();
     
     this.searched = false;
+    console.log('get cars params are ', 'skip ', this.skip, 'limit ', this.limit, 'col size', this.collectionSize);
+    console.log('cars before calling service ', this.cars)
 
     if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
-        this.carService
+      console.log('service called')  
+      this.carService
         .getCars(this.pag)
         .subscribe(data => { 
           
@@ -70,6 +73,9 @@ export class CarslistComponent implements OnInit {
             } 
           })
       }
+    console.log('cars after service called ', this.cars)
+    console.log('collection size at end of get cars', this.collectionSize)
+    return this.cars
   }
   
   //LOCAL SORTING
@@ -117,22 +123,22 @@ export class CarslistComponent implements OnInit {
   }
 
   //GET COLLECTION SIZE FROM DATABASE
-  getCollectionSize(): void {
+  getCollectionSize() {
 
     this.carService
       .getCollectionSize()
       .subscribe(data => {
         this.collectionSize = data;
       })
-
+    return this.collectionSize
+    
   }
  
 
   //REFRESH COLLECTION AFTER ADDING
-  refreshCars($event : Car) {
-    this.cars.push($event);
+  refreshCars() {
     this.collectionSize++;
-    this.sliceParams();
+    this.getCars();
   }
 
   //SHOW SEARCH MENU
