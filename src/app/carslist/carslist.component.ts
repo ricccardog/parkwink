@@ -43,46 +43,33 @@ export class CarslistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getColl();
+    this.cars.length = 0;
+    this.getCollectionSize();
     this.getCars();
-    this.resetOptions();
   }
 
   //GET
   getCars(): void {
 
-    this.carService
-      .getCars()
-      .subscribe(data => { 
-        this.cars = data
-        this.collectionSize = data.length;
-        console.log('cars in subscribe', this.cars);
-        console.log('collection size', this.collectionSize);
-      });
-
-    /* this.sliceParams();
+    this.sliceParams();
     this.resetOptions();
+    
     this.searched = false;
 
-    if(this.cars.includes(undefined) || this.cars.length != this.collectionSize) {
-  
-    
+    if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
         this.carService
         .getCars(this.pag)
-        .subscribe(data => {          
-          for(let i = 0; i < this.pag.size; i++){
-
-            if(data[i]) {
-               this.cars[this.skip + i] = data[i]
-            }
-         
-          }
+        .subscribe(data => { 
           
-        
+            for(let i = 0; i < this.pag.size; i++){
 
-        })
-    }  
-   console.log(this.cars) */
+              if(data[i]) {
+                this.cars[this.skip + i] = data[i];
+                
+              }
+            } 
+          })
+      }
   }
   
   //LOCAL SORTING
@@ -129,28 +116,23 @@ export class CarslistComponent implements OnInit {
 
   }
 
-  //GET COLLECTION LENGTH
-  getColl(): void {
-    /* this.carService
-      .getCars()
-      .subscribe(data => { 
-        console.log('current collection size' ,this.collectionSize);
-        console.log('fetched data', data);
-        console.log('data.length', data.length);
-        this.collectionSize = data.length;
-        console.log('post assignment col size' , this.collectionSize) 
-      });
-    console.log('end of get coll', this.collectionSize) */
-    //L'ADD FINISCE DOPO AVER CHIAMATO GET COLL
+  //GET COLLECTION SIZE FROM DATABASE
+  getCollectionSize(): void {
+
+    this.carService
+      .getCollectionSize()
+      .subscribe(data => {
+        this.collectionSize = data;
+      })
+
   }
+ 
 
   //REFRESH COLLECTION AFTER ADDING
   refreshCars($event : Car) {
-    console.log('refresh called, $event value is ', $event)
-    this.cars.push($event)
-    console.log(this.cars)
-    console.log('done with refresh')
-   
+    this.cars.push($event);
+    this.collectionSize++;
+    this.sliceParams();
   }
 
   //SHOW SEARCH MENU

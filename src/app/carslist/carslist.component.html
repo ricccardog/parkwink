@@ -58,7 +58,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let car of cars" routerLink="{{car.id}}">
+    <tr *ngFor="let car of cars.slice(this.skip, this.limit)" routerLink="{{car.id}}">
       <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
         <td> {{car.model | titlecase}} </td>
         <td> {{car.maker | titlecase}}</td>
@@ -68,12 +68,12 @@
 </table>
 
 <!-- PAGINATION CONTROLS -->
-<!-- <div class="d-flex justify-content-between p-2">
+<div class="d-flex justify-content-between p-2">
   <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size" (pageChange)="getCars()">
+  </ngb-pagination>
 
 
   <select class="custom-select" style="width: auto" [(ngModel)]="pag.size" (click)="getCars()">
     <option [ngValue]="4">4 items per page</option>
     <option [ngValue]="6">6 items per page</option>
 </select>
-</ngb-pagination> -->

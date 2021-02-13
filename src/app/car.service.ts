@@ -15,9 +15,10 @@ export class CarService {
 
   //GET
   getCars(pagination?) : Observable<Car[]> { 
-    
     return this.http.get<Car[]>(this.carsUrl, { params : pagination})
-
+  }
+  getCollectionSize() : Observable<number> {
+    return this.http.get<number>(`${this.carsUrl}/collectionSize`)
   }
   //POST
   addCar(car: Car): Observable<Car> {
