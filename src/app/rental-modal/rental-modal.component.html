@@ -20,21 +20,21 @@
                 <!-- RENTAL FORM -->
                 <div class="modal-entry">
                     <label> Car :
-                        <select name="car" class="form-control" formControlName="car" required>
+                        <select name="car" class="form-control" formControlName="car_id" required>
                             <option value='' disabled hidden> Choose a car </option>
-                            <option *ngFor="let car of cars" [value]="car._id">{{car.model | titlecase}}
-                                {{car.maker | titlecase}}</option>
+                            <option *ngFor="let car of cars" [value]="car?.id">{{car?.model | titlecase}}
+                                {{car?.maker | titlecase}}</option>
                         </select>
                     </label>
                 </div>
 
                 <div class="modal-entry">
                     <label> Customer :
-                        <select name="customer" class="form-control" formControlName="customer" required>
+                        <select name="customer" class="form-control" formControlName="customer_id" required>
                             <option value='' disabled hidden> Choose a customer </option>
-                            <option *ngFor="let customer of customers" [value]="customer._id">{{customer.name |
+                            <option *ngFor="let customer of customers" [value]="customer?.id">{{customer?.name |
                                 titlecase}}
-                                {{customer.surname | titlecase}}</option>
+                                {{customer?.surname | titlecase}}</option>
                         </select>
                     </label>
                 </div>

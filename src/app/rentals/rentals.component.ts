@@ -17,6 +17,8 @@ import { CustomerService } from '../customer.service';
 export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
+  cars : Car[] = [];
+  customers : Customer[] = [];
 
   pag: Pagination = {
     pageNo : 1,
@@ -27,13 +29,10 @@ export class RentalsComponent implements OnInit {
   
   //SEARCH PROPERTIES
   searchOptions = {} as searchFilter;
-  fields = ["startDate", "endDate", "carId", "customerId"];
   searched = false;
   showFilters = false;
   searchByCar = false;
   searchByCustomer = false;
-  cars : Car[];
-  customers : Customer[];
   //GET PROPERTIES
   collectionSize : number;
   skip: number;
@@ -49,36 +48,39 @@ export class RentalsComponent implements OnInit {
     private carService: CarService) {}
 
   ngOnInit(): void {
-    this.getColl();
+    this.rentals.length = 0;
+    this.cars.length = 0;
+    this.customers.length = 0;
+    this.getCollectionSize();
     this.getRentals();
-    this.resetOptions();
   }
 
-  
   //GET
-  getRentals(): void {
+  getRentals() {
 
     this.sliceParams();
-    this.searched = false;
     this.resetOptions();
 
-    for (let i = this.skip; i < this.limit; i++) {
-
-      if (this.rentals[i]) {
-
-        continue
-
-      } else {
-
-        this.sortParameter = '';
-        this.rentalsService
-          .getRentals(this.pag)
-          .subscribe(data => {
-            this.rentals[i] = data[i - this.skip]; 
-          })
-      }
+    this.searched = false;
+    
+    if(this.collectionSize && this.rentals.length != this.collectionSize) {
+      this.arrow = '';
     }
-   
+
+    if(this.collectionSize != this.rentals.length || this.collectionSize == undefined || this.rentals.includes(undefined)) {
+      this.rentalsService
+        .getRentals(this.pag)
+        .subscribe(data => {
+          for(let i =0; i < this.pag.size; i++) {
+
+            if(data[i]) {
+              this.rentals[this.skip +i] = data[i];
+            }
+          
+          }
+        });
+    }
+  return this.rentals
   }
   
   
@@ -136,22 +138,40 @@ export class RentalsComponent implements OnInit {
     if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;
 
   }
-  // GET COLLECTION LENGTH
-  getColl() : void {
+
+  //GET COLLECTION SIZE FROM DATABASE
+  getCollectionSize() {
+
     this.rentalsService
-        .getRentals()
-        .subscribe(data => { this.collectionSize = data.length})
-  }
-  //REFRESH AFTER ADDING
-  refreshRentals() {
-    this.getRentals();
-    this.getColl();
+      .getCollectionSize()
+      .subscribe(data => {
+        this.collectionSize = data;
+      });
+
+    return this.collectionSize
   }
 
-  //SHOW SEARCH MENU
+  //REFRESH COLLECTION AFTER ADDING
+  refreshRentals() {
+
+    this.collectionSize++;
+    this.getRentals();
+
+  }
+
+  //SHOW SEARCH MENU 
   showSearch(){
     this.showFilters = !this.showFilters;
+  }
+  //FETCH DATA FOR SEARCH
+  fetchCars() {
+    this.searchByCar = true;
+    this.searchByCustomer = false;
     this.carService.getCars().subscribe(data => this.cars = data);
+  }
+  fetchCustomers() {
+    this.searchByCustomer = true;
+    this.searchByCar = false;
     this.customerService.getCustomers().subscribe(data => this.customers = data);
   }
 

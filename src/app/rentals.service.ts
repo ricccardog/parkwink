@@ -6,6 +6,7 @@ import { Rental } from './rentals';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RentalsService {
 
   rentalUrl = 'http://localhost:8000/api/rentals';
@@ -15,6 +16,10 @@ export class RentalsService {
   //GET
   getRentals(pagination?): Observable <Rental[]> {
     return this.http.get<Rental[]>(this.rentalUrl, { params : pagination})
+  }
+  //GET COLLECTION SIZE
+  getCollectionSize() : Observable<number> {
+    return this.http.get<number>(`${this.rentalUrl}/collectionSize`);
   }
   //POST
   addRental(rental: Rental): Observable<Rental>{

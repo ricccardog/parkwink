@@ -4,8 +4,8 @@ import { Customer } from './customers';
 export interface Rental {
     
     id: number;
-    car: Car;
-    customer: Customer;
+    car_id: Car;
+    customer_id: Customer;
     startDate: Date;
     endDate: Date;
     price: number;

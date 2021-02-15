@@ -17,11 +17,11 @@ import { CarService } from '../car.service';
 
 export class RentalModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
+  @Output() addedRental = new EventEmitter<void>();
 
   rentalForm = new FormGroup({
-    car: new FormControl(''),
-    customer: new FormControl(''),
+    car_id: new FormControl(''),
+    customer_id: new FormControl(''),
     startDate: new FormControl(''),
     endDate: new FormControl(''),
     price: new FormControl('', Validators.min(1))
@@ -50,6 +50,7 @@ export class RentalModalComponent implements OnInit {
 
   //GET
   getData() {
+
     this.customerService
       .getCustomers()
       .subscribe(customers => { this.customers = customers });
@@ -60,11 +61,17 @@ export class RentalModalComponent implements OnInit {
 
   //POST
   addRental(): void {
+
+    console.log(this.rentalForm.value)
     this.rentalsService
       .addRental(this.rentalForm.value)
-      .subscribe(data => { this.rentalsService.getRentals() });
-    this.close.emit();
-    this.modalService.dismissAll();
+      .subscribe(data => { 
+        console.log('Rental successfully added');
+        this.addedRental.emit();
+        this.rentalForm.reset();
+        this.modalService.dismissAll();
+      });
+
   }
 
   //DATE RANGE VALIDATION
@@ -77,13 +84,13 @@ export class RentalModalComponent implements OnInit {
 
   //MISSING FIELDS VALIDATION
   missingFields(control: FormGroup): ValidationErrors | null {
-    const car = control.get('car');
-    const customer = control.get('customer');
+    const car_id = control.get('car_id');
+    const customer_id = control.get('customer_id');
     const startDate = control.get('startDate');
     const endDate = control.get('endDate');
     const price = control.get('price');
 
-    if (car.value && customer.value && startDate.value && endDate.value && price.value) return null
+    if (car_id.value && customer_id.value && startDate.value && endDate.value && price.value) return null
     else return { missingFields: true }
   }
 

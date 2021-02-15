@@ -5,7 +5,7 @@
      </div>
 <!--HEADER BUTTONS -->
      <div class="detail-buttons">
-          <app-rental-modal (close)="refreshRentals()">Add Rental</app-rental-modal>
+          <app-rental-modal (addedRental)="refreshRentals()">Add Rental</app-rental-modal>
           <button class="btn btn-secondary open-search" (click)="showSearch()"> <img src="../../assets/filter.svg"></button>
           <button *ngIf="searched" type="button" class="btn btn-danger reload-button" style="float : right"
         (click)="this.refreshRentals()">↻</button>
@@ -22,12 +22,34 @@
      <div class="form-body">
       
        <form>
-         
-         <div class="entry">
           
+          <!-- <button type="button" class="btn btn-primary rentalFilter" name="car" (click)="fetchCars()"> Search by Car </button>
+          <button type="button" class="btn btn-primary rentalFilter" name="customer" (click)="fetchCustomers()"> Search by Customer </button>
+           -->
          <!--search-->
-         </div>
+           <div class="entry">
+         <label for="searchKey">Search Field</label>
+         <select name="searchKey" class="form-control" [(ngModel)]="searchOptions.searchKey">
+          
+          <option value=undefined selected hidden disabled> Select a field</option>
+          <option name="car" value="car_id" onchange="fetchCars()">Car</option>
+          <option name="customer" value="customer_id" onselect="fetchCustomers()">Customer</option>
+         </select>
+           </div>
 
+           <div class="entry" *ngIf="searchByCar">
+                <select name="cars" class="form-control" [(ngModel)]="searchOptions.searchValue">
+                    <option value=undefined selected hidden disabled> Select a car</option>
+                    <option *ngFor="let car of cars" [value]="car?.id">{{car?.maker | titlecase}} {{car?.model | titlecase}}</option>
+                </select>
+           </div>
+
+           <div class="entry" *ngIf="searchByCustomer">
+                <select name="customers" class="form-control" [(ngModel)]="searchOptions.searchValue">
+                    <option value=undefined selected hidden disabled> Select a customer</option>
+                    <option *ngFor="let customer of customers" [value]="customer?.id">{{customer?.name | titlecase}} {{customer?.surname | titlecase}}</option>
+                </select>
+           </div>
        </form>
      </div>
 
@@ -50,17 +72,17 @@
      </thead>
 
      <tbody>
-     <tr *ngFor="let rental of rentals.slice(this.skip, this.limit)"
-     routerLink="{{rental.id}}">
-      <th scope="row">{{rentals.indexOf(rental) +1 }}</th>
-      <td> {{rental.car ? (rental.car.maker | titlecase) : 'n/a'}} {{rental.car ? (rental.car.model | titlecase) : ''}} </td>
-      <td> {{rental.customer ? (rental.customer.name | titlecase) : 'n/a'}} {{rental.customer ? (rental.customer.surname | titlecase) : ''}} </td>
-      <td> {{rental.startDate | date :'dd/MM/yyyy'}} </td>
-      <td> {{rental.endDate | date :'dd/MM/yyyy'}} </td>
+          <tr *ngFor="let rental of rentals.slice(this.skip, this.limit)" routerLink="{{rental.id}}">
+               <th scope="row">{{rentals?.indexOf(rental) +1 }}</th>
+                    <td> {{rental?.car_id ? (rental?.car_id.maker | titlecase) : 'n/a'}} {{rental.car_id ? (rental.car_id.model | titlecase) : ''}} </td>
+                    <td> {{rental?.customer_id ? (rental?.customer_id.name | titlecase) : 'n/a'}} {{rental.customer_id ? (rental.customer_id.surname | titlecase) : ''}} </td>
+                    <td> {{rental?.startDate | date :'dd/MM/yyyy'}} </td>
+                    <td> {{rental?.endDate | date :'dd/MM/yyyy'}} </td>
 
-     </tr>
+          </tr>
      </tbody>
 </table>
+
 <!-- PAGINATION CONTROLS -->
 <div class="d-flex justify-content-between p-2">
      <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size" (pageChange)="getRentals()">

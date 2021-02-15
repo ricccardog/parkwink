@@ -61,14 +61,14 @@ export class CarslistComponent implements OnInit {
         .getCars(this.pag)
         .subscribe(data => { 
           
-            for(let i = 0; i < this.pag.size; i++){
+            for(let i = 0; i < this.pag.size; i++) {
  
               if(data[i]) {
                 this.cars[this.skip + i] = data[i];
               }
 
             } 
-          })
+          });
       }
     return this.cars
   }
@@ -124,14 +124,17 @@ export class CarslistComponent implements OnInit {
       .getCollectionSize()
       .subscribe(data => {
         this.collectionSize = data;
-      })
+      });
+
     return this.collectionSize  
   }
  
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
+
     this.collectionSize++;
     this.getCars();
+    
   }
 
   //SHOW SEARCH MENU
