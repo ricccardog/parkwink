@@ -41,7 +41,6 @@
                 <label for="searchOptions">Choose a Car</label>
                 <select name="cars" class="form-control" [(ngModel)]="searchOptions.searchValue">
                     <option value=undefined selected hidden disabled> Select a car</option>
-                    <option [ngValue]="null">Deleted Cars</option>
                     <option *ngFor="let car of cars" [value]="car?.id">{{car?.maker | titlecase}} {{car?.model | titlecase}}</option>
                 </select>
            </div>
@@ -50,7 +49,6 @@
                 <label for="searchOptions">Choose a Customer</label>
                 <select name="customers" class="form-control" [(ngModel)]="searchOptions.searchValue">
                     <option value=undefined selected hidden disabled> Select a customer</option>
-                    <option [ngValue]="null">Deleted Customers</option>
                     <option *ngFor="let customer of customers" [value]="customer?.id">{{customer?.name | titlecase}} {{customer?.surname | titlecase}}</option>
                 </select>
            </div>

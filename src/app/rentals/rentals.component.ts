@@ -192,7 +192,6 @@ export class RentalsComponent implements OnInit {
   //SEARCH RENTALS
   searchRental(){
     this.searched = true;
-    console.log(this.searchOptions)
     this.rentalsService
         .searchRental(this.searchOptions)
         .subscribe(data => { this.rentals = data});
