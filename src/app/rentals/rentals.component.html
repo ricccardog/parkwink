@@ -27,26 +27,30 @@
           <button type="button" class="btn btn-primary rentalFilter" name="customer" (click)="fetchCustomers()"> Search by Customer </button>
            -->
          <!--search-->
-           <div class="entry">
-         <label for="searchKey">Search Field</label>
-         <select name="searchKey" class="form-control" [(ngModel)]="searchOptions.searchKey">
+          <div class="entry">
+               <label for="searchKey">Search Field</label>
+               <select name="searchKey" class="form-control" [(ngModel)]="searchOptions.searchKey" (ngModelChange)="fetchData()">
           
-          <option value=undefined selected hidden disabled> Select a field</option>
-          <option name="car" value="car_id" onchange="fetchCars()">Car</option>
-          <option name="customer" value="customer_id" onselect="fetchCustomers()">Customer</option>
-         </select>
-           </div>
+                    <option value=undefined selected hidden disabled> Select a field</option>
+                    <option name="car" value="car_id">Car</option>
+                    <option name="customer" value="customer_id">Customer</option>
+               </select>
+          </div>
 
            <div class="entry" *ngIf="searchByCar">
+                <label for="searchOptions">Choose a Car</label>
                 <select name="cars" class="form-control" [(ngModel)]="searchOptions.searchValue">
                     <option value=undefined selected hidden disabled> Select a car</option>
+                    <option [ngValue]="null">Deleted Cars</option>
                     <option *ngFor="let car of cars" [value]="car?.id">{{car?.maker | titlecase}} {{car?.model | titlecase}}</option>
                 </select>
            </div>
 
            <div class="entry" *ngIf="searchByCustomer">
+                <label for="searchOptions">Choose a Customer</label>
                 <select name="customers" class="form-control" [(ngModel)]="searchOptions.searchValue">
                     <option value=undefined selected hidden disabled> Select a customer</option>
+                    <option [ngValue]="null">Deleted Customers</option>
                     <option *ngFor="let customer of customers" [value]="customer?.id">{{customer?.name | titlecase}} {{customer?.surname | titlecase}}</option>
                 </select>
            </div>

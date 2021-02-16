@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { searchFilter } from '../searchFilter';
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
@@ -33,6 +33,7 @@ export class RentalsComponent implements OnInit {
   showFilters = false;
   searchByCar = false;
   searchByCustomer = false;
+  nullValue = null;
   //GET PROPERTIES
   collectionSize : number;
   skip: number;
@@ -164,16 +165,29 @@ export class RentalsComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
   //FETCH DATA FOR SEARCH
-  fetchCars() {
-    this.searchByCar = true;
-    this.searchByCustomer = false;
-    this.carService.getCars().subscribe(data => this.cars = data);
+  fetchData() {
+    
+    if(this.searchOptions.searchKey == "car_id") {
+
+      this.searchByCar = true;
+      this.searchByCustomer = false;
+
+      this.carService
+        .getCars()
+        .subscribe(data => this.cars = data);
+
+    } else if(this.searchOptions.searchKey == "customer_id") {
+
+      this.searchByCustomer = true;
+      this.searchByCar = false;
+
+      this.customerService
+        .getCustomers()
+        .subscribe(data => this.customers = data);
+
+    }
   }
-  fetchCustomers() {
-    this.searchByCustomer = true;
-    this.searchByCar = false;
-    this.customerService.getCustomers().subscribe(data => this.customers = data);
-  }
+    
 
   //SEARCH RENTALS
   searchRental(){
