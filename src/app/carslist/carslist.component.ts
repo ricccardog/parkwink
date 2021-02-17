@@ -13,14 +13,17 @@ import { CarFilter } from '../carFilter';
 export class CarslistComponent implements OnInit {
 
   cars: Car[] = []; 
+
   pag: Pagination = { 
     pageNo: 1,
     size: 4,
     toSort: '_id',
     order: 1
   }
+
   //SEARCH PROPERTIES
   searchOptions = {} as CarFilter;
+  fields = ['maker', 'model'];
   searched = false;
   showFilters = false;
   //GET PROPERTIES
@@ -38,35 +41,36 @@ export class CarslistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getColl();
+    this.cars.length = 0;
+    this.getCollectionSize();
     this.getCars();
-    this.resetOptions();
   }
 
   //GET
-  getCars(): void {
+  getCars() {
     this.sliceParams();
     this.resetOptions();
+    
     this.searched = false;
 
-    
+    if(this.collectionSize && this.cars.length != this.collectionSize){
+      this.arrow = '';
+    }
 
-    for (let i = this.skip; i < this.limit; i++) {
+    if(this.collectionSize != this.cars.length || this.collectionSize == undefined || this.cars.includes(undefined)){
+      this.carService
+        .getCars(this.pag)
+        .subscribe(data => {
+          
+          for(let i = 0; i < this.pag.size; i++){
+            if(data[i]) {
+              this.cars[this.skip + i] = data[i];
+            }
+          }
 
-      if (this.cars[i]) {
-
-        continue
-
-      } else {
-
-        this.carService
-          .getCars(this.pag)
-          .subscribe(data => { this.cars[i] = data[i - this.skip]
-               
-          })
-        
-      }
-    }  
+        });
+    }
+    return this.cars
   }
   
   //LOCAL SORTING
@@ -114,7 +118,7 @@ export class CarslistComponent implements OnInit {
   }
 
   //GET COLLECTION LENGTH
-  getColl(): void {
+  getCollectionSize(): void {
     this.carService
       .getCars()
       .subscribe(data => { this.collectionSize = data.length });
@@ -122,8 +126,8 @@ export class CarslistComponent implements OnInit {
 
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
+    this.collectionSize++;
     this.getCars();
-    this.getColl();
   }
 
   //SHOW SEARCH MENU
