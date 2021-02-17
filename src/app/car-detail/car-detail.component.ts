@@ -29,9 +29,10 @@ export class CarDetailComponent implements OnInit {
 
   //GET DATA
   getData(): void {
-    this.car = this.route.snapshot.data.carResolve[0] as Car;
-    
+
+    this.car = this.route.snapshot.data.carResolve[0] as Car; 
     this.editCar.id = this.car.id;
+
   }
 
   //NAVIGATE BACK
@@ -63,7 +64,9 @@ export class CarDetailComponent implements OnInit {
           alert('Car successfully edited');
           
           for(let key in this.editCar){
-            if(this.car[key] != this.editCar[key]) this.car[key] = this.editCar[key];
+            if(this.car[key] != this.editCar[key]){ 
+             this.car[key] = this.editCar[key];
+            }
           }
           
           this.startEditing();

@@ -74,10 +74,10 @@
      </thead>
 
      <tbody>
-          <tr *ngFor="let rental of rentals.slice(this.skip, this.limit)" routerLink="{{rental.id}}">
+          <tr *ngFor="let rental of rentals.slice(this.skip, this.limit)" routerLink="{{rental?.id}}">
                <th scope="row">{{rentals?.indexOf(rental) +1 }}</th>
-                    <td> {{rental?.car_id ? (rental?.car_id.maker | titlecase) : 'n/a'}} {{rental.car_id ? (rental.car_id.model | titlecase) : ''}} </td>
-                    <td> {{rental?.customer_id ? (rental?.customer_id.name | titlecase) : 'n/a'}} {{rental.customer_id ? (rental.customer_id.surname | titlecase) : ''}} </td>
+                    <td> {{rental?.car_id ? (rental?.car_id.maker | titlecase) : 'DELETED CAR'}} {{rental.car_id ? (rental.car_id.model | titlecase) : ''}} </td>
+                    <td> {{rental?.customer_id ? (rental?.customer_id.name | titlecase) : 'DELETED CUSTOMER'}} {{rental.customer_id ? (rental.customer_id.surname | titlecase) : ''}} </td>
                     <td> {{rental?.startDate | date :'dd/MM/yyyy'}} </td>
                     <td> {{rental?.endDate | date :'dd/MM/yyyy'}} </td>
 

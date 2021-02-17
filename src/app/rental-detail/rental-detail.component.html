@@ -1,8 +1,8 @@
 <div class="container detail-view">
 
-    <h4><b *ngIf="rental.customer">{{rental.customer.name | titlecase}} {{rental.customer.surname | titlecase}}'s</b> Rental Details
-        <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
-        <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="toggleEditing()">EDIT MODE</button>
+    <h4><b *ngIf="rental.customer_id">{{rental.customer_id.name | titlecase}} {{rental.customer_id.surname | titlecase}}'s</b> Rental Details
+        <button *ngIf="editMode==false" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT MODE</button>
+        <button *ngIf="editMode" type="button" class="btn btn-secondary edit-detail" (click)="startEditing()">EDIT MODE</button>
 
     </h4>
 
@@ -11,9 +11,9 @@
         <tbody ng-form="rentalForm">
             <tr>
                 <td><b> Customer </b></td>
-                <td>{{rental.customer ? (rental.customer.name | titlecase) : 'n/a'}} {{rental.customer ? (rental.customer.surname | titlecase) : ''}}</td>
+                <td>{{rental.customer_id ? (rental.customer_id.name | titlecase) : 'DELETED CUSTOMER'}} {{rental.customer_id ? (rental.customer_id.surname | titlecase) : ''}}</td>
                 <td *ngIf="editMode"> 
-                    <select name="customer" [(ngModel)]="editRental.customer" class="form-control">
+                    <select name="customer" [(ngModel)]="editRental.customer_id" class="form-control">
                         <option value=undefined hidden disabled> Change customer </option>
                         <option *ngFor="let entry of customers" [value]="entry.id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
                     </select>
@@ -22,9 +22,9 @@
 
             <tr>
                 <td><b>Car</b></td>
-                <td>{{rental.car ? (rental.car.maker | titlecase) : 'n/a'}} {{ rental.car ? (rental.car.model | titlecase) : ''}}</td>
+                <td>{{rental.car_id ? (rental.car_id.maker | titlecase) : 'DELETED CAR'}} {{ rental.car_id ? (rental.car_id.model | titlecase) : ''}}</td>
                 <td *ngIf="editMode">
-                    <select name="car" [(ngModel)]="editRental.car" class="form-control">
+                    <select name="car" [(ngModel)]="editRental.car_id" class="form-control">
                         <option value=undefined hidden disabled> Change car</option>
                         <option *ngFor="let entry of cars" [value]="entry.id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
                     </select>
@@ -58,7 +58,7 @@
     </table>
     
     <button *ngIf="editMode" class="btn btn-success confirm-edit" (click)="updateRental()">SAVE CHANGES</button>
-    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteRental()" routerLink="..">DELETE CAR</button>
+    <button *ngIf="editMode==false" type="button" class="btn btn-danger delete-detail" (click)="deleteRental()">DELETE RENTAL</button>
     <button type="button" class="btn btn-secondary back-detail" (click)="goBack()">BACK</button>
 
 </div>

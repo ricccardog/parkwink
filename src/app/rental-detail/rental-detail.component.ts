@@ -39,12 +39,15 @@ export class RentalDetailComponent implements OnInit {
 
   //STARTING SERVICE
   getData() {
+
     this.rental = this.route.snapshot.data.rentalResolve as Rental;
     this.editRental.id = this.rental.id;
+   
     this.customerService
       .getCustomers()
       .subscribe(customers => { this.customers = customers });
-    this.carService
+   
+      this.carService
       .getCars()
       .subscribe(cars => { this.cars = cars })
 
@@ -57,15 +60,20 @@ export class RentalDetailComponent implements OnInit {
 
   //DELETE
   deleteRental(): void {
+
     if (confirm("Are you sure you want to delete this rental?")) {
       this.rentalService
         .deleteRental(this.rental.id)
-        .subscribe(data => { alert("Rental successfully deleted!") })
+        .subscribe(data => { 
+          alert("Rental successfully deleted!");
+        this.goBack();
+      });
     }
   }
 
   // DATE VALIDATION
   dateCheck() {
+
     if (this.editRental.startDate && this.editRental.endDate) {
 
       if (this.editRental.startDate <= this.editRental.endDate) this.validDates = true;
@@ -86,22 +94,30 @@ export class RentalDetailComponent implements OnInit {
 
   //UPDATE
   updateRental(): void {
+
     this.dateCheck();
     if (this.validDates === true) {
       if (confirm('Are you sure you want to edit this rental?')) {
         this.rentalService
           .updateRental(this.editRental)
-          .subscribe(rental => { })
+          .subscribe(rental => {
+            alert('Rental successfully edited');
+
+            for(let key in this.editRental){
+              if(this.rental[key] != this.editRental[key]){
+                this.rental[key] = this.editRental[key];
+              }
+            }
+          })
       }
-      this.rentalService
-        .readRental(this.editRental.id)
-        .subscribe(data => this.rental = data)
     } else {
       confirm('Please insert a valid date range')
     }
-    this.toggleEditing();
+    this.startEditing();
   }
-  toggleEditing() {
+
+  //TOGGLE EDIT MODE
+  startEditing() {
     this.editMode = !this.editMode
   }
 

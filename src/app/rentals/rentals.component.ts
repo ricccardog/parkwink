@@ -33,7 +33,6 @@ export class RentalsComponent implements OnInit {
   showFilters = false;
   searchByCar = false;
   searchByCustomer = false;
-  nullValue = null;
   //GET PROPERTIES
   collectionSize : number;
   skip: number;
