@@ -62,7 +62,6 @@ export class RentalModalComponent implements OnInit {
   //POST
   addRental(): void {
 
-    console.log(this.rentalForm.value)
     this.rentalsService
       .addRental(this.rentalForm.value)
       .subscribe(data => { 
