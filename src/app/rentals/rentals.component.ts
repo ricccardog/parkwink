@@ -17,6 +17,8 @@ import { CustomerService } from '../customer.service';
 export class RentalsComponent implements OnInit {
 
   rentals: Rental[] = [];
+  cars : Car[] = [];
+  customers : Customer[] = [];
 
   pag: Pagination = {
     pageNo : 1,
@@ -31,8 +33,6 @@ export class RentalsComponent implements OnInit {
   showFilters = false;
   searchByCar = false;
   searchByCustomer = false;
-  cars : Car[];
-  customers : Customer[];
   //GET PROPERTIES
   collectionSize : number;
   skip: number;
@@ -48,35 +48,41 @@ export class RentalsComponent implements OnInit {
     private carService: CarService) {}
 
   ngOnInit(): void {
-    this.getColl();
+    this.rentals.length = 0;
+    this.cars.length = 0;
+    this.customers.length = 0;
+    this.getCollectionSize();
     this.getRentals();
-    this.resetOptions();
   }
 
   
   //GET
-  getRentals(): void {
+  getRentals() {
 
     this.sliceParams();
-    this.searched = false;
     this.resetOptions();
 
-    for (let i = this.skip; i < this.limit; i++) {
+    this.searched = false;
 
-      if (this.rentals[i]) {
-
-        continue
-
-      } else {
-
-        this.sortParameter = '';
-        this.rentalsService
-          .getRentals(this.pag)
-          .subscribe(data => {
-            this.rentals[i] = data[i - this.skip]; 
-          })
-      }
+    if(this.collectionSize && this.rentals.length != this.collectionSize) {
+      this.arrow = '';
     }
+
+    if(this.collectionSize != this.rentals.length || this.collectionSize == undefined || this.rentals.includes(undefined)) {
+      this.rentalsService
+        .getRentals(this.pag)
+        .subscribe(data => {
+          for(let i =0; i < this.pag.size; i++) {
+
+            if(data[i]) {
+              this.rentals[this.skip +i] = data[i];
+            }
+          
+          }
+        });
+    }
+  return this.rentals
+    
    
   }
   
@@ -136,22 +142,44 @@ export class RentalsComponent implements OnInit {
 
   }
   // GET COLLECTION LENGTH
-  getColl() : void {
+  getCollectionSize() : void {
     this.rentalsService
         .getRentals()
         .subscribe(data => { this.collectionSize = data.length})
   }
   //REFRESH AFTER ADDING
   refreshRentals() {
+    this.collectionSize++;
     this.getRentals();
-    this.getColl();
   }
 
   //SHOW SEARCH MENU
   showSearch(){
     this.showFilters = !this.showFilters;
-    this.carService.getCars().subscribe(data => this.cars = data);
-    this.customerService.getCustomers().subscribe(data => this.customers = data);
+  }
+
+  //FETCH DATA FOR SEARCH
+  fetchData() {
+   /*  
+    if(this.searchOptions.searchKey == "car_id") {
+
+      this.searchByCar = true;
+      this.searchByCustomer = false;
+
+      this.carService
+        .getCars()
+        .subscribe(data => this.cars = data);
+
+    } else if(this.searchOptions.searchKey == "customer_id") {
+
+      this.searchByCustomer = true;
+      this.searchByCar = false;
+
+      this.customerService
+        .getCustomers()
+        .subscribe(data => this.customers = data);
+
+    } */
   }
 
   //SEARCH RENTALS

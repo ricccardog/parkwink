@@ -22,6 +22,7 @@ export class CustomersComponent implements OnInit {
   }
   //SEARCH PROPERTIES
   searchOptions = {} as CustomerFilter;
+  fields = ['name', 'surname', 'email', 'drivingLicense']
   searched = false;
   showFilters = false;
   //GET PROPERTIES
@@ -37,37 +38,43 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getColl();
+    this.customers.length = 0;
+    this.getCollectionSize();
     this.getCustomers();
-    this.resetOptions();
   }
 
   //GET
-  getCustomers(): void {
+  getCustomers() {
+
     this.sliceParams();
-    this.searched = false;
     this.resetOptions();
 
-    for (let i = this.skip; i < this.limit; i++) {
+    this.searched = false;
 
-      if (this.customers[i]) {
-
-        continue
-
-      } else {
-
-        this.customerService
-          .getCustomers(this.pag)
-          .subscribe(data => {
-            this.customers[i] = data[i - this.skip]
-          })
-      }
+    if(this.collectionSize && this.customers.length != this.collectionSize) {
+      this.arrow = '';
     }
-    
+
+    if(this.collectionSize != this.customers.length || this.collectionSize == undefined || this.customers.includes(undefined)) {
+      this.customerService  
+        .getCustomers(this.pag)
+        .subscribe(data => {
+
+            for(let i = 0; i < this.pag.size; i++) {
+
+              if(data[i]) {
+                this.customers[this.skip + i] = data[i];
+              }
+
+            }
+        })
+    }
+    return this.customers 
   }
 
   //LOCAL SORTING
   sortByString(){
+
     if(this.sortOrder==true){
 
       this.arrow = '↑';
@@ -80,6 +87,7 @@ export class CustomersComponent implements OnInit {
       this.customers.sort((a,b)  => a[this.sortParameter].localeCompare(b[this.sortParameter]));
       this.sortOrder = true;
     }
+
   }
 
   //SLICE PAGINATION PARAMETERS
@@ -92,15 +100,17 @@ export class CustomersComponent implements OnInit {
   }
 
   //GET COLLECTION LENGTH
-  getColl() : void {
+  getCollectionSize() : void {
+
     this.customerService
         .getCustomers()
         .subscribe(data => { this.collectionSize = data.length})
+
   }
   //REFRESH COLLECTION AFTER ADDING
   refreshCustomers() {
+    this.collectionSize++;
     this.getCustomers();
-    this.getColl();
   }
 
   //SHOW SEARCH MENU

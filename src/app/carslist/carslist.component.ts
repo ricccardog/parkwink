@@ -126,27 +126,35 @@ export class CarslistComponent implements OnInit {
 
   //REFRESH COLLECTION AFTER ADDING
   refreshCars() {
+
     this.collectionSize++;
     this.getCars();
+
   }
 
   //SHOW SEARCH MENU
   showSearch(){
+
     this.showFilters = !this.showFilters;
+
   }
 
   //SEARCH CARS
   searchCars(): void {
+
     this.searched = true;
     this.carService
       .searchCar(this.searchOptions)
       .subscribe(data => { this.cars = data });
   this.resetOptions();
+
   }
 
   //RESET SEARCH OPTIONS
   resetOptions(){
+
     for(let k in this.searchOptions) this.searchOptions[k] = '';
+    
   }
   
 }

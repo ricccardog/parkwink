@@ -63,22 +63,20 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let customer of customers.slice(this.skip, this.limit)" routerLink="{{customer._id}}">
+        <tr *ngFor="let customer of customers.slice(this.skip, this.limit)" routerLink="{{customer?._id}}">
             <th scope="row"> {{ (customers.indexOf(customer) +1) }}</th>
-            <td> {{customer.name | titlecase}} </td>
-            <td> {{customer.surname | titlecase}} </td>
+            <td> {{customer?.name | titlecase}} </td>
+            <td> {{customer?.surname | titlecase}} </td>
         </tr>
     </tbody>
 </table>
 
 <!-- PAGINATION CONTROLS -->
 <div class="d-flex justify-content-between p-2">
-    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size"
-        (pageChange)="getCustomers()">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pag.pageNo" [pageSize]="pag.size" (pageChange)="getCustomers()">
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto" [(ngModel)]="pag.size"
-        (ngModelChange)="getCustomers()">
+    <select class="custom-select" style="width: auto" [(ngModel)]="pag.size" (ngModelChange)="getCustomers()">
         <option [ngValue]="4">4 items per page</option>
         <option [ngValue]="6">6 items per page</option>
     </select>
