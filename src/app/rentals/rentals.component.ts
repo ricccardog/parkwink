@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RentalFilter } from '../rentalFilter';
+import { searchFilter } from '../searchFilter';
 import { Rental } from '../rentals';
 import { RentalsService } from '../rentals.service'
 import { Pagination } from '../pagination';
@@ -23,12 +23,12 @@ export class RentalsComponent implements OnInit {
   pag: Pagination = {
     pageNo : 1,
     size : 4,
-    toSort : '_id',
+    sort : '_id',
     order : 1
   }  
   
   //SEARCH PROPERTIES
-  searchOptions = {} as RentalFilter;
+  searchOptions = {} as searchFilter;
   searched = false;
   showFilters = false;
   searchByCar = false;
@@ -141,11 +141,16 @@ export class RentalsComponent implements OnInit {
     if (this.limit > this.collectionSize && this.collectionSize) this.limit = this.collectionSize;
 
   }
-  // GET COLLECTION LENGTH
-  getCollectionSize() : void {
+  // GET COLLECTION SIZE FROM DATABASE
+  getCollectionSize() {
+
     this.rentalsService
-        .getRentals()
-        .subscribe(data => { this.collectionSize = data.length})
+        .getCollectionSize()
+        .subscribe(data => {
+          this.collectionSize = data
+        });
+
+    return this.collectionSize
   }
   //REFRESH AFTER ADDING
   refreshRentals() {
@@ -160,7 +165,7 @@ export class RentalsComponent implements OnInit {
 
   //FETCH DATA FOR SEARCH
   fetchData() {
-   /*  
+    
     if(this.searchOptions.searchKey == "car_id") {
 
       this.searchByCar = true;
@@ -179,7 +184,7 @@ export class RentalsComponent implements OnInit {
         .getCustomers()
         .subscribe(data => this.customers = data);
 
-    } */
+    }
   }
 
   //SEARCH RENTALS

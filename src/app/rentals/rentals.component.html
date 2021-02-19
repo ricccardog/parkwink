@@ -23,24 +23,7 @@
       
        <form>
          
-         <div class="entry">
-          
-          <label for="car">Car Search</label>
-          <select name="car" class="form-control" [(ngModel)]="searchOptions.car">
-               <option value=undefined selected hidden disabled> Select a car</option>
-               <option *ngFor="let entry of cars" [value]="entry._id">{{entry.maker | titlecase}} {{entry.model | titlecase}}</option>
-          </select>
-         </div>
-
-        <div class="entry">
-
-          <label for="customer">Customer Search</label>
-          <select name="customer" class="form-control" [(ngModel)]="searchOptions.customer">
-               <option value=undefined selected hidden disabled> Select a customer </option>
-               <option *ngFor="let entry of customers" [value]="entry._id">{{entry.name | titlecase}} {{entry.surname | titlecase}}</option>
-          </select>
-
-         </div>
+       <!--SEARCH USING SEARCHFILTER-->
 
        </form>
      </div>

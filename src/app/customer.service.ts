@@ -10,12 +10,17 @@ import { Customer } from './customers';
 export class CustomerService {
 
   customerUrl = 'http://localhost:3000/customers';
+  collectionUrl = 'http://localhost:3000/countCustomers';
   
   constructor(private http: HttpClient) { }
 
   //GET
   getCustomers(pagination?): Observable <Customer[]> {   
     return this.http.get<Customer[]>(this.customerUrl, { params : pagination})
+  }
+  //GET COLLECTION SIZE
+  getCollectionSize(): Observable<number> {
+    return this.http.get<number>(this.collectionUrl);
   }
   //POST
   addCustomer(customer: Customer): Observable<Customer> {

@@ -10,13 +10,17 @@ import { Car } from './cars';
 export class CarService {
 
   carsUrl = 'http://localhost:3000/cars';
+  collectionUrl = 'http://localhost:3000/countCars';
 
   constructor(private http: HttpClient) { }
 
   //GET
   getCars(pagination?) : Observable<Car[]> { 
     return this.http.get<Car[]>(this.carsUrl, { params : pagination})
-
+  }
+  //GET COLLECTION SIZE FROM SERVER
+  getCollectionSize() : Observable<number> {
+    return this.http.get<number>(this.collectionUrl);
   }
   //POST
   addCar(car: Car): Observable<Car> {

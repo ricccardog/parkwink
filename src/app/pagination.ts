@@ -1,6 +1,6 @@
 export interface Pagination {
     pageNo: number,
     size: number,
-    toSort: string,
+    sort: string,
     order: number,
 }

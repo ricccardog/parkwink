@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 import { Pagination } from '../pagination';
-import { CarFilter } from '../carFilter';
-
+import { searchFilter } from '../searchFilter';
 @Component({
   selector: 'app-carslist',
   templateUrl: './carslist.component.html',
@@ -17,12 +16,12 @@ export class CarslistComponent implements OnInit {
   pag: Pagination = { 
     pageNo: 1,
     size: 4,
-    toSort: '_id',
+    sort: '_id',
     order: 1
   }
 
   //SEARCH PROPERTIES
-  searchOptions = {} as CarFilter;
+  searchOptions = {} as searchFilter;
   fields = ['maker', 'model'];
   searched = false;
   showFilters = false;
@@ -117,11 +116,16 @@ export class CarslistComponent implements OnInit {
 
   }
 
-  //GET COLLECTION LENGTH
-  getCollectionSize(): void {
+  //GET COLLECTION SIZE FROM DATABASE
+  getCollectionSize() {
+
     this.carService
-      .getCars()
-      .subscribe(data => { this.collectionSize = data.length });
+      .getCollectionSize()
+      .subscribe(data => { 
+        this.collectionSize = data
+        });
+
+    return this.collectionSize
   }
 
   //REFRESH COLLECTION AFTER ADDING

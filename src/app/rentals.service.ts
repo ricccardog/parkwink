@@ -9,12 +9,17 @@ import { Rental } from './rentals';
 export class RentalsService {
 
   rentalUrl = 'http://localhost:3000/rentals';
+  collectionUrl = 'http://localhost:3000/countRentals';
 
   constructor(private http: HttpClient) { }
 
   //GET
   getRentals(pagination?): Observable <Rental[]> {
     return this.http.get<Rental[]>(this.rentalUrl, { params : pagination})
+  }
+  //GET COLLECTION SIZE
+  getCollectionSize(): Observable<number> {
+    return this.http.get<number>(this.collectionUrl);
   }
   //POST
   addRental(rental: Rental): Observable<Rental>{
