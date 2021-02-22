@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Customer } from './customers';
 
 @Injectable({
@@ -12,14 +12,17 @@ export class CustomerService {
 
   customerUrl = 'http://localhost:3000/customers';
   collectionUrl = 'http://localhost:3000/countCustomers';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   
   constructor(private http: HttpClient) { }
 
   //HANDLE HTTP ERRORS
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.log(`${operation} failed, logging error`);
-      console.log(error);
+      console.log(`${operation} failed, logging error: ${error.message}`);
       return of(result as T);
     }
   }
@@ -33,26 +36,41 @@ export class CustomerService {
   }
   //GET COLLECTION SIZE
   getCollectionSize(): Observable<number> {
-    return this.http.get<number>(this.collectionUrl);
+    return this.http.get<number>(this.collectionUrl)
+      .pipe(
+        catchError(this.handleError<number>('getCollectionSize'))
+      );
   }
   //POST
   addCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(this.customerUrl, customer)
+    return this.http.post<Customer>(this.customerUrl, customer, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Customer>('addCustomer'))
+      );
   }
   //DELETE
   deleteCustomer(_id: string): Observable<{}> {
     const url = `${this.customerUrl}/${_id}` ;
-    return this.http.delete(url)
+    return this.http.delete(url, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<{}>('deleteCustomer'))
+      );
   }
   //PUT
   updateCustomer(customer: Customer): Observable<Customer> {
     const url = this.customerUrl + '/' + customer._id;
-    return this.http.put<Customer>(url, customer)
+    return this.http.put<Customer>(url, customer, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Customer>('updateCustomer'))
+      );
   }
   //READ
   readCustomer(id: string): Observable<Customer> {
     const url = this.customerUrl +'/' + id;
     return this.http.get<Customer>(url)
+    .pipe(
+      catchError(this.handleError<Customer>(`readCustomer id=${id}`))
+    );
   }
   //SEARCH
   searchCustomer(options): Observable<Customer[]> { 
