@@ -67,7 +67,7 @@
       <th scope="row">{{ (cars.indexOf(car) +1) }}</th>
       <td> {{car?.model | titlecase}} </td>
       <td> {{car?.maker | titlecase}}</td>
-      <td> {{car?.price}} € </td>
+      <td> {{car?.price | currency:'EUR'}}  </td>
     </tr>
   </tbody>
 </table>

@@ -45,10 +45,10 @@
 
             <tr>
                 <td><b>Price per day</b></td>
-                <td>{{ car.price }}</td>
+                <td>{{ car.price | currency:'EUR'}}</td>
                 <td *ngIf="editMode">
                     <input type="number" id="price" class="form-control" name="price" [(ngModel)]="editCar.price"
-                        placeholder="{{car.price}}">
+                        placeholder="{{car.price | currency:'EUR'}}">
                 </td>
             </tr>
 

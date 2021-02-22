@@ -56,6 +56,7 @@ export class CustomerDetailComponent implements OnInit {
     this.customerService
       .readCustomer(this.editCustomer._id)
       .subscribe(data => this.customer = data);
+    this.startEditing();
   }
   startEditing(){
     this.editMode = !this.editMode;

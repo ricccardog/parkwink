@@ -60,6 +60,8 @@ export class CarDetailComponent implements OnInit {
     this.carService
       .readCar(this.editCar._id)
       .subscribe(data => this.car = data)
+      
+    this.startEditing();
   }
   startEditing(){
     this.editMode = !this.editMode;
