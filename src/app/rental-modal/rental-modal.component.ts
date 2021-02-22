@@ -17,7 +17,7 @@ import { CarService } from '../car.service';
 
 export class RentalModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
+  @Output() addedRental = new EventEmitter<void>();
 
   rentalForm = new FormGroup({
     car: new FormControl(''),
@@ -62,9 +62,12 @@ export class RentalModalComponent implements OnInit {
   addRental(): void {
     this.rentalsService
       .addRental(this.rentalForm.value)
-      .subscribe(data => { this.rentalsService.getRentals() });
-    this.close.emit();
-    this.modalService.dismissAll();
+      .subscribe(data => { 
+        console.log('Rental successfully added');
+        this.addedRental.emit();
+        this.rentalForm.reset();
+        this.modalService.dismissAll();
+      });
   }
 
   //DATE RANGE VALIDATION

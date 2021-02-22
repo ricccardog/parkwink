@@ -5,7 +5,7 @@
      </div>
 <!--HEADER BUTTONS -->
      <div class="detail-buttons">
-          <app-rental-modal (close)="refreshRentals()">Add Rental</app-rental-modal>
+          <app-rental-modal (addedRental)="refreshRentals()">Add Rental</app-rental-modal>
           <button class="btn btn-secondary open-search" (click)="showSearch()"> <img src="../../assets/filter.svg"></button>
           <button *ngIf="searched" type="button" class="btn btn-danger reload-button" style="float : right"
         (click)="this.refreshRentals()">↻</button>

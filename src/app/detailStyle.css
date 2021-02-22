@@ -22,6 +22,14 @@
     flex: 0 0 15%;
     border: solid 1px #BFBFBF;
 }
+
+.rentalFilter {
+    display:inline-block;
+    background-color: #faf8f8;
+    border: solid 1px #BFBFBF;
+    color: #373A3C;
+    margin: 10px;    
+}
 /* reload after filtering button */
 .reload-button {
     margin-right: 2px;
@@ -87,6 +95,7 @@
 .form-body {
     background-color: white;
     border-radius: 3px;
+    text-align: center;
 }
 
 .modal-entry {
@@ -128,4 +137,3 @@ table {
     height: 20px;
     width: 20px;
 }
-

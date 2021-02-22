@@ -5,7 +5,7 @@
     </div>
     <!-- HEADER BUTTONS -->
     <div class="detail-buttons">
-        <app-customer-modal (close)="refreshCustomers()">Add Customer</app-customer-modal>
+        <app-customer-modal (addedCustomer)="refreshCustomers()">Add Customer</app-customer-modal>
         <button class="btn btn-secondary open-search" (click)="showSearch()"> <img
                 src="../../assets/filter.svg"></button>
         <button *ngIf="searched" type="button" class="btn btn-danger reload-button" style="float : right"
