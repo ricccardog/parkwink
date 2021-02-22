@@ -166,7 +166,7 @@ export class RentalsComponent implements OnInit {
   //FETCH DATA FOR SEARCH
   fetchData() {
     
-    if(this.searchOptions.searchKey == "car_id") {
+    if(this.searchOptions.searchKey == "car") {
 
       this.searchByCar = true;
       this.searchByCustomer = false;
@@ -175,7 +175,7 @@ export class RentalsComponent implements OnInit {
         .getCars()
         .subscribe(data => this.cars = data);
 
-    } else if(this.searchOptions.searchKey == "customer_id") {
+    } else if(this.searchOptions.searchKey == "customer") {
 
       this.searchByCustomer = true;
       this.searchByCar = false;
