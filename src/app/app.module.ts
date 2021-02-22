@@ -20,6 +20,7 @@ import { CarModalComponent } from './car-modal/car-modal.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component';
     CustomerDetailComponent,
     CarDetailComponent,
     RentalDetailComponent,
+    PageNotFoundComponent,
   ],
   
   imports: [

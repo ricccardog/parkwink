@@ -11,6 +11,9 @@ import { CarDetailComponent } from './car-detail/car-detail.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { ResolverService } from './resolver.service';
 
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+
 const routes: Routes = [
 
   { path: 'cars', component: CarslistComponent},
@@ -20,6 +23,8 @@ const routes: Routes = [
   { path: 'cars/:_id', component: CarDetailComponent, resolve: {carResolve : ResolverService}},
   { path: 'rentals/:_id', component: RentalDetailComponent, resolve: {rentalResolve : ResolverService}},
   { path: 'dashboard', redirectTo:'', pathMatch: 'full'},
+  { path: '404', component: PageNotFoundComponent},
+  { path: '**', redirectTo:''}
  
 ];
 

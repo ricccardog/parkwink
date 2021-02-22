@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Rental } from '../rentals';
@@ -10,7 +10,6 @@ import { CustomerService } from '../customer.service'
 import { Car } from '../cars';
 import { CarService } from '../car.service';
 
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-rental-detail',
@@ -31,10 +30,14 @@ export class RentalDetailComponent implements OnInit {
     private carService: CarService,
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
+    if((this.rental.startDate || this.rental.endDate) == undefined){
+      this.router.navigate(['404']);
+    }
   }
 
   //STARTING SERVICE

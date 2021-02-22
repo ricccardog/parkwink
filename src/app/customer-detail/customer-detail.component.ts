@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Customer } from '../customers';
@@ -21,10 +21,14 @@ export class CustomerDetailComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
+    if((this.customer.name || this.customer.surname) ==undefined ){
+      this.router.navigate(['404']);
+    }
   }
 
   //GET DATA

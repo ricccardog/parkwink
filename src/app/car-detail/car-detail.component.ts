@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 
@@ -23,17 +23,21 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
+    if((this.car.maker || this.car.model) == undefined){
+      this.router.navigate(['404']);
+    }
   }
 
   //GET DATA
   getData(): void {
     this.car = this.route.snapshot.data.carResolve as Car;
     this.editCar._id = this.car._id;
-    this.deletionCar._id = this.car._id;
+    this.deletionCar._id = this.car._id;  
   }
 
   //NAVIGATE BACK
