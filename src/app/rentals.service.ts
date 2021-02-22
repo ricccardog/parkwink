@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Rental } from './rentals';
 
@@ -13,9 +14,21 @@ export class RentalsService {
 
   constructor(private http: HttpClient) { }
 
+  //HANDLE HTTP ERRORS
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(`${operation} failed, logging error`);
+      console.log(error);
+      return of(result as T);
+    }
+  }
+
   //GET
   getRentals(pagination?): Observable <Rental[]> {
     return this.http.get<Rental[]>(this.rentalUrl, { params : pagination})
+      .pipe(
+        catchError(this.handleError<Rental[]>('getRentals', []))
+      );
   }
   //GET COLLECTION SIZE
   getCollectionSize(): Observable<number> {

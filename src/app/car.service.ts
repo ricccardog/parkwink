@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Car } from './cars';
 
@@ -14,9 +15,21 @@ export class CarService {
 
   constructor(private http: HttpClient) { }
 
+  //HANDLE HTTP ERRORS
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(`${operation} failed, logging error`);
+      console.log(error);
+      return of(result as T);
+    };
+  }
+
   //GET
   getCars(pagination?) : Observable<Car[]> { 
     return this.http.get<Car[]>(this.carsUrl, { params : pagination})
+      .pipe(
+        catchError(this.handleError<Car[]>('getCars', []))
+      );
   }
   //GET COLLECTION SIZE FROM SERVER
   getCollectionSize() : Observable<number> {

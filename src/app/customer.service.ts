@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Customer } from './customers';
 
@@ -14,9 +15,21 @@ export class CustomerService {
   
   constructor(private http: HttpClient) { }
 
+  //HANDLE HTTP ERRORS
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(`${operation} failed, logging error`);
+      console.log(error);
+      return of(result as T);
+    }
+  }
+
   //GET
   getCustomers(pagination?): Observable <Customer[]> {   
     return this.http.get<Customer[]>(this.customerUrl, { params : pagination})
+      .pipe(
+        catchError(this.handleError<Customer[]>('getCustomers', []))
+      );
   }
   //GET COLLECTION SIZE
   getCollectionSize(): Observable<number> {
